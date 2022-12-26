@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{209DEFD1-4DF0-4E02-A403-AB7B6C6226BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{06519FCB-1B7F-427B-80CD-F675DB49920A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehiclesService", "services\vpl-be-vehicles-service\VehiclesService.csproj", "{E459E133-3501-4DB5-97E2-58798D3DC100}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PriceListsService", "services\vpl-be-price-lists-service\PriceListsService.csproj", "{AAB618BD-A4DA-486B-8980-076C96B15D2B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationsService", "services\vpl-be-notifications-service\NotificationsService.csproj", "{B252DBB1-6425-4141-85BE-E03B528C456E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "gateways\vpl-be-api-gateway\ApiGateway.csproj", "{3AB5CFF7-241F-42B3-8A19-F0CF2153F87E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E459E133-3501-4DB5-97E2-58798D3DC100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E459E133-3501-4DB5-97E2-58798D3DC100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E459E133-3501-4DB5-97E2-58798D3DC100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E459E133-3501-4DB5-97E2-58798D3DC100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAB618BD-A4DA-486B-8980-076C96B15D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB618BD-A4DA-486B-8980-076C96B15D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB618BD-A4DA-486B-8980-076C96B15D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB618BD-A4DA-486B-8980-076C96B15D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B252DBB1-6425-4141-85BE-E03B528C456E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B252DBB1-6425-4141-85BE-E03B528C456E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B252DBB1-6425-4141-85BE-E03B528C456E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B252DBB1-6425-4141-85BE-E03B528C456E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AB5CFF7-241F-42B3-8A19-F0CF2153F87E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AB5CFF7-241F-42B3-8A19-F0CF2153F87E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AB5CFF7-241F-42B3-8A19-F0CF2153F87E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AB5CFF7-241F-42B3-8A19-F0CF2153F87E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E459E133-3501-4DB5-97E2-58798D3DC100} = {209DEFD1-4DF0-4E02-A403-AB7B6C6226BF}
+		{AAB618BD-A4DA-486B-8980-076C96B15D2B} = {209DEFD1-4DF0-4E02-A403-AB7B6C6226BF}
+		{B252DBB1-6425-4141-85BE-E03B528C456E} = {209DEFD1-4DF0-4E02-A403-AB7B6C6226BF}
+		{3AB5CFF7-241F-42B3-8A19-F0CF2153F87E} = {06519FCB-1B7F-427B-80CD-F675DB49920A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55613ED4-F80D-4CF0-A939-11A313BB9526}
+	EndGlobalSection
+EndGlobal
