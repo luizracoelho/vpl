@@ -8,9 +8,9 @@ const HomeCard = (menu: Menu) => {
     const navigate = useNavigate();
 
     return (
-        <Card className="w-100 h-100 mb-3">
-            <CardActionArea className="h-100" onClick={() => navigate(route)}>
-                <CardContent>
+        <Card sx={{height: '100%'}}>
+            <CardActionArea sx={{height: '100%'}} onClick={() => navigate(route)}>
+                <CardContent sx={{height: '100%'}}>
                     <List>
                         <ListItem>
                             <ListItemAvatar>

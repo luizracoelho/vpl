@@ -1,5 +1,4 @@
-import { CssBaseline } from '@mui/material';
-import AppRouter from 'app-router';
+import App from 'app';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
@@ -11,9 +10,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <CssBaseline />
     <RecoilRoot>
-      <AppRouter />
+      <App />
     </RecoilRoot>
   </React.StrictMode>
 );
