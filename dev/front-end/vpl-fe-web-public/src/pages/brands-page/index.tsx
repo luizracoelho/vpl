@@ -1,13 +1,23 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import useListBrands from "../../hooks/brand/use-list-brands";
+import { ApiResult, ApiResultStatus } from "../../models/api-result-model";
 import { Brand } from "../../models/brand";
 import BrandCard from "./brand-card";
 
 const BrandsPage = () => {
+    const [brandsResult, setBrandsResult] = useState<ApiResult>(ApiResult.start());
 
-    const brand = new Brand();
+    const listBrands = useListBrands();
 
-    brand.id = 0;
-    brand.name = 'Genérica';
+    const fetchData = async () => {
+        setBrandsResult(await listBrands());
+    };
+
+    useEffect(() => {
+        if (brandsResult.status === ApiResultStatus.loading)
+            fetchData();
+    });
 
     return (
         <>
@@ -18,9 +28,18 @@ const BrandsPage = () => {
                 clique sobre ela para ver todos os modelos disponíveis.
             </Typography>
 
-            <Box sx={{ mt: 3 }}>
-                <BrandCard {...brand} />
-            </Box>
+            {brandsResult.status === ApiResultStatus.loading && <p>Carregando...</p>}
+            {brandsResult.status === ApiResultStatus.error && <p>Erro: {brandsResult.errorMessage}</p>}
+
+            {brandsResult.status === ApiResultStatus.success &&
+                <Grid container spacing={1} sx={{ my: 3 }}>
+                    {brandsResult.data.map((brand: Brand) => (
+                        <Grid item key={brand.id} xs={12} lg={6}>
+                            <BrandCard {...brand} />
+                        </Grid>
+                    ))}
+                </Grid>
+            }
         </>
     );
 };

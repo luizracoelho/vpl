@@ -4,14 +4,21 @@ import { useNavigate } from "react-router-dom";
 import { Brand } from "../../../models/brand";
 
 const BrandCard = (props: Brand) => {
-
     const { id, name, logo } = props;
-
     const navigate = useNavigate();
+
+    const goToModel = () => {
+        navigate(`/brands/${id}/models`, {
+            state: {
+                brandName: name,
+                brandLogo: logo
+            }
+        });
+    };
 
     return (
         <Card sx={{ height: '100%' }}>
-            <CardActionArea sx={{ height: '100%' }} onClick={() => navigate('/brands')}>
+            <CardActionArea sx={{ height: '100%' }} onClick={goToModel}>
                 <CardContent sx={{ height: '100%' }}>
                     <List>
                         <ListItem>
@@ -20,8 +27,8 @@ const BrandCard = (props: Brand) => {
                                     src={logo}
                                     alt={name}
                                     sx={{
-                                        width: 64,
-                                        height: 64,
+                                        width: 80,
+                                        height: 80,
                                         mr: 3
                                     }}>
                                     <Typography variant="h4">{name[0]}</Typography>

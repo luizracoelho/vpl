@@ -7,6 +7,14 @@ const string ApiName = "VehiclesService";
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options => options.AddPolicy("AllowCors", builder =>
+{
+    builder.SetIsOriginAllowed(_ => true)
+           .AllowAnyMethod()
+           .AllowAnyHeader()
+           .AllowCredentials();
+}));
+
 // Add services to the container.
 builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -20,7 +28,7 @@ builder.Services.AddSwaggerGen(config =>
     {
         Title = ApiName,
         Version = "v1",
-        Description = $"API de Integração {ApiName}",
+        Description = $"API de Integraï¿½ï¿½o {ApiName}",
         Contact = new OpenApiContact
         {
             Name = "VupTech",
@@ -43,6 +51,8 @@ builder.Services.AddSwaggerGen(config =>
 });
 
 var app = builder.Build();
+
+app.UseCors("AllowCors");
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
