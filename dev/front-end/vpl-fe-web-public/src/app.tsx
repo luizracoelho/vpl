@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import { createTheme, CssBaseline } from "@mui/material";
-import AppRouter from "app-router";
-import useThemeMode from "hooks/theme-mode/use-theme-mode";
+import AppRouter from "./app-router";
+import useThemeMode from "./hooks/theme-mode/use-theme-mode";
 
 const App = () => {
 

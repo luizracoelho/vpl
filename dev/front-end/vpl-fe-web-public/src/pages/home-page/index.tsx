@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import useListMenu from "hooks/menu/use-list-menu";
+import useListMenu from "../../hooks/menu/use-list-menu";
 import HomeCard from "./home-card";
 
 const HomePage = () => {

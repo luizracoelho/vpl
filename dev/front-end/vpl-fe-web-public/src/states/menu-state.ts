@@ -1,5 +1,5 @@
-import { Menu } from "models/menu";
 import { atom } from "recoil";
+import { Menu } from "../models/menu";
 
 export const menuState = atom<Menu[]>({
     key: 'menuState',

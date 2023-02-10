@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { themeModeState } from "states/theme-mode-state";
+import { themeModeState } from "../../states/theme-mode-state";
 
 const useSetThemeMode = () => {
     const themeMode = useRecoilValue(themeModeState);

@@ -1,8 +1,9 @@
-import DefaultLayout from "layouts/default-layout";
-import BrandsPage from "pages/brands-page";
-import HomePage from "pages/home-page";
-import NotFoundPage from "pages/not-found-page";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import DefaultLayout from "./layouts/default-layout";
+import BrandsPage from "./pages/brands-page";
+import HomePage from "./pages/home-page";
+import NotFoundPage from "./pages/not-found-page";
 
 const AppRouter = () => {
     return (

@@ -1,6 +1,6 @@
 import { Avatar, Card, CardActionArea, CardContent, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
-import { Menu } from "models/menu";
 import { useNavigate } from "react-router-dom";
+import { Menu } from "../../../models/menu";
 
 const HomeCard = (menu: Menu) => {
     const { text, route, description } = menu;

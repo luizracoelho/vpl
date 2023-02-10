@@ -1,0 +1,47 @@
+import { ChevronRight } from "@mui/icons-material";
+import { Avatar, Card, CardActionArea, CardContent, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Brand } from "../../../models/brand";
+
+const BrandCard = (props: Brand) => {
+
+    const { id, name, logo } = props;
+
+    const navigate = useNavigate();
+
+    return (
+        <Card sx={{ height: '100%' }}>
+            <CardActionArea sx={{ height: '100%' }} onClick={() => navigate('/brands')}>
+                <CardContent sx={{ height: '100%' }}>
+                    <List>
+                        <ListItem>
+                            <ListItemAvatar>
+                                <Avatar
+                                    src={logo}
+                                    alt={name}
+                                    sx={{
+                                        width: 64,
+                                        height: 64,
+                                        mr: 3
+                                    }}>
+                                    <Typography variant="h4">{name[0]}</Typography>
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={<Typography gutterBottom variant="h6" component="div">
+                                    {name}
+                                </Typography>}
+                                secondary="Clique para ver os modelos" />
+                            <ChevronRight sx={{
+                                fontSize: 48,
+                                color: "grey.400"
+                            }} />
+                        </ListItem>
+                    </List>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    );
+};
+
+export default BrandCard;
