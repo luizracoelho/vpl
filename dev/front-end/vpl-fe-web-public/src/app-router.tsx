@@ -5,6 +5,7 @@ import BrandsPage from "./pages/brands-page";
 import HomePage from "./pages/home-page";
 import ModelsPage from "./pages/models-page";
 import NotFoundPage from "./pages/not-found-page";
+import VehiclesPage from "./pages/vehicles-page";
 
 const AppRouter = () => {
     return (
@@ -14,6 +15,8 @@ const AppRouter = () => {
                     <Route path="" element={<HomePage />} />
                     <Route path="brands" element={<BrandsPage />} />
                     <Route path="brands/:brandId/models" element={<ModelsPage />} />
+                    <Route path="models" element={<ModelsPage />} />
+                    <Route path="brands/:brandId/models/:modelId/vehicles" element={<VehiclesPage />} />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

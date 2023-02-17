@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VehiclesService.App.Commands.Brands;
+using VehiclesService.App.Commands.Models;
 using VehiclesService.Domain.Enums;
 using VehiclesService.Domain.Models;
 using VehiclesService.Domain.ViewModels.Brands;
@@ -30,6 +31,8 @@ namespace VehiclesService.Domain.ViewModels
                 {
                     opt.MapFrom(vm => new Brand(vm.Brand, null));
                 });
+            CreateMap<CreateModelVm, CreateModelCommand>();
+            CreateMap<CreateModelVm, UpdateModelCommand>();
             #endregion
 
             #region Vehicle
