@@ -9,12 +9,12 @@ namespace VehiclesService.App.Queries.Models
     {
         public long BrandId { get; set; }
 
-        public class Handler : IRequestHandler<ListModelByBrandIdQuery, IList<ModelVm>>
+        public class ListModelByBrandIdQueryHandler : IRequestHandler<ListModelByBrandIdQuery, IList<ModelVm>>
         {
             private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IUnitOfWork uow, IMapper mapper)
+            public ListModelByBrandIdQueryHandler(IUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;
