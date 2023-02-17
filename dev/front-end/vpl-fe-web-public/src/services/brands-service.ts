@@ -17,4 +17,13 @@ export default class BrandsService {
         else
             throw new Error(response.data);
     }
+
+    async find(id: number): Promise<Brand> {
+        const response = await AppHttp.instance.get(`/brands/${id}`);
+
+        if (response.status === HttpStatusCode.Ok)
+            return response.data;
+        else
+            throw new Error(response.data);
+    }
 }

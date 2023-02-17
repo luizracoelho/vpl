@@ -8,9 +8,9 @@ const HomeCard = (menu: Menu) => {
     const navigate = useNavigate();
 
     return (
-        <Card sx={{height: '100%'}}>
-            <CardActionArea sx={{height: '100%'}} onClick={() => navigate(route)}>
-                <CardContent sx={{height: '100%'}}>
+        <Card sx={{ height: '100%' }}>
+            <CardActionArea sx={{ height: '100%' }} onClick={() => navigate(route)}>
+                <CardContent sx={{ height: '100%' }}>
                     <List>
                         <ListItem>
                             <ListItemAvatar>
@@ -22,7 +22,9 @@ const HomeCard = (menu: Menu) => {
                                 primary={<Typography gutterBottom variant="h6" component="div">
                                     {text}
                                 </Typography>}
-                                secondary={description} />
+                                secondary={<Typography gutterBottom variant="subtitle2" component="div">
+                                    {description}
+                                </Typography>} />
                         </ListItem>
                     </List>
                 </CardContent>

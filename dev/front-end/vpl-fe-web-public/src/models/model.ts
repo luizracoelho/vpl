@@ -9,7 +9,8 @@ export enum VehicleType {
 export class Model {
     id!: number;
     brandId!: number;
-    brand!: string;
+    brandName!: string;
+    brandLogo?: string;
     name!: string;
     description!: string;
     type!: VehicleType;

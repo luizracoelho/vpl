@@ -38,7 +38,9 @@ const BrandCard = (props: Brand) => {
                                 primary={<Typography gutterBottom variant="h6" component="div">
                                     {name}
                                 </Typography>}
-                                secondary="Clique para ver os modelos" />
+                                secondary={<Typography gutterBottom variant="subtitle2" component="div">
+                                    Clique para ver os modelos
+                                </Typography>} />
                             <ChevronRight sx={{
                                 fontSize: 48,
                                 color: "grey.400"

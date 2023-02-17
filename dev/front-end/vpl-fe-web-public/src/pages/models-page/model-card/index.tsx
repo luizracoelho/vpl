@@ -1,21 +1,32 @@
-import { ChevronRight } from "@mui/icons-material";
-import { Card, CardActionArea, CardContent, List, ListItem, ListItemAvatar, Avatar, Typography, ListItemText } from "@mui/material";
+import { ChevronRight, DirectionsCar, TwoWheeler } from "@mui/icons-material";
+import { Card, CardActionArea, CardContent, List, ListItem, ListItemAvatar, Avatar, Typography, ListItemText, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Model } from "../../../models/model";
+import { Model, VehicleType } from "../../../models/model";
 
-const ModelCard = ({ id, brandId, brand, name, description }: Model) => {
+const ModelCard = ({ id, brandId, brandName, brandLogo, name, description, type }: Model) => {
 
     const navigate = useNavigate();
 
     const goToVehicle = () => {
         navigate(`/brands/${brandId}/models/${id}/vehicles`, {
             state: {
-                brandName: brand,
-                // brandLogo: logo
+                brandName: brandName,
+                brandLogo: brandLogo,
                 modelName: name,
                 modelDescription: description
             }
         });
+    };
+
+    const VehicleTypeAvatar = () => {
+        switch (type) {
+            case VehicleType.Car:
+                return (<DirectionsCar style={{ fontSize: 48 }} />);
+                case VehicleType.Moto:
+                    return (<TwoWheeler style={{ fontSize: 48 }} />);
+            default:
+                return (<Typography variant="h4">{name[0]}</Typography>);
+        }
     };
 
     return (
@@ -31,14 +42,33 @@ const ModelCard = ({ id, brandId, brand, name, description }: Model) => {
                                         height: 80,
                                         mr: 3
                                     }}>
-                                    <Typography variant="h4">{name[0]}</Typography>
+                                    <VehicleTypeAvatar />
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText
                                 primary={<Typography gutterBottom variant="h6" component="div">
                                     {name}
                                 </Typography>}
-                                secondary={description} />
+                                secondary={<>
+                                    <Typography gutterBottom variant="subtitle2" component="div">
+                                        {description}
+                                    </Typography>
+                                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                        <Avatar
+                                            src={brandLogo}
+                                            alt={brandName}
+                                            sx={{
+                                                width: 24,
+                                                height: 24,
+                                                mr: 1
+                                            }}>
+                                            <Typography variant="h4">{brandName[0]}</Typography>
+                                        </Avatar>
+                                        <Typography gutterBottom variant="subtitle2" component="div" sx={{ mb: 0 }}>
+                                            {brandName}
+                                        </Typography>
+                                    </Box>
+                                </>} />
                             <ChevronRight sx={{
                                 fontSize: 48,
                                 color: "grey.400"

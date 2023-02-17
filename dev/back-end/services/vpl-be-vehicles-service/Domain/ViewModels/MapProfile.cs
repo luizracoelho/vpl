@@ -22,16 +22,21 @@ namespace VehiclesService.Domain.ViewModels
 
             #region Model
             CreateMap<Model, ModelVm>()
-                .ForMember(vm => vm.Brand, opt =>
+                .ForMember(vm => vm.BrandName, opt =>
                 {
                     opt.MapFrom(model => model.Brand != null ? model.Brand.Name : "");
+                })
+                .ForMember(vm => vm.BrandLogo, opt =>
+                {
+                    opt.MapFrom(model => model.Brand != null ? model.Brand.Logo : "");
                 });
 
             CreateMap<ModelVm, Model>()
                 .ForMember(model => model.Brand, opt =>
                 {
-                    opt.MapFrom(vm => new Brand(vm.Brand, null));
+                    opt.MapFrom(vm => new Brand(vm.BrandName, vm.BrandLogo));
                 });
+
             CreateMap<CreateModelVm, CreateModelCommand>();
             CreateMap<CreateModelVm, UpdateModelCommand>();
             #endregion
