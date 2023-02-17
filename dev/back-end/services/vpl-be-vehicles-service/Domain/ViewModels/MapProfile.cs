@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using VehiclesService.App.Commands.Brands;
 using VehiclesService.App.Commands.Models;
+using VehiclesService.App.Commands.Vehicles;
 using VehiclesService.Domain.Enums;
 using VehiclesService.Domain.Models;
 using VehiclesService.Domain.ViewModels.Brands;
@@ -55,6 +56,9 @@ namespace VehiclesService.Domain.ViewModels
                 {
                     opt.MapFrom(vm => new Model(0, vm.Model, "", VehicleType.Car, default, null, false));
                 });
+
+            CreateMap<CreateVehicleVm, CreateVehicleCommand>();
+            CreateMap<CreateVehicleVm, UpdateVehicleCommand>();
             #endregion
         }
     }

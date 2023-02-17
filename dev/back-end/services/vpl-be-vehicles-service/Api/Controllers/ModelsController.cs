@@ -40,6 +40,7 @@ namespace VehiclesService.Api.Controllers
         /// <summary>
         /// Ação responsável por listar os modelos cadastrados por uma marca especifica
         /// </summary>
+        /// <param name="brandId">Id da marca</param>
         /// <returns>Lista de modelos cadastrados por marca</returns>
         [HttpGet("brand/{brandId}")]
         public async Task<IList<ModelVm>?> ListByBrand(long brandId)
@@ -93,6 +94,25 @@ namespace VehiclesService.Api.Controllers
             command.Id = id;
 
             return await _mediator.Send(command);
+        }
+
+        /// <summary>
+        /// Método responsável por finalizar a produção de um modelo
+        /// </summary>
+        /// <param name="id">Id da modelos a ser editada</param>
+        /// <param name="brand">Marca a ser editada</param>
+        /// <returns>Marca editada</returns>
+        [HttpPatch("{id}/endProduction")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BadRequestResultVm))]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound, "text/plain")]
+        public async Task<bool> EndProduction(long id, [FromQuery] DateTime productionEnd)
+        {
+            return await _mediator.Send(new EndModelProductionCommand
+            {
+                Id = id,
+                ProductionEnd = productionEnd
+            });
         }
 
         /// <summary>
