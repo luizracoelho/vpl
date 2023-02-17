@@ -10,6 +10,6 @@ namespace VehiclesService.Data.Repos
         public ModelRepo(VehiclesContext context) : base(context) { }
 
         public async Task<IList<Model>> ListByBrandAsync(long brandId) 
-            => await dbSet.Where(model => model.BrandId == brandId).ToListAsync();
+            => await dbSet.Where(model => model.BrandId == brandId).OrderBy(x => x.Name).ToListAsync();
     }
 }

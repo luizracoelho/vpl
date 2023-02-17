@@ -34,7 +34,20 @@ namespace VehiclesService.Api.Controllers
         [HttpGet]
         public async Task<IList<ModelVm>?> List()
         {
-            return await _mediator.Send(new ListModelsQuery());
+            return await _mediator.Send(new ListModelQuery());
+        }
+
+        /// <summary>
+        /// Ação responsável por listar os modelos cadastrados por uma marca especifica
+        /// </summary>
+        /// <returns>Lista de modelos cadastrados por marca</returns>
+        [HttpGet("brand/{brandId}")]
+        public async Task<IList<ModelVm>?> ListByBrand(long brandId)
+        {
+            return await _mediator.Send(new ListModelByBrandIdQuery
+            {
+                BrandId = brandId
+            });
         }
 
         /// <summary>

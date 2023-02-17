@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VehiclesService.App.Commands.Brands;
+using VehiclesService.Domain.Enums;
 using VehiclesService.Domain.Models;
 using VehiclesService.Domain.ViewModels.Brands;
 using VehiclesService.Domain.ViewModels.Models;
@@ -32,7 +33,25 @@ namespace VehiclesService.Domain.ViewModels
             #endregion
 
             #region Vehicle
-            CreateMap<Vehicle, VehicleVm>().ReverseMap();
+            CreateMap<Vehicle, VehicleVm>()
+                .ForMember(vm => vm.Brand, opt =>
+                {
+                    opt.MapFrom(vehicle => vehicle.Brand != null ? vehicle.Brand.Name : "");
+                })
+                .ForMember(vm => vm.Model, opt =>
+                {
+                    opt.MapFrom(vehicle => vehicle.Model != null ? vehicle.Model.Name : "");
+                });
+
+            CreateMap<VehicleVm, Vehicle>()
+                .ForMember(vm => vm.Brand, opt =>
+                {
+                    opt.MapFrom(vm => new Brand(vm.Brand, null));
+                })
+                .ForMember(vm => vm.Model, opt =>
+                {
+                    opt.MapFrom(vm => new Model(0, vm.Model, "", VehicleType.Car, default, null, false));
+                });
             #endregion
         }
     }

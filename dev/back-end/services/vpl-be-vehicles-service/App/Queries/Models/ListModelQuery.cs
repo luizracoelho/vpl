@@ -7,9 +7,9 @@ using VehiclesService.Domain.ViewModels.Models;
 
 namespace VehiclesService.App.Queries.Models
 {
-    public class ListModelsQuery : IRequest<IList<ModelVm>>
+    public class ListModelQuery : IRequest<IList<ModelVm>>
     {
-        public class ListModelsQueryHandler : IRequestHandler<ListModelsQuery, IList<ModelVm>>
+        public class ListModelsQueryHandler : IRequestHandler<ListModelQuery, IList<ModelVm>>
         {
             private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace VehiclesService.App.Queries.Models
                 _mapper = mapper;
             }
 
-            public async Task<IList<ModelVm>> Handle(ListModelsQuery request, CancellationToken cancellationToken)
+            public async Task<IList<ModelVm>> Handle(ListModelQuery request, CancellationToken cancellationToken)
             {
                 var models = await _uow.Models.ListAsync();
 

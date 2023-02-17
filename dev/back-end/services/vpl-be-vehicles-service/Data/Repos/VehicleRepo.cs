@@ -9,10 +9,10 @@ namespace VehiclesService.Data.Repos
     {
         public VehicleRepo(VehiclesContext context) : base(context) { }
 
-        public async Task<IList<Vehicle>> ListByBrandAsync(long brandId)
-            => await dbSet.Where(x => x.BrandId == brandId).ToListAsync();
+        public async Task<IList<Vehicle>> ListByBrandAsync(long brandId) 
+            => await dbSet.Where(x => x.BrandId == brandId).OrderBy(x => x.Name).ToListAsync();
 
         public async Task<IList<Vehicle>> ListByModelAsync(long modelId)
-            => await dbSet.Where(x => x.ModelId == modelId).ToListAsync();
+            => await dbSet.Where(x => x.ModelId == modelId).OrderBy(x => x.Name).ToListAsync();
     }
 }
