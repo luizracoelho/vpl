@@ -9,7 +9,19 @@ namespace VehiclesService.Data.Repos
     {
         public ModelRepo(VehiclesContext context) : base(context) { }
 
-        public async Task<IList<Model>> ListByBrandAsync(long brandId) 
-            => await dbSet.Where(model => model.BrandId == brandId).ToListAsync();
+        public override async Task<IList<Model>> ListAsync()
+        {
+            return await dbSet.Include(x => x.Brand)
+                             .OrderBy(x => x.Name)
+                             .ToListAsync();
+        }
+
+        public async Task<IList<Model>> ListByBrandAsync(long brandId)
+        {
+            return await dbSet.Include(x => x.Brand)
+                              .Where(model => model.BrandId == brandId)
+                              .OrderBy(x => x.Name)
+                              .ToListAsync();
+        }
     }
 }
