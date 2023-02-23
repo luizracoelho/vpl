@@ -1,4 +1,8 @@
-﻿using PriceListsService.Data;
+﻿using MediatR;
+
+using Microsoft.EntityFrameworkCore;
+
+using PriceListsService.Data;
 using PriceListsService.Data.Context;
 using PriceListsService.Data.Repos;
 using PriceListsService.Domain.Contracts;
@@ -37,11 +41,11 @@ namespace PriceListsService.IoC
 
             #region Repos
             services.AddScoped<IEvaluationRepo, EvaluationRepo>();
-            services.AddScoped<IReferenceYearRepo, ModelRepo>();
+            services.AddScoped<IReferenceYearRepo, ReferenceYearRepo>();
             #endregion
 
             #region Mediatr
-            services.AddMediatR(AppDomain.CurrentDomain.Load("VehiclesService"));
+            services.AddMediatR(AppDomain.CurrentDomain.Load("PriceListsService"));
             #endregion
 
             #region AutoMapper

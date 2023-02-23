@@ -1,4 +1,5 @@
-﻿using PriceListsService.Domain.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using PriceListsService.Domain.Contracts;
 using PriceListsService.Domain.Contracts.Context;
 using PriceListsService.Domain.Contracts.Repos;
 

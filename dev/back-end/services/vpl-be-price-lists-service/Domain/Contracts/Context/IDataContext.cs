@@ -1,4 +1,6 @@
-﻿namespace PriceListsService.Domain.Contracts.Context
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace PriceListsService.Domain.Contracts.Context
 {
     public interface IDataContext
     {

@@ -1,4 +1,6 @@
-﻿namespace PriceListsService.Domain.Enums
+﻿using System.ComponentModel;
+
+namespace PriceListsService.Domain.Enums
 {
     public enum PriceReference
     {

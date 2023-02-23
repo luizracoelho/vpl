@@ -1,4 +1,7 @@
-﻿using PriceListsService.Domain.Models;
+﻿using AutoMapper;
+using PriceListsService.App.Commands.Evaluations;
+using PriceListsService.App.Commands.ReferenceYears;
+using PriceListsService.Domain.Models;
 using PriceListsService.Domain.ViewModels.Evaluations;
 using PriceListsService.Domain.ViewModels.ReferenceYears;
 

@@ -1,5 +1,7 @@
 ﻿using PriceListsService.Domain.Enums;
 
+using System.ComponentModel.DataAnnotations;
+
 namespace PriceListsService.Domain.ViewModels.ReferenceYears
 {
     public class ReferenceYearVm

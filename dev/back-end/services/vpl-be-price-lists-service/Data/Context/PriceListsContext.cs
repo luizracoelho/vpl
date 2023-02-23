@@ -1,5 +1,6 @@
 ﻿using PriceListsService.Domain.Models;
 using PriceListsService.Domain.Contracts.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace PriceListsService.Data.Context
 {

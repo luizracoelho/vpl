@@ -1,4 +1,6 @@
-﻿using PriceListsService.Domain.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PriceListsService.Domain.Models;
 
 namespace PriceListsService.Data.Configs
 {
@@ -9,7 +11,7 @@ namespace PriceListsService.Data.Configs
             builder.HasKey(x => x.Id);
 
             builder.HasOne(evaluation => evaluation.ReferenceYear)
-                   .WithMany(referenceYear => referenceYear.Models)
+                   .WithMany(referenceYear => referenceYear.Evaluationn)
                    .HasForeignKey(evaluation => evaluation.ReferenceYearId)
                    .OnDelete(DeleteBehavior.Restrict);
         }

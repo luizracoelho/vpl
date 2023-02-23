@@ -1,4 +1,6 @@
-﻿namespace PriceListsService.Domain.ViewModels.Evaluations
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PriceListsService.Domain.ViewModels.Evaluations
 {
     public class EvaluationVm
     {

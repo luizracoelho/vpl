@@ -1,4 +1,6 @@
-﻿using PriceListsService.Domain.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using PriceListsService.Domain.Models;
 
 namespace PriceListsService.Data.Configs
 {
