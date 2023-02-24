@@ -26,5 +26,13 @@ namespace VehiclesService.Data.Repos
                               .OrderBy(x => x.Name)
                               .ToListAsync();
         }
+
+        public async override Task<IList<Vehicle>> ListAsync()
+        {
+            return dbSet.Include(x => x.Brand)
+                            .Include(x => x.Model)
+                            .OrderBy(x => x.Name)
+                            .ToList();
+        }
     }
 }
