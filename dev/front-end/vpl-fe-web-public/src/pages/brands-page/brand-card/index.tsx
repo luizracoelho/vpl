@@ -34,7 +34,7 @@ const BrandCard = (props: Brand) => {
                                     <Typography variant="h4">{name[0]}</Typography>
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText
+                            <ListItemText disableTypography
                                 primary={<Typography gutterBottom variant="h6" component="div">
                                     {name}
                                 </Typography>}

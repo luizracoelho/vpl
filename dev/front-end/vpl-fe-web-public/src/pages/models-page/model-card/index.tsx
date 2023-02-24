@@ -45,7 +45,7 @@ const ModelCard = ({ id, brandId, brandName, brandLogo, name, description, type 
                                     <VehicleTypeAvatar />
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText
+                            <ListItemText disableTypography
                                 primary={<Typography gutterBottom variant="h6" component="div">
                                     {name}
                                 </Typography>}

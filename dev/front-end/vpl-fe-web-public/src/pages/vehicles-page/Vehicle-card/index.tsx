@@ -43,7 +43,7 @@ const VehicleCard = ({ id, name, type, brandName, brandLogo }: Vehicle) => {
                                     <VehicleTypeAvatar />
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText
+                            <ListItemText disableTypography
                                 primary={<Typography gutterBottom variant="h6" component="div">
                                     {name}
                                 </Typography>}

@@ -28,8 +28,6 @@ const HomePage = () => {
         }
     });
 
-    // const [globalSearchResult, setSearchResult] = useState<ApiResult>(globalSearchResult);
-
     const search: SubmitHandler<GlobalSearchTerms> = async (globalSearchTerms) => {
         setGlobalSearchResult(globalSearchTerms, ApiResult.start());
         setGlobalSearchResult(globalSearchTerms, await globalSearch(globalSearchTerms.terms));
