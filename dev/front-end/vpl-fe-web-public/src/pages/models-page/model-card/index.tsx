@@ -25,7 +25,7 @@ const ModelCard = ({ id, brandId, brandName, brandLogo, name, description, type 
                 case VehicleType.Moto:
                     return (<TwoWheeler style={{ fontSize: 48 }} />);
             default:
-                return (<Typography variant="h4">{name[0]}</Typography>);
+                return (<Typography component="span" variant="h4">{name[0]}</Typography>);
         }
     };
 

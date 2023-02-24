@@ -6,5 +6,6 @@ namespace VehiclesService.Domain.Contracts.Repos
     {
         Task<IList<Vehicle>> ListByModelAsync(long modelId);
         Task<IList<Vehicle>> ListByBrandAsync(long brandId);
+        Task<IList<Vehicle>> SearchAsync(string searchTerms);
     }
 }

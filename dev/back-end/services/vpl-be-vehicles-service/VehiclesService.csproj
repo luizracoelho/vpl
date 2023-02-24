@@ -25,4 +25,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Domain\ViewModels\Searchs\" />
+    <None Remove="App\Queries\Searchs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Domain\ViewModels\Searchs\" />
+    <Folder Include="App\Queries\Searchs\" />
+  </ItemGroup>
 </Project>

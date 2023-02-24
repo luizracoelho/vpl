@@ -29,10 +29,19 @@ namespace VehiclesService.Data.Repos
 
         public async override Task<IList<Vehicle>> ListAsync()
         {
-            return dbSet.Include(x => x.Brand)
-                            .Include(x => x.Model)
-                            .OrderBy(x => x.Name)
-                            .ToList();
+            return await dbSet.Include(x => x.Brand)
+                              .Include(x => x.Model)
+                              .OrderBy(x => x.Name)
+                              .ToListAsync();
+        }
+
+        public async Task<IList<Vehicle>> SearchAsync(string searchTerms)
+        {
+            return await dbSet.Where(x => x.Name.Trim().ToLower().Contains(searchTerms.Trim().ToLower()))
+                              .Include(x => x.Brand)
+                              .Include(x => x.Model)
+                              .OrderBy(x => x.Name)
+                              .ToListAsync();
         }
     }
 }

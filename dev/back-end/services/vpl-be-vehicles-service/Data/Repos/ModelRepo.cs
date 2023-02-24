@@ -23,5 +23,13 @@ namespace VehiclesService.Data.Repos
                               .OrderBy(x => x.Name)
                               .ToListAsync();
         }
+
+        public async Task<IList<Model>> SearchAsync(string searchTerms)
+        {
+            return await dbSet.Where(x => x.Name.Trim().ToLower().Contains(searchTerms.Trim().ToLower()))
+                              .Include(x => x.Brand)
+                              .OrderBy(x => x.Name)
+                              .ToListAsync();
+        }
     }
 }
