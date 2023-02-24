@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using VehiclesService.App.Commands.Brands;
 using VehiclesService.App.Commands.Models;
 using VehiclesService.App.Commands.Vehicles;
@@ -43,9 +44,13 @@ namespace VehiclesService.Domain.ViewModels
 
             #region Vehicle
             CreateMap<Vehicle, VehicleVm>()
-                .ForMember(vm => vm.Brand, opt =>
+                .ForMember(vm => vm.BrandName, opt =>
                 {
                     opt.MapFrom(vehicle => vehicle.Brand != null ? vehicle.Brand.Name : "");
+                })
+                .ForMember(vm => vm.BrandLogo, opt =>
+                {
+                    opt.MapFrom(model => model.Brand != null ? model.Brand.Logo : "");
                 })
                 .ForMember(vm => vm.Model, opt =>
                 {
@@ -55,7 +60,7 @@ namespace VehiclesService.Domain.ViewModels
             CreateMap<VehicleVm, Vehicle>()
                 .ForMember(vm => vm.Brand, opt =>
                 {
-                    opt.MapFrom(vm => new Brand(vm.Brand, null));
+                    opt.MapFrom(vm => new Brand(vm.BrandName, vm.BrandLogo));
                 })
                 .ForMember(vm => vm.Model, opt =>
                 {

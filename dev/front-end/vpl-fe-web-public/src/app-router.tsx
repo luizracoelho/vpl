@@ -17,6 +17,7 @@ const AppRouter = () => {
                     <Route path="brands/:brandId/models" element={<ModelsPage />} />
                     <Route path="models" element={<ModelsPage />} />
                     <Route path="brands/:brandId/models/:modelId/vehicles" element={<VehiclesPage />} />
+                    <Route path="vehicles" element={<VehiclesPage />} />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

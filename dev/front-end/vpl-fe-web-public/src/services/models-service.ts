@@ -26,4 +26,13 @@ export default class ModelsService {
         else
             throw new Error(response.data);
     };
+
+    async find(id: number): Promise<Model> {
+        const response = await AppHttp.instance.get(`/models/${id}`);
+
+        if (response.status === HttpStatusCode.Ok)
+            return response.data;
+        else
+            throw new Error(response.data);
+    }
 }
