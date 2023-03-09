@@ -1,0 +1,16 @@
+<h4>Marcas</h4>
+
+<table>
+    <thead>
+        <tr>
+            <th>Logo</th>
+            <th>Nome</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let brand of brands">
+            <td>{{brand.logo}}</td>
+            <td>{{brand.name}}</td>
+        </tr>
+    </tbody>
+</table>
