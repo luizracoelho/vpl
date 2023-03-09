@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between align-items-center">
+    <h4>Marca</h4>
+
+    <button mat-raised-button color="primary" type="button" (click)="save()" [disabled]="!canSubmit()">Salvar</button>
+</div>
+
+<form [formGroup]="form" (submit)="save()">
+
+    <div class="row">
+
+        <mat-form-field class="col-12 col-md-6 col-lg-4" appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" formControlName="name" required />
+            <mat-error>Campo obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-6 col-lg-4" appearance="outline">
+            <mat-label>Logo</mat-label>
+            <input matInput type="text" formControlName="logo" required />
+            <mat-error>Campo obrigatório</mat-error>
+        </mat-form-field>
+    </div>
+
+    <button mat-raised-button type="submit" color="primary" [disabled]="!canSubmit()">Salvar</button>
+</form>
