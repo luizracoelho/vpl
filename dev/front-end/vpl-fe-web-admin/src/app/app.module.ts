@@ -10,13 +10,23 @@ import { HomeComponent } from './features/home/home.component';
 import { MaterialModule } from './shared/modules/material.module';
 import { BrandFormComponent } from './features/brand/brand-form/brand-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FaConfig, FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 
 @NgModule({
   declarations: [
     AppComponent,
     BrandListComponent,
     HomeComponent,
-    BrandFormComponent
+    BrandFormComponent,
+    DefaultLayoutComponent,
+    NotFoundComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -24,9 +34,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary, config: FaConfig) {
+    library.addIconPacks(fas, far, fab);
+    config.defaultPrefix = 'fas';
+  }
+}

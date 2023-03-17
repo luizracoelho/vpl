@@ -1,1 +1,14 @@
-<router-outlet></router-outlet>
+<div class="{{themeMode}}-mode h-100">
+    <mat-toolbar color="primary" class="d-flex justify-content-between">
+        <span>VPL</span>
+
+        <button mat-icon-button type="button" (click)="toggleThemeMode()">
+            <fa-icon [icon]="'sun'" *ngIf="themeMode == 'light'"></fa-icon>
+            <fa-icon [icon]="'moon'" *ngIf="themeMode == 'dark'"></fa-icon>
+        </button>
+    </mat-toolbar>
+
+    <mat-card style="height: calc(100% - 64px);">
+        <router-outlet></router-outlet>
+    </mat-card>
+</div>

@@ -1,6 +1,4 @@
-<h4>Marcas</h4>
-
-<a mat-raised-button [routerLink]="['/brands', 'form']">Adicionar</a>
+<app-header title="Marcas" mode="list" [route]="['/brands', 'form']"></app-header>
 
 <p *ngIf="isLoading">Carregando...</p>
 

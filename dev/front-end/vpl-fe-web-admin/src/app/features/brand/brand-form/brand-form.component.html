@@ -1,8 +1,4 @@
-<div class="d-flex justify-content-between align-items-center">
-    <h4>Marca</h4>
-
-    <button mat-raised-button color="primary" type="button" (click)="save()" [disabled]="!canSubmit()">Salvar</button>
-</div>
+<app-header title="Marca" mode="form" (clicked)="save()" [disabled]="!canSubmit()"></app-header>
 
 <form [formGroup]="form" (submit)="save()">
 
