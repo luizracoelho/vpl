@@ -17,6 +17,9 @@ import { FaConfig, FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
+import { ModelListComponent } from './features/model/model-list/model-list.component';
+import { ModelFormComponent } from './features/model/model-form/model-form.component';
+import { TableComponent } from './shared/components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
     BrandFormComponent,
     DefaultLayoutComponent,
     NotFoundComponent,
-    HeaderComponent
+    HeaderComponent,
+    ModelListComponent,
+    ModelFormComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

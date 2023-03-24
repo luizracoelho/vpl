@@ -2,32 +2,36 @@
 
 <p *ngIf="isLoading">Carregando...</p>
 
-<table mat-table [dataSource]="brandsDataSource" *ngIf="!isLoading">
-    <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let brand; columns: columns"></tr>
+<app-table *ngIf="!isLoading && brands.length > 0">
+    <table mat-table [dataSource]="brandsDataSource" *ngIf="!isLoading">
+        <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let brand; columns: columns"></tr>
 
-    <ng-container matColumnDef="logo">
-        <th mat-header-cell *matHeaderCellDef>Logo</th>
-        <td mat-cell *matCellDef="let brand"> {{brand.logo}} </td>
-    </ng-container>
+        <ng-container matColumnDef="logo">
+            <th mat-header-cell *matHeaderCellDef>Logo</th>
+            <td mat-cell *matCellDef="let brand"> {{brand.logo}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Nome</th>
-        <td mat-cell *matCellDef="let brand"> {{brand.name}} </td>
-    </ng-container>
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <td mat-cell *matCellDef="let brand"> {{brand.name}} </td>
+        </ng-container>
 
-    <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Ações</th>
-        <td mat-cell *matCellDef="let brand">
-            <a mat-raised-button [routerLink]="['/brands', 'form', brand.id]" color="accent"
-                [disabled]="brand.isRemoving">
-                Editar
-            </a>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Ações</th>
+            <td mat-cell *matCellDef="let brand">
+                <div class="d-flex">
+                    <a mat-raised-button [routerLink]="['/brands', 'form', brand.id]" color="accent"
+                        [disabled]="brand.isRemoving">
+                        Editar
+                    </a>
 
-            <button mat-raised-button type="button" class="ms-2" color="warn" (click)="remove(brand)"
-                [disabled]="brand.isRemoving">
-                Remover
-            </button>
-        </td>
-    </ng-container>
-</table>
+                    <button mat-raised-button type="button" class="ms-2" color="warn" (click)="remove(brand)"
+                        [disabled]="brand.isRemoving">
+                        Remover
+                    </button>
+                </div>
+            </td>
+        </ng-container>
+    </table>
+</app-table>
