@@ -20,6 +20,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { ModelListComponent } from './features/model/model-list/model-list.component';
 import { ModelFormComponent } from './features/model/model-form/model-form.component';
 import { TableComponent } from './shared/components/table/table.component';
+import { AutoCompleteComponent } from './shared/components/auto-complete/auto-complete/auto-complete.component';
 import { VehicleFormComponent } from './features/vehicles/vehicle-form/vehicle-form.component';
 import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-list.component';
 import { CardFormComponent } from './shared/components/card-form/card-form/card-form.component';
@@ -35,9 +36,11 @@ import { CardFormComponent } from './shared/components/card-form/card-form/card-
     HeaderComponent,
     ModelListComponent,
     ModelFormComponent,
+    TableComponent,
+    AutoCompleteComponent
     VehicleFormComponent,
     VehicleListComponent,
-    TableComponent
+    TableComponent,
     TableComponent,
     CardFormComponent
   ],
