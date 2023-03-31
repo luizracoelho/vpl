@@ -20,6 +20,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { ModelListComponent } from './features/model/model-list/model-list.component';
 import { ModelFormComponent } from './features/model/model-form/model-form.component';
 import { TableComponent } from './shared/components/table/table.component';
+import { AutoCompleteComponent } from './shared/components/auto-complete/auto-complete/auto-complete.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { TableComponent } from './shared/components/table/table.component';
     HeaderComponent,
     ModelListComponent,
     ModelFormComponent,
-    TableComponent
+    TableComponent,
+    AutoCompleteComponent
   ],
   imports: [
     BrowserModule,
