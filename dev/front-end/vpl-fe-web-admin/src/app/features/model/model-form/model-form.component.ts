@@ -94,8 +94,6 @@ export class ModelFormComponent {
         this.isLoading = false;
       },
       error: (err: any) => {
-        this._snackBar.open(err, 'Ok');
-
         this._router.navigate(['/models']);
       }
     });

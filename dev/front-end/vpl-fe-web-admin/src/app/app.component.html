@@ -6,6 +6,10 @@
             <fa-icon [icon]="'sun'" *ngIf="themeMode == 'light'"></fa-icon>
             <fa-icon [icon]="'moon'" *ngIf="themeMode == 'dark'"></fa-icon>
         </button>
+
+        <button mat-icon-button type="button" (click)="logout()" *ngIf="isLoggedIn">
+            <fa-icon [icon]="'ban'"></fa-icon>
+        </button>
     </mat-toolbar>
 
     <mat-card style="height: calc(100% - 64px);">

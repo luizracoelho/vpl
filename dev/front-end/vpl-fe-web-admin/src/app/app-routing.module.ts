@@ -9,10 +9,13 @@ import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { VehicleFormComponent } from './features/vehicles/vehicle-form/vehicle-form.component';
 import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-list.component';
+import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
+import { AppGuard } from './app-guard';
 
 const routes: Routes = [
+  { path: 'login', component: LoginLayoutComponent },
   {
-    path: '', component: DefaultLayoutComponent, children: [
+    path: '', component: DefaultLayoutComponent, canActivate: [AppGuard], canActivateChild: [AppGuard], children: [
       { path: '', component: HomeComponent },
 
       // Brands
@@ -33,7 +36,8 @@ const routes: Routes = [
 
       { path: '**', component: NotFoundComponent }
     ]
-  }
+  },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

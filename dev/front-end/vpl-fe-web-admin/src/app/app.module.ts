@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrandListComponent } from './features/brand/brand-list/brand-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './features/home/home.component';
 import { MaterialModule } from './shared/modules/material.module';
 import { BrandFormComponent } from './features/brand/brand-form/brand-form.component';
@@ -25,6 +25,7 @@ import { VehicleFormComponent } from './features/vehicles/vehicle-form/vehicle-f
 import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-list.component';
 import { CardFormComponent } from './shared/components/card-form/card-form/card-form.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
+import { AppInterceptor } from './app-interceptor';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
     ModelListComponent,
     ModelFormComponent,
     TableComponent,
-    AutoCompleteComponent
+    AutoCompleteComponent,
     VehicleFormComponent,
     VehicleListComponent,
     TableComponent,
@@ -55,7 +56,9 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
     ReactiveFormsModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
