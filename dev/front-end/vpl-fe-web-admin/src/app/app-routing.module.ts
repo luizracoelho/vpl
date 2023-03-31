@@ -7,6 +7,8 @@ import { ModelFormComponent } from './features/model/model-form/model-form.compo
 import { ModelListComponent } from './features/model/model-list/model-list.component';
 import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { VehicleFormComponent } from './features/vehicles/vehicle-form/vehicle-form.component';
+import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-list.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,12 @@ const routes: Routes = [
       { path: 'models', component: ModelListComponent },
       { path: 'models/form', component: ModelFormComponent },
       { path: 'models/form/:id', component: ModelFormComponent },
+
+      // Vehicles
+      { path: 'vehicles', component: VehicleListComponent },
+      { path: 'vehicles/form', component: VehicleFormComponent },
+      { path: 'vehicles/form/:id', component: VehicleFormComponent },
+
 
       { path: '**', component: NotFoundComponent }
     ]
