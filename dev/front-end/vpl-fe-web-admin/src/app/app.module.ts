@@ -20,6 +20,8 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { ModelListComponent } from './features/model/model-list/model-list.component';
 import { ModelFormComponent } from './features/model/model-form/model-form.component';
 import { TableComponent } from './shared/components/table/table.component';
+import { VehicleFormComponent } from './features/vehicles/vehicle-form/vehicle-form.component';
+import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-list.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { TableComponent } from './shared/components/table/table.component';
     HeaderComponent,
     ModelListComponent,
     ModelFormComponent,
+    VehicleFormComponent,
+    VehicleListComponent,
     TableComponent
   ],
   imports: [
