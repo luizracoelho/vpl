@@ -24,6 +24,7 @@ import { AutoCompleteComponent } from './shared/components/auto-complete/auto-co
 import { VehicleFormComponent } from './features/vehicles/vehicle-form/vehicle-form.component';
 import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-list.component';
 import { CardFormComponent } from './shared/components/card-form/card-form/card-form.component';
+import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CardFormComponent } from './shared/components/card-form/card-form/card-
     VehicleListComponent,
     TableComponent,
     TableComponent,
-    CardFormComponent
+    CardFormComponent,
+    LoginLayoutComponent
   ],
   imports: [
     BrowserModule,

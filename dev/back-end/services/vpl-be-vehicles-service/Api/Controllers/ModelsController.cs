@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 
 using MediatR;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using VehiclesService.App.Commands.Models;
@@ -71,6 +71,7 @@ namespace VehiclesService.Api.Controllers
         /// <param name="brand">Marca a ser inserida</param>
         /// <returns>Marca inserida</returns>
         [HttpPost]
+        [Authorize]
         public async Task<ModelVm> Create([FromBody] CreateModelVm brand)
         {
             var command = _mapper.Map<CreateModelCommand>(brand);
@@ -88,6 +89,7 @@ namespace VehiclesService.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BadRequestResultVm))]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound, "text/plain")]
+        [Authorize]
         public async Task<ModelVm> Update(long id, [FromBody] CreateModelVm brand)
         {
             var command = _mapper.Map<UpdateModelCommand>(brand);
@@ -106,6 +108,7 @@ namespace VehiclesService.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BadRequestResultVm))]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound, "text/plain")]
+        [Authorize]
         public async Task<bool> EndProduction(long id, [FromQuery] DateTime productionEnd)
         {
             return await _mediator.Send(new EndModelProductionCommand
@@ -121,6 +124,7 @@ namespace VehiclesService.Api.Controllers
         /// <param name="id">Id da modelos a ser removida</param>
         /// <returns>Resultado de remoção</returns>
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<RemoveResultVm> Remove(long id)
         {
             return await _mediator.Send(new RemoveModelCommand

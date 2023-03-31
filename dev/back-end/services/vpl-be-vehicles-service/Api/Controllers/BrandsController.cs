@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VehiclesService.App.Commands.Brands;
 using VehiclesService.App.Queries.Brands;
@@ -54,6 +55,7 @@ namespace VehiclesService.Api.Controllers
         /// <param name="brand">Marca a ser inserida</param>
         /// <returns>Marca inserida</returns>
         [HttpPost]
+        [Authorize]
         public async Task<BrandVm> Create([FromBody] CreateBrandVm brand)
         {
             var command = _mapper.Map<CreateBrandCommand>(brand);
@@ -71,6 +73,7 @@ namespace VehiclesService.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BadRequestResultVm))]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound, "text/plain")]
+        [Authorize]
         public async Task<BrandVm> Update(long id, [FromBody] CreateBrandVm brand)
         {
             var command = _mapper.Map<UpdateBrandCommand>(brand);
@@ -85,6 +88,7 @@ namespace VehiclesService.Api.Controllers
         /// <param name="id">Id da marca a ser removida</param>
         /// <returns>Resultado de remoção</returns>
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<RemoveResultVm> Remove(long id)
         {
             return await _mediator.Send(new RemoveBrandCommand

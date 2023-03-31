@@ -11,7 +11,7 @@ export default class SearchService {
     }
 
     async search(searchTerms?: string): Promise<GlobalSearch> {
-        const response = await AppHttp.instance.get(`/search?searchTerms=${searchTerms}`);
+        const response = await AppHttp.instance.get(`/vehicles/search?searchTerms=${searchTerms}`);
 
         if (response.status === HttpStatusCode.Ok)
             return response.data;

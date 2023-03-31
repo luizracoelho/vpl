@@ -18,29 +18,29 @@ export class VehicleService {
   ) { }
 
   list(): Observable<Vehicle[]> {
-    return this._http.get<Vehicle[]>(`${environment.api}/vehicles`);
+    return this._http.get<Vehicle[]>(`${environment.api}/vehicles/vehicles`);
   }
 
   find(id: number): Observable<Vehicle> {
-    return this._http.get<Vehicle>(`${environment.api}/vehicles/${id}`);
+    return this._http.get<Vehicle>(`${environment.api}/vehicles/vehicles/${id}`);
   }
 
   create(vehicle: CreateVehicle): Observable<Vehicle> {
-    return this._http.post<Vehicle>(`${environment.api}/vehicle`, vehicle);
+    return this._http.post<Vehicle>(`${environment.api}/vehicles/vehicles`, vehicle);
   }
 
   update(id: number, vehicle: CreateVehicle): Observable<Vehicle> {
-    return this._http.put<Vehicle>(`${environment.api}/vehicles/${id}`, vehicle);
+    return this._http.put<Vehicle>(`${environment.api}/vehicles/vehicles/${id}`, vehicle);
   }
 
   endProduction(id: number, productionEnd: Date): Observable<boolean> {
     let params = new HttpParams().append('productionEnd', productionEnd.toJSON());
 
-    return this._http.patch<boolean>(`${environment.api}/vehicles/${id}/endProduction`, {}, { params });
+    return this._http.patch<boolean>(`${environment.api}/vehicles/vehicles/${id}/endProduction`, {}, { params });
   }
 
   remove(id: number): Observable<RemoveResult> {
-    return this._http.delete<RemoveResult>(`${environment.api}/vehicles/${id}`);
+    return this._http.delete<RemoveResult>(`${environment.api}/vehicles/vehicles/${id}`);
   }
 
   getVehicleTypeDescription(type: VehicleType): string {

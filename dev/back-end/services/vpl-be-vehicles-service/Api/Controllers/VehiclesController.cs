@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 
 using MediatR;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using VehiclesService.App.Commands.Vehicles;
-using VehiclesService.App.Queries.Models;
 using VehiclesService.App.Queries.Vehicles;
 using VehiclesService.Domain.ViewModels;
-using VehiclesService.Domain.ViewModels.Models;
 using VehiclesService.Domain.ViewModels.Vehicles;
 
 namespace VehiclesService.Api.Controllers
@@ -87,6 +85,7 @@ namespace VehiclesService.Api.Controllers
         /// <param name="vehicle">veiculo a ser inserida</param>
         /// <returns>veiculo inserida</returns>
         [HttpPost]
+        [Authorize]
         public async Task<VehicleVm> Create([FromBody] CreateVehicleVm vehicle)
         {
             var command = _mapper.Map<CreateVehicleCommand>(vehicle);
@@ -104,6 +103,7 @@ namespace VehiclesService.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BadRequestResultVm))]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound, "text/plain")]
+        [Authorize]
         public async Task<VehicleVm> Update(long id, [FromBody] CreateVehicleVm vehicle)
         {
             var command = _mapper.Map<UpdateVehicleCommand>(vehicle);
@@ -118,6 +118,7 @@ namespace VehiclesService.Api.Controllers
         /// <param name="id">Id da veiculos a ser removida</param>
         /// <returns>Resultado de remoção</returns>
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<RemoveResultVm> Remove(long id)
         {
             return await _mediator.Send(new RemoveVehicleCommand

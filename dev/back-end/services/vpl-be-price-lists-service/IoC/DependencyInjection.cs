@@ -1,7 +1,7 @@
 ﻿using MediatR;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.IdentityModel.Tokens;
 using PriceListsService.Data;
 using PriceListsService.Data.Context;
 using PriceListsService.Data.Repos;
@@ -9,6 +9,7 @@ using PriceListsService.Domain.Contracts;
 using PriceListsService.Domain.Contracts.Context;
 using PriceListsService.Domain.Contracts.Repos;
 using PriceListsService.Domain.ViewModels;
+using System.Text;
 
 namespace PriceListsService.IoC
 {
@@ -52,6 +53,15 @@ namespace PriceListsService.IoC
             services.AddAutoMapper(typeof(MapProfile));
             #endregion
 
+            #region Auth
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                  .AddJwtBearer(options =>
+                  {
+                      options.SaveToken = true;
+                      options.TokenValidationParameters = GetValidationParameters();
+                  });
+            #endregion
+
             return services;
         }
 
@@ -63,6 +73,22 @@ namespace PriceListsService.IoC
             ctx.Database.Migrate();
 
             return app;
+        }
+
+        private static TokenValidationParameters GetValidationParameters()
+        {
+            return new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateIssuerSigningKey = true,
+                ValidateLifetime = false,
+                RequireExpirationTime = true,
+
+                ValidIssuer = "br.com.vpl",
+                ValidAudience = "br.com.vpl",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("V3h!cLe@2os3TesT")),
+            };
         }
     }
 }

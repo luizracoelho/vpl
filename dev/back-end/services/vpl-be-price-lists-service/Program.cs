@@ -1,7 +1,7 @@
 using Microsoft.OpenApi.Models;
+using PriceListsService.IoC;
 using System.Dynamic;
 using System.Reflection;
-using PriceListsService.IoC;
 
 const string ApiName = "PriceListsService";
 
@@ -55,6 +55,10 @@ app.UseReDoc(c =>
     c.RoutePrefix = string.Empty;
     c.ConfigObject.AdditionalItems.Add("theme", GetRedocTheme());
 });
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.UseInfrastructure();
 

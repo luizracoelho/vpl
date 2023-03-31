@@ -14,22 +14,22 @@ export class BrandService {
   constructor(private _http: HttpClient) { }
 
   list(): Observable<Brand[]> {
-    return this._http.get<Brand[]>(`${environment.api}/brands`);
+    return this._http.get<Brand[]>(`${environment.api}/vehicles/brands`);
   }
 
   find(id: number): Observable<Brand> {
-    return this._http.get<Brand>(`${environment.api}/brands/${id}`);
+    return this._http.get<Brand>(`${environment.api}/vehicles/brands/${id}`);
   }
 
   create(brand: CreateBrand): Observable<Brand> {
-    return this._http.post<Brand>(`${environment.api}/brands`, brand);
+    return this._http.post<Brand>(`${environment.api}/vehicles/brands`, brand);
   }
 
   update(id: number, brand: CreateBrand): Observable<Brand> {
-    return this._http.put<Brand>(`${environment.api}/brands/${id}`, brand);
+    return this._http.put<Brand>(`${environment.api}/vehicles/brands/${id}`, brand);
   }
 
   remove(id: number): Observable<RemoveResult> {
-    return this._http.delete<RemoveResult>(`${environment.api}/brands/${id}`);
+    return this._http.delete<RemoveResult>(`${environment.api}/vehicles/brands/${id}`);
   }
 }

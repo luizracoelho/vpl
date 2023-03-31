@@ -10,7 +10,7 @@ export default class VehiclesService {
     }
 
     async list(): Promise<Vehicle[]> {
-        const response = await AppHttp.instance.get('/vehicles');
+        const response = await AppHttp.instance.get('/vehicles/vehicles');
 
         if (response.status === HttpStatusCode.Ok)
             return response.data;
@@ -19,7 +19,7 @@ export default class VehiclesService {
     }
 
     async listByModelId(brandId: number): Promise<Vehicle[]> {
-        const response = await AppHttp.instance.get(`/vehicles/model/${brandId}`);
+        const response = await AppHttp.instance.get(`/vehicles/vehicles/model/${brandId}`);
 
         if (response.status === HttpStatusCode.Ok)
             return response.data;

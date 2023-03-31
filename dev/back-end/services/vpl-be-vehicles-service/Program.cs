@@ -66,6 +66,10 @@ app.UseReDoc(c =>
     c.ConfigObject.AdditionalItems.Add("theme", GetRedocTheme());
 });
 
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.UseInfrastructure();
 
 app.MapControllers();

@@ -1,5 +1,9 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using VehiclesService.Data;
 using VehiclesService.Data.Context;
 using VehiclesService.Data.Repos;
@@ -51,6 +55,15 @@ namespace VehiclesService.IoC
             services.AddAutoMapper(typeof(MapProfile));
             #endregion
 
+            #region Auth
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.SaveToken = true;
+                        options.TokenValidationParameters = GetValidationParameters();
+                    });
+            #endregion
+
             return services;
         }
 
@@ -62,6 +75,22 @@ namespace VehiclesService.IoC
             ctx.Database.Migrate();
 
             return app;
+        }
+
+        private static TokenValidationParameters GetValidationParameters()
+        {
+            return new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateIssuerSigningKey = true,
+                ValidateLifetime = false,
+                RequireExpirationTime = true,
+
+                ValidIssuer = "br.com.vpl",
+                ValidAudience = "br.com.vpl",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("V3h!cLe@2os3TesT")),
+            };
         }
     }
 }

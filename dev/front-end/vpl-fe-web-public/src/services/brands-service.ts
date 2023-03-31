@@ -10,7 +10,7 @@ export default class BrandsService {
     }
 
     async list(): Promise<Brand[]> {
-        const response = await AppHttp.instance.get('/brands');
+        const response = await AppHttp.instance.get('/vehicles/brands');
 
         if (response.status === HttpStatusCode.Ok)
             return response.data;
@@ -19,7 +19,7 @@ export default class BrandsService {
     }
 
     async find(id: number): Promise<Brand> {
-        const response = await AppHttp.instance.get(`/brands/${id}`);
+        const response = await AppHttp.instance.get(`/vehicles/brands/${id}`);
 
         if (response.status === HttpStatusCode.Ok)
             return response.data;
