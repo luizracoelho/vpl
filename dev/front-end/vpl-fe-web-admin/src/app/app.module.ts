@@ -20,6 +20,7 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import { ModelListComponent } from './features/model/model-list/model-list.component';
 import { ModelFormComponent } from './features/model/model-form/model-form.component';
 import { TableComponent } from './shared/components/table/table.component';
+import { CardFormComponent } from './shared/components/card-form/card-form/card-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { TableComponent } from './shared/components/table/table.component';
     HeaderComponent,
     ModelListComponent,
     ModelFormComponent,
-    TableComponent
+    TableComponent,
+    CardFormComponent
   ],
   imports: [
     BrowserModule,

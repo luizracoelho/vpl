@@ -16,7 +16,7 @@ export class BrandFormComponent implements OnInit {
 
   form!: FormGroup;
 
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -47,19 +47,23 @@ export class BrandFormComponent implements OnInit {
       this._service.find(this.id).subscribe({
         next: (brand: Brand) => {
           this.form.patchValue(brand);
+          this.isLoading = false;
         },
         error: (err: any) => {
+          this.isLoading = false;
           this._snackBar.open(err, 'Ok');
 
           this._router.navigate(['/brands']);
         }
       })
     }
+    else{
+      this.isLoading = false;
+    }
   }
 
   save(): void {
     if (this.canSubmit()) {
-      this.isLoading = true;
 
       let brand: Brand = this.form.value;
 
@@ -67,6 +71,8 @@ export class BrandFormComponent implements OnInit {
 
       req.subscribe({
         next: _ => {
+          this.isLoading = false;
+
           this._router.navigate(['/brands']);
 
           this._snackBar.open('Marca salva com sucesso!', 'Ok');
