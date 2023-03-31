@@ -1,0 +1,28 @@
+{
+  "Routes": [
+    // Vehicles
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8002
+        }
+      ],
+      "UpstreamPathTemplate": "/vehicles/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete", "Options" ]
+    },
+    // Prices
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8001
+        }
+      ],
+      "UpstreamPathTemplate": "/prices/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Patch", "Delete", "Options" ]
+    }
+  ]
+}
