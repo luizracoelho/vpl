@@ -22,6 +22,7 @@ import { ModelFormComponent } from './features/model/model-form/model-form.compo
 import { TableComponent } from './shared/components/table/table.component';
 import { VehicleFormComponent } from './features/vehicles/vehicle-form/vehicle-form.component';
 import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-list.component';
+import { CardFormComponent } from './shared/components/card-form/card-form/card-form.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,8 @@ import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-l
     VehicleFormComponent,
     VehicleListComponent,
     TableComponent
+    TableComponent,
+    CardFormComponent
   ],
   imports: [
     BrowserModule,
