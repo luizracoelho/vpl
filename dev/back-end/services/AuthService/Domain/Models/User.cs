@@ -19,14 +19,14 @@ namespace AuthService.Domain.Models
             Id = id;
             Name = name;
             Email = email;
-            Password = password.PasswordEncrypt();
+            Password = password.PasswordEncrypt("SAltKey1");
         }
 
         public User(string name, string email, string password)
         {
             Name = name;
             Email = email;
-            Password = password.PasswordEncrypt();
+            Password = password.PasswordEncrypt("SAltKey1");
         }
         #endregion
 
