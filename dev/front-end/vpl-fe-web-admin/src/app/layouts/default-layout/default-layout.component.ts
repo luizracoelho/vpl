@@ -7,6 +7,8 @@ import { MenuItem } from './models/menu-item';
   styleUrls: ['./default-layout.component.scss']
 })
 export class DefaultLayoutComponent {
+  
+  isDrawerOpened: boolean = false;
 
   menuItems: MenuItem[] = [
     new MenuItem('Home', 'house', ['/']),
