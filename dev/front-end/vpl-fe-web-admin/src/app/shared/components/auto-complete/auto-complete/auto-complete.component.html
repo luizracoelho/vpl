@@ -1,10 +1,10 @@
-<mat-form-field appearance="outline">
+<mat-form-field class="w-100" appearance="outline">
     <mat-label *ngIf="nameLabel">{{nameLabel}}</mat-label>
     <input type="text" [formControl]="myControl" matInput [matAutocomplete]="auto">
     <fa-icon icon="search" matSuffix class="me-3"></fa-icon>
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
+            {{option.description}}
         </mat-option>
     </mat-autocomplete>
     <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>

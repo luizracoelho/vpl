@@ -1,0 +1,51 @@
+<app-header [disabled]="!form.valid" title="Ano de referência" mode="form"
+    [route]="['/referenceYear', 'form']" (clicked)="save()"></app-header>
+
+<form [formGroup]="form" (submit)="save()">
+    <mat-card>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-4">
+                    <h2>Cadastrar ano de referência</h2>
+                    <small>Cadastre agora um ano de referência...</small>
+                </div>
+                <div class="col-1"><mat-divider class="h-100" vertical="true"></mat-divider></div>
+                <div class="col-7 p-2">
+                    <div class="row">
+                        <div class="col-5">
+                            <mat-form-field class="col-12 col-lg-8 w-100" appearance="outline">
+                                <mat-label>Ano</mat-label>
+                                <input matInput type="text" formControlName="year" required />
+                                <mat-error>Campo obrigatório</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-7">
+                            <app-auto-complete class="w-100" [options]="options" [nameLabel]="'Tipo'"
+                                [myControlParameter]="form.get('priceReference')"
+                                [errorMessage]="'Obrigatório'"></app-auto-complete>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>
+
+<div class="row mt-2">
+    <div class="col-6">
+        <div class="d-flex justify-content-start">
+            <button mat-button type="button" color="accent" *ngIf="id" (click)="remove()">
+                <fa-icon [icon]="'trash'"></fa-icon>
+                Remover
+            </button>
+        </div>    
+    </div>
+    <div class="col-6">
+        <div class="d-flex justify-content-end">
+            <button mat-raised-button type="button" color="primary" (click)="save()" [disabled]="!form.valid">
+                <fa-icon [icon]="'check'"></fa-icon>
+                Confirmar
+            </button>
+        </div>    
+    </div>
+</div>
