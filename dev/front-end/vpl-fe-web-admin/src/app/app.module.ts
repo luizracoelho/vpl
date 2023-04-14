@@ -26,6 +26,9 @@ import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-l
 import { CardFormComponent } from './shared/components/card-form/card-form/card-form.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import { AppInterceptor } from './app-interceptor';
+import { EvaluationFormComponent } from './features/evaluation/evaluation-form/evaluation-form/evaluation-form.component';
+import { EvaluationListComponent } from './features/evaluation/evaluation-list/evaluation-list/evaluation-list.component';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import { AppInterceptor } from './app-interceptor';
     TableComponent,
     TableComponent,
     CardFormComponent,
-    LoginLayoutComponent
+    LoginLayoutComponent,
+    EvaluationFormComponent,
+    EvaluationListComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +59,8 @@ import { AppInterceptor } from './app-interceptor';
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxCurrencyModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }
