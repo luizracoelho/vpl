@@ -20,6 +20,10 @@ export class ModelService {
     return this._http.get<Model[]>(`${environment.api}/vehicles/models`);
   }
 
+  listByBrandId(brandId: number): Observable<Model[]> {
+    return this._http.get<Model[]>(`${environment.api}/models/brand/${brandId}`);
+  }
+
   find(id: number): Observable<Model> {
     return this._http.get<Model>(`${environment.api}/vehicles/models/${id}`);
   }
