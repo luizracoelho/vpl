@@ -10,11 +10,11 @@ import { Observable, startWith, map } from 'rxjs';
 export class AutoCompleteComponent {
   @Input() myControlParameter!: AbstractControl | null;
   @Input() nameLabel?: string;
-  @Input() options!: string[];
+  @Input() options!: {id: number, description: string}[];
   @Input() errorMessage?: string;
   @Input() appearenceStyle = 'outline';
 
-  filteredOptions!: Observable<string[]>;
+  filteredOptions!: Observable<{id: number, description: string}[]>;
   myControl: FormControl = new FormControl('', Validators.required);
 
   ngOnInit() {
@@ -24,12 +24,19 @@ export class AutoCompleteComponent {
       startWith(''),
       map(value => this._filter(value || ''))
     );
-
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  private _filter(value: any): {id: number, description: string}[] {
+    let filterValue = '';
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    if(typeof value != 'string'){
+      filterValue = value.description.toLowerCase();
+    }
+
+    return this.options.filter(option => option.description.toLowerCase().includes(filterValue)); ;
+  }
+
+  displayFn(option: {id: number, description: string}): string {
+    return option ? option.description : ''
   }
 }
