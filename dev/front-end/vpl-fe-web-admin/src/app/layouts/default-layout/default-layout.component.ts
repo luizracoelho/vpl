@@ -14,6 +14,7 @@ export class DefaultLayoutComponent {
     new MenuItem('Modelos', 'phone', ['/models']),
     new MenuItem('Veículo', 'car', ['/vehicles']),
     new MenuItem('Ano Referência', 'calendar', ['/referenceYear']),
+    new MenuItem('Avaliação', 'clipboard', ['/evaluations']),
   ];
 
 }

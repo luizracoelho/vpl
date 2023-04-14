@@ -15,7 +15,6 @@ export class Vehicle {
     modelYear!: Date;
     vehicleType!: VehicleType; 
 
-
     // propriedades de visualização
     isRemoving?: boolean;
 }

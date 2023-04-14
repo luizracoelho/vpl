@@ -13,6 +13,8 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
 import { AppGuard } from './app-guard';
 import { ReferenceYearComponent } from './features/referenceYear/reference-year-list/reference-year.component';
 import { ReferenceYearFormComponent } from './features/referenceYear/reference-year-form/reference-year-form.component';
+import { EvaluationFormComponent } from './features/evaluation/evaluation-form/evaluation-form/evaluation-form.component';
+import { EvaluationListComponent } from './features/evaluation/evaluation-list/evaluation-list/evaluation-list.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginLayoutComponent },
@@ -40,6 +42,10 @@ const routes: Routes = [
       {path: 'referenceYear/form', component: ReferenceYearFormComponent},
       {path: 'referenceYear/form/:id', component: ReferenceYearFormComponent},
 
+      // evaluations
+      { path: 'evaluations', component: EvaluationListComponent },
+      { path: 'evaluations/form', component: EvaluationFormComponent },
+      { path: 'evaluations/form/:id', component: EvaluationFormComponent },
 
       { path: '**', component: NotFoundComponent }
     ]

@@ -1,0 +1,76 @@
+<app-header title="Veículo" mode="form" (clicked)="save()" [disabled]="!canSubmit()"></app-header>
+
+<form [formGroup]="form" (submit)="save()">
+
+  <mat-card class="mb-3">
+    <mat-card-content>
+      <p *ngIf="isLoading">Carregando...</p>
+
+      <div class="row" *ngIf="!isLoading">
+
+        <div class="col-12 col-md-5 col-lg-4">
+          <h2 class="mb-1">Dados cadastrais</h2>
+          <small>Dados gerais para cadastro de um veículo</small>
+        </div>
+
+        <div class="col-12 col-md-7 col-lg-8">
+
+          <div class="row">
+            <mat-form-field class="col-12 col-lg-5" appearance="outline">
+              <mat-label>Nome</mat-label>
+              <input matInput type="text" formControlName="name" required />
+              <mat-error>Campo obrigatório</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-lg-5" appearance="outline">
+              <mat-label>Tipo</mat-label>
+              <mat-select formControlName="type" required>
+                <mat-option [value]="type.value" *ngFor="let type of types">
+                  {{type.text}}
+                </mat-option>
+              </mat-select>
+              <mat-error>Campo obrigatório</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-lg-5" appearance="outline">
+              <mat-label>Ano de produção</mat-label>
+              <input matInput type="number" formControlName="productionYear" required />
+              <mat-error>Campo obrigatório</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-lg-5" appearance="outline">
+              <mat-label>Ano do Modelo</mat-label>
+              <input matInput type="number" formControlName="modelYear" required />
+              <mat-error>Campo obrigatório</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-lg-5" appearance="outline">
+              <mat-label>Marca</mat-label>
+              <input type="text" matInput [formControl]="myControlBrand" [matAutocomplete]="auto">
+              <fa-icon icon="search" matSuffix class="me-3"></fa-icon>
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnBrand">
+                <mat-option *ngFor="let optionBrand of filteredOptionsBrand | async" [value]="optionBrand">
+                  {{optionBrand.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field class="col-12 col-lg-5" appearance="outline">
+              <mat-label>Modelo</mat-label>
+              <input type="text" matInput [formControl]="myControlModel" [matAutocomplete]="auto">
+              <fa-icon icon="search" matSuffix class="me-3"></fa-icon>
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnModel">
+                <mat-option *ngFor="let optionModel of filteredOptionsModel | async" [value]="optionModel">
+                  {{optionModel.name}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <button mat-raised-button type="submit" color="primary" [disabled]="!canSubmit()">Salvar</button>
+</form>

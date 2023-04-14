@@ -28,6 +28,9 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
 import { AppInterceptor } from './app-interceptor';
 import { ReferenceYearComponent } from './features/referenceYear/reference-year-list/reference-year.component';
 import { ReferenceYearFormComponent } from './features/referenceYear/reference-year-form/reference-year-form.component';
+import { EvaluationFormComponent } from './features/evaluation/evaluation-form/evaluation-form/evaluation-form.component';
+import { EvaluationListComponent } from './features/evaluation/evaluation-list/evaluation-list/evaluation-list.component';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,9 @@ import { ReferenceYearFormComponent } from './features/referenceYear/reference-y
     CardFormComponent,
     LoginLayoutComponent,
     ReferenceYearComponent,
-    ReferenceYearFormComponent
+    ReferenceYearFormComponent,
+    EvaluationFormComponent,
+    EvaluationListComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,8 @@ import { ReferenceYearFormComponent } from './features/referenceYear/reference-y
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxCurrencyModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true }
