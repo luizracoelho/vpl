@@ -26,6 +26,8 @@ import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-l
 import { CardFormComponent } from './shared/components/card-form/card-form/card-form.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import { AppInterceptor } from './app-interceptor';
+import { ReferenceYearComponent } from './features/referenceYear/reference-year-list/reference-year.component';
+import { ReferenceYearFormComponent } from './features/referenceYear/reference-year-form/reference-year-form.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { AppInterceptor } from './app-interceptor';
     TableComponent,
     TableComponent,
     CardFormComponent,
-    LoginLayoutComponent
+    LoginLayoutComponent,
+    ReferenceYearComponent,
+    ReferenceYearFormComponent
   ],
   imports: [
     BrowserModule,

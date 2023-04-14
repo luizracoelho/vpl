@@ -1,0 +1,53 @@
+<app-header title="Ano de referência" mode="list" [route]="['/referenceYear', 'form']"></app-header>
+
+<h2 *ngIf="isLoading">Carregando...</h2>
+<h4 *ngIf="!isLoading && referencesDataSource.data.length == 0">Não existe nenhum ano de referência cadastrado..</h4>
+
+<app-table *ngIf="!isLoading && referencesDataSource.data.length > 0">
+    <table mat-table [dataSource]="referencesDataSource" matSort>
+        <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let referenceYear; columns: columns"></tr>
+
+        <ng-container matColumnDef="year">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ano</th>
+            <td mat-cell *matCellDef="let referenceYear"> {{referenceYear.year}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+            <td mat-cell *matCellDef="let referenceYear"> {{ displayDescription(referenceYear.priceReference) }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Ações</th>
+            <td mat-cell *matCellDef="let referenceYear">
+                <div class="d-flex">
+                    <a mat-raised-button [routerLink]="['/referenceYear', 'form', referenceYear.id]" color="accent">
+                        Editar
+                    </a>
+
+                    <button mat-raised-button type="button" class="ms-2" color="warn" (click)="delete(referenceYear.id)">
+                        Remover
+                    </button>
+                </div>
+            </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Ações</th>
+            <td mat-cell *matCellDef="let vehicle">
+                <div class="d-flex">
+                    <a mat-raised-button [routerLink]="['/vehicles', 'form', vehicle.id]" color="accent"
+                        [disabled]="vehicle.isRemoving">
+                        Editar
+                    </a>
+
+                    <button mat-raised-button type="button" class="ms-2" color="warn" (click)="remove(vehicle)"
+                        [disabled]="vehicle.isRemoving">
+                        Remover
+                    </button>
+                </div>
+            </td>
+        </ng-container> -->
+    </table>
+</app-table>

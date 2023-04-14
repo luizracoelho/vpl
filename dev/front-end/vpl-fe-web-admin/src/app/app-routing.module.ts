@@ -11,11 +11,13 @@ import { VehicleFormComponent } from './features/vehicles/vehicle-form/vehicle-f
 import { VehicleListComponent } from './features/vehicles/vehicle-list/vehicle-list.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
 import { AppGuard } from './app-guard';
+import { ReferenceYearComponent } from './features/referenceYear/reference-year-list/reference-year.component';
+import { ReferenceYearFormComponent } from './features/referenceYear/reference-year-form/reference-year-form.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginLayoutComponent },
   {
-    path: '', component: DefaultLayoutComponent, canActivate: [AppGuard], canActivateChild: [AppGuard], children: [
+    path: '', canActivate: [AppGuard], canActivateChild: [AppGuard], component: DefaultLayoutComponent, children: [
       { path: '', component: HomeComponent },
 
       // Brands
@@ -32,6 +34,11 @@ const routes: Routes = [
       { path: 'vehicles', component: VehicleListComponent },
       { path: 'vehicles/form', component: VehicleFormComponent },
       { path: 'vehicles/form/:id', component: VehicleFormComponent },
+
+      // Reference Year
+      {path: 'referenceYear', component: ReferenceYearComponent},
+      {path: 'referenceYear/form', component: ReferenceYearFormComponent},
+      {path: 'referenceYear/form/:id', component: ReferenceYearFormComponent},
 
 
       { path: '**', component: NotFoundComponent }
