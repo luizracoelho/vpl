@@ -17,7 +17,7 @@ import { EvaluationListComponent } from './features/evaluation/evaluation-list/e
 const routes: Routes = [
   { path: 'login', component: LoginLayoutComponent },
   {
-    path: '', component: DefaultLayoutComponent, canActivate: [AppGuard], canActivateChild: [AppGuard], children: [
+    path: '', component: DefaultLayoutComponent, children: [
       { path: '', component: HomeComponent },
 
       // Brands
