@@ -44,27 +44,15 @@
               <mat-error>Campo obrigatório</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="col-12 col-lg-5" appearance="outline">
-              <mat-label>Marca</mat-label>
-              <input type="text" matInput [formControl]="myControlBrand" [matAutocomplete]="auto">
-              <fa-icon icon="search" matSuffix class="me-3"></fa-icon>
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnBrand">
-                <mat-option *ngFor="let optionBrand of filteredOptionsBrand | async" [value]="optionBrand">
-                  {{optionBrand.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+            <div class="col-12 col-lg-5">
+              <app-auto-complete [options]="brands" label="Marca" displayField="name" [value]="selectedBrand"
+                (changed)="form.controls['brandId'].setValue($event?.id)"></app-auto-complete>
+            </div>
 
-            <mat-form-field class="col-12 col-lg-5" appearance="outline">
-              <mat-label>Modelo</mat-label>
-              <input type="text" matInput [formControl]="myControlModel" [matAutocomplete]="auto">
-              <fa-icon icon="search" matSuffix class="me-3"></fa-icon>
-              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnModel">
-                <mat-option *ngFor="let optionModel of filteredOptionsModel | async" [value]="optionModel">
-                  {{optionModel.name}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+            <div class="col-12 col-lg-5">
+              <app-auto-complete [options]="models" label="Modelo" displayField="name" [value]="selectedModel"
+                (changed)="form.controls['modelId'].setValue($event?.id)"></app-auto-complete>
+            </div>
 
           </div>
         </div>

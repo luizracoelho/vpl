@@ -1,42 +1,68 @@
-import { Component, Input } from '@angular/core';
-import { AbstractControl, FormControl, Validators } from '@angular/forms';
-import { Observable, startWith, map } from 'rxjs';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auto-complete',
   templateUrl: './auto-complete.component.html',
   styleUrls: ['./auto-complete.component.scss']
 })
-export class AutoCompleteComponent {
-  @Input() myControlParameter!: AbstractControl | null;
-  @Input() nameLabel?: string;
-  @Input() options!: {id: number, description: string}[];
-  @Input() errorMessage?: string;
-  @Input() appearenceStyle = 'outline';
+export class AutoCompleteComponent<T> implements OnInit, OnChanges {
 
-  filteredOptions!: Observable<{id: number, description: string}[]>;
-  myControl: FormControl = new FormControl('', Validators.required);
+  myControl = new FormControl<string | T>('');
+  filteredOptions!: Observable<T[] | undefined | null>;
 
-  ngOnInit() {
-    this.myControl = this.myControlParameter as FormControl;
+  @Input() options: any[] = [];
+  @Input() value!: T;
+  @Input() label!: string;
+  @Input() displayField!: string;
 
+  @Output() changed: EventEmitter<T | null> = new EventEmitter<T | null>();
+
+  constructor() { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['value']) {
+      this.myControl.setValue(changes['value'].currentValue);
+    }
+
+    if (changes['options']) {
+      this.setFilteredOptions();
+    }
+  }
+
+  ngOnInit(): void {
+    if (this.value)
+      this.myControl.setValue(this.value);
+
+    this.setFilteredOptions();
+  }
+
+  displayFn(option?: any): string {
+    return option && option[this.displayField] ? option[this.displayField] : '';
+  }
+
+  setFilteredOptions(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value || ''))
+      map(value => {
+        console.log(value, typeof value === 'string');
+
+        if (typeof value === 'string') {
+          this.changed.emit(null);
+          return value ? this._filter(value as string) : this.options?.slice();
+        } else {
+          console.log('aqui');
+
+          this.changed.emit(value);
+          return;
+        }
+      }),
     );
   }
 
-  private _filter(value: any): {id: number, description: string}[] {
-    let filterValue = '';
-
-    if(typeof value != 'string'){
-      filterValue = value.description.toLowerCase();
-    }
-
-    return this.options.filter(option => option.description.toLowerCase().includes(filterValue)); ;
-  }
-
-  displayFn(option: {id: number, description: string}): string {
-    return option ? option.description : ''
+  private _filter(name: string): T[] {
+    return this.options.filter((option: any) => option[this.displayField].toLowerCase().includes(name.toLowerCase()));
   }
 }

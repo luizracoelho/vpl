@@ -27,10 +27,8 @@ export class VehicleFormComponent {
 
   isLoading: boolean = true;
 
-  myControlBrand = new FormControl<string | Brand>('');
-  filteredOptionsBrand!: Observable<Brand[] | undefined>;
-  myControlModel = new FormControl<string | Model>('');
-  filteredOptionsModel!: Observable<Model[] | undefined>;
+  selectedBrand?: Brand;
+  selectedModel: Model | null = null;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -42,54 +40,7 @@ export class VehicleFormComponent {
     private _modelService: ModelService,
   ) { }
 
-  displayFnBrand(brand: Brand): string {
-    return brand && brand.name ? brand.name : '';
-  }
-
-  displayFnModel(model: Model): string {
-    return model && model.name ? model.name : '';
-  }
-
-
-  private _filterBrand(name: string): Brand[] {
-    const filterValue = name.toLowerCase();
-
-    return this.brands.filter(optionBrand => optionBrand.name.toLowerCase().includes(filterValue));
-  }
-
-  private _filterModel(name: string): Model[] {
-    const filterValue = name.toLowerCase();
-
-    return this.models.filter(optionModel => optionModel.name.toLowerCase().includes(filterValue));
-  }
-
   ngOnInit(): void {
-    this.filteredOptionsBrand = this.myControlBrand.valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        if (typeof value === 'string') {
-          this.form.controls['brandId'].setValue(null);
-          return value ? this._filterBrand(value as string) : this.brands.slice();
-        } else {
-          this.form.controls['brandId'].setValue(value!.id);
-          return;
-        }
-      }),
-    );
-
-    this.filteredOptionsModel = this.myControlModel.valueChanges.pipe(
-      startWith(''),
-      map(value => {
-        if (typeof value === 'string') {
-          this.form.controls['modelId'].setValue(null);
-          return value ? this._filterModel(value as string) : this.models.slice();
-        } else {
-          this.form.controls['modelId'].setValue(value!.id);
-          return;
-        }
-      }),
-    );
-
     this.id = this._route.snapshot.params['id'];
 
     this.createFrom();
@@ -98,34 +49,25 @@ export class VehicleFormComponent {
 
     let reqs = forkJoin({
       brands: this._brandService.list(),
-      models: this._modelService.list(),
-
     });
 
     if (this.id) {
       reqs = forkJoin({
         brands: this._brandService.list(),
-        models: this._modelService.list(),
         vehicle: this._service.find(this.id)
       });
     }
 
     reqs.subscribe({
-      next: ({ brands, models, vehicle }: any) => {
+      next: ({ brands, vehicle }: any) => {
         this.brands = brands;
-        this.models = models;
-        console.log(models);
 
         if (vehicle) {
-          const brand = this.brands.find(x => x.id == vehicle.brandId);
-          const model = this.models.find(x => x.id == vehicle.modelId);
-
-          setTimeout(() => {
-            this.myControlBrand.setValue(brand!);
-            this.myControlModel.setValue(model!);
-
-            this.form.patchValue(vehicle);
-          });
+          console.log(vehicle);
+          
+          this.form.patchValue(vehicle);
+          
+          this.selectedBrand = this.brands.find(x => x.id == vehicle.brandId);
         }
 
         this.isLoading = false;
@@ -147,6 +89,27 @@ export class VehicleFormComponent {
       productionYear: ['', Validators.required],
       modelYear: ['', Validators.required],
       type: [null, Validators.required]
+    });
+
+    this.form.controls['brandId'].valueChanges.subscribe({
+      next: (value?: any) => {
+        console.log(value);
+
+        if (value) {
+          this.listModels(value);
+        } else {
+          this.models = [];
+        }
+      }
+    });
+  }
+
+  listModels(brandId: number): void {
+    this._modelService.listByBrandId(brandId).subscribe({
+      next: (models: Model[]) => {
+        this.models = models;
+        this.selectedModel = models.find(x => x.id == this.form.controls['modelId'].value) ?? null;
+      }
     });
   }
 

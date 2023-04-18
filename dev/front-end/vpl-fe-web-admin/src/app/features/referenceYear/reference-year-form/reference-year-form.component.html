@@ -1,5 +1,5 @@
-<app-header [disabled]="!form.valid" title="Ano de referência" mode="form"
-    [route]="['/referenceYear', 'form']" (clicked)="save()"></app-header>
+<app-header [disabled]="!form.valid" title="Ano de referência" mode="form" [route]="['/referenceYear', 'form']"
+    (clicked)="save()"></app-header>
 
 <form [formGroup]="form" (submit)="save()">
     <mat-card>
@@ -19,11 +19,12 @@
                                 <mat-error>Campo obrigatório</mat-error>
                             </mat-form-field>
                         </div>
-                        <div class="col-7">
-                            <app-auto-complete class="w-100" [options]="options" [nameLabel]="'Tipo'"
-                                [myControlParameter]="form.get('priceReference')"
-                                [errorMessage]="'Obrigatório'"></app-auto-complete>
+                        <div class="col-md-7">
+                            <app-auto-complete [options]="options" label="Tipo" displayField="description"
+                                [value]="selectedOption"
+                                (changed)="form.controls['priceReference'].setValue($event?.id)"></app-auto-complete>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -38,7 +39,7 @@
                 <fa-icon [icon]="'trash'"></fa-icon>
                 Remover
             </button>
-        </div>    
+        </div>
     </div>
     <div class="col-6">
         <div class="d-flex justify-content-end">
@@ -46,6 +47,6 @@
                 <fa-icon [icon]="'check'"></fa-icon>
                 Confirmar
             </button>
-        </div>    
+        </div>
     </div>
 </div>

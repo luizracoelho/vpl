@@ -15,16 +15,18 @@ export class ReferenceYearFormComponent {
   form!: FormGroup;
   isLoading: boolean = true;
   id!: number;
-  options = [{id: 1, description: 'Fipe'},
-             {id: 2, description: 'Molicar'}]
+  options = [{ id: 1, description: 'Fipe' },
+  { id: 2, description: 'Molicar' }]
+
+  selectedOption: any;
 
   constructor(private _formBuilder: FormBuilder,
-              private _snackBar: MatSnackBar,
-              private _location: Location,
-              private _route: ActivatedRoute,
-              private _referenceYearService: ReferenceYearService){}
+    private _snackBar: MatSnackBar,
+    private _location: Location,
+    private _route: ActivatedRoute,
+    private _referenceYearService: ReferenceYearService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.id = this._route.snapshot.params['id'];
 
     this.createForm();
@@ -41,7 +43,6 @@ export class ReferenceYearFormComponent {
 
   save(): void {
     let referenceYear: ReferenceYear = this.form.value;
-    referenceYear.priceReference = this.form.controls['priceReference'].value.id;
 
     let req = this.id > 0 ? this._referenceYearService.update(this.id, referenceYear) : this._referenceYearService.save(referenceYear)
 
@@ -60,20 +61,20 @@ export class ReferenceYearFormComponent {
     })
   }
 
-  find(){
-    if(!this.id) return;
+  find() {
+    if (!this.id) return;
 
     this._referenceYearService.find(this.id).subscribe({
       next: (referenceYear: ReferenceYear) => {
         this.form.patchValue(referenceYear);
 
         // Preenche o formControl com o objeto presente na lista de opções do auto complete.
-        this.form.controls['priceReference'].patchValue(this.options.find(x => x.id === referenceYear.priceReference));
+        this.selectedOption = this.options.find(x => x.id === referenceYear.priceReference);
       }
-    });   
+    });
   }
 
-  remove(){
+  remove() {
     this.isLoading = true;
 
     this._referenceYearService.delete(this.id).subscribe({

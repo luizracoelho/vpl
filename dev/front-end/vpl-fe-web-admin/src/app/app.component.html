@@ -1,15 +1,23 @@
 <div class="{{themeMode}}-mode h-100">
     <mat-toolbar color="primary" class="d-flex justify-content-between">
-        <span>VPL</span>
+        <div class="d-flex align-items-center">
+            <button mat-icon-button (click)="onDrawerToggle()" class="drawer-toggle-button me-2">
+                <fa-icon icon="bars"></fa-icon>
+            </button>
 
-        <button mat-icon-button type="button" (click)="toggleThemeMode()">
-            <fa-icon [icon]="'sun'" *ngIf="themeMode == 'light'"></fa-icon>
-            <fa-icon [icon]="'moon'" *ngIf="themeMode == 'dark'"></fa-icon>
-        </button>
+            <span>VPL</span>
+        </div>
 
-        <button mat-icon-button type="button" (click)="logout()" *ngIf="isLoggedIn">
-            <fa-icon [icon]="'ban'"></fa-icon>
-        </button>
+        <div>
+            <button mat-icon-button type="button" (click)="toggleThemeMode()">
+                <fa-icon [icon]="'sun'" *ngIf="themeMode == 'light'"></fa-icon>
+                <fa-icon [icon]="'moon'" *ngIf="themeMode == 'dark'"></fa-icon>
+            </button>
+
+            <button mat-icon-button type="button" (click)="logout()" *ngIf="isLoggedIn">
+                <fa-icon [icon]="'ban'"></fa-icon>
+            </button>
+        </div>
     </mat-toolbar>
 
     <mat-card style="height: calc(100% - 64px);">
