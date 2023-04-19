@@ -34,31 +34,43 @@
 
             <mat-form-field class="col-12 col-lg-5" appearance="outline">
               <mat-label>Ano de produção</mat-label>
-              <input matInput type="number" formControlName="productionYear" required />
+              <input matInput type="number" min="1900" formControlName="productionYear" required />
               <mat-error>Campo obrigatório</mat-error>
             </mat-form-field>
 
             <mat-form-field class="col-12 col-lg-5" appearance="outline">
               <mat-label>Ano do Modelo</mat-label>
-              <input matInput type="number" formControlName="modelYear" required />
+              <input matInput type="number" min="1900" formControlName="modelYear" required />
               <mat-error>Campo obrigatório</mat-error>
             </mat-form-field>
 
-            <div class="col-12 col-lg-5">
-              <app-auto-complete [options]="brands" label="Marca" displayField="name" [value]="selectedBrand"
-                (changed)="form.controls['brandId'].setValue($event?.id)"></app-auto-complete>
-            </div>
+            <mat-form-field class="col-12 col-lg-5" appearance="outline">
+              <mat-label>Marca</mat-label>
+              <mat-select formControlName="brandId" required>
+                <mat-option [value]="brand.id" *ngFor="let brand of brands">
+                  {{brand.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error>Campo obrigatório</mat-error>
+            </mat-form-field>
 
-            <div class="col-12 col-lg-5">
-              <app-auto-complete [options]="models" label="Modelo" displayField="name" [value]="selectedModel"
-                (changed)="form.controls['modelId'].setValue($event?.id)"></app-auto-complete>
-            </div>
+            <mat-form-field class="col-12 col-lg-5" appearance="outline">
+              <mat-label>Modelo</mat-label>
+              <mat-select formControlName="modelId" required>
+                <mat-option [value]="model.id" *ngFor="let model of models">
+                  {{model.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error>Campo obrigatório</mat-error>
+            </mat-form-field>
 
           </div>
         </div>
       </div>
     </mat-card-content>
   </mat-card>
-
-  <button mat-raised-button type="submit" color="primary" [disabled]="!canSubmit()">Salvar</button>
+  <div class="d-flex justify-content-between">
+    <div></div>
+    <button mat-raised-button type="submit" color="primary" [disabled]="!canSubmit()">Salvar</button>
+  </div>
 </form>
