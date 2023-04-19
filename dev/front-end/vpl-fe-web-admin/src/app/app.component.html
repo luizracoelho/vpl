@@ -1,18 +1,19 @@
 <div class="{{themeMode}}-mode h-100">
-    <mat-toolbar color="primary" class="d-flex justify-content-between">
-        <span>VPL</span>
+  <mat-toolbar color="primary" class="d-flex justify-content-between">
+    <span>VPL</span>
 
-        <button mat-icon-button type="button" (click)="toggleThemeMode()">
-            <fa-icon [icon]="'sun'" *ngIf="themeMode == 'light'"></fa-icon>
-            <fa-icon [icon]="'moon'" *ngIf="themeMode == 'dark'"></fa-icon>
-        </button>
+    <button mat-icon-button type="button" (click)="toggleThemeMode()">
+      <fa-icon [icon]="'sun'" *ngIf="themeMode == 'light'"></fa-icon>
+      <fa-icon [icon]="'moon'" *ngIf="themeMode == 'dark'"></fa-icon>
+    </button>
 
-        <button mat-icon-button type="button" (click)="logout()" *ngIf="isLoggedIn">
-            <fa-icon [icon]="'ban'"></fa-icon>
-        </button>
-    </mat-toolbar>
+    <button mat-icon-button type="button" class="logout-btn" (click)="logout()" *ngIf="isLoggedIn">
+      <fa-icon [icon]="'sign-out-alt'"></fa-icon>
+    </button>
 
-    <mat-card style="height: calc(100% - 64px);">
-        <router-outlet></router-outlet>
-    </mat-card>
+  </mat-toolbar>
+
+  <mat-card style="height: calc(100% - 64px);">
+    <router-outlet></router-outlet>
+  </mat-card>
 </div>
