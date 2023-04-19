@@ -51,6 +51,6 @@ export class ReferenceYearComponent {
   }
 
   displayDescription(id: number): string {
-    return this.typesPriceReference.filter(x => {return x.id == id})[0].description
+    return this.typesPriceReference.find(x =>  x.id == id)?.description ?? '';
   }
 }

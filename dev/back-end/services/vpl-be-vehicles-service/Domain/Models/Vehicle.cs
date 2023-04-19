@@ -25,7 +25,7 @@ namespace VehiclesService.Domain.Models
         #region Methods
         public override bool Validate()
         {
-            return BrandId > 0 && ModelId > 0 && !string.IsNullOrWhiteSpace(Name) && ProductionYear > 1900 && ModelYear > 1900;
+            return BrandId > 0 && ModelId > 0 && !string.IsNullOrWhiteSpace(Name) && ProductionYear >= 1900 && ModelYear >= 1900;
         }
 
         public void Update(long brandId, long modelId, string name, int productionYear, int modelYear, VehicleType type)
