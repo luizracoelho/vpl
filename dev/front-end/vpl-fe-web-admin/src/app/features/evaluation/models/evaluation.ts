@@ -3,8 +3,9 @@ export class Evaluation {
     year!: number;
     value!: number;
     vehicleId!: number;
+    vehicleName?: string;
+    referenceYearName!: number;
     referenceYearId!: number;
-    // referenceYear?: ReferenceYear;
 
     // Propriedades de visualização
     isRemoving?: boolean;
