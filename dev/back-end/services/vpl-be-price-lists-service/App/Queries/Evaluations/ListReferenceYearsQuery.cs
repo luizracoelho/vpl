@@ -21,7 +21,7 @@ namespace PriceListsService.App.Queries.ReferenceYears
             {
                 var brands = await _uow.ReferenceYears.ListAsync();
 
-                return _mapper.Map<IList<ReferenceYearVm>>(brands);
+                return _mapper.Map<IList<ReferenceYearVm>>(brands.OrderBy(x => x.Year));
             }
         }
     }
