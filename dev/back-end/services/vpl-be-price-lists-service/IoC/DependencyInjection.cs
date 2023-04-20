@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+
+using PriceListsService.App.Services;
 using PriceListsService.Data;
 using PriceListsService.Data.Context;
 using PriceListsService.Data.Repos;
 using PriceListsService.Domain.Contracts;
 using PriceListsService.Domain.Contracts.Context;
 using PriceListsService.Domain.Contracts.Repos;
+using PriceListsService.Domain.Contracts.Services;
 using PriceListsService.Domain.ViewModels;
 using System.Text;
 
@@ -61,6 +64,9 @@ namespace PriceListsService.IoC
                       options.TokenValidationParameters = GetValidationParameters();
                   });
             #endregion
+
+            services.AddScoped<IVehicleService, VehicleService>();
+
 
             return services;
         }
