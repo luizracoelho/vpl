@@ -130,7 +130,7 @@ export class ModelFormComponent {
         next: _ => {
           this._router.navigate(['/models']);
 
-          this._snackBar.open('Marca salva com sucesso!', 'Ok');
+          this._snackBar.open('Modelo salvo com sucesso!', 'Ok');
         },
         error: (err: any) => {
           this._snackBar.open(err, 'Ok');
