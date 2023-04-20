@@ -65,8 +65,11 @@ namespace PriceListsService.IoC
                   });
             #endregion
 
+            // Adicionar o HttpClient e HttpContextAccessor para funcionar o VehiclesService
+            services.AddHttpClient();
+            services.AddHttpContextAccessor();
+            
             services.AddScoped<IVehicleService, VehicleService>();
-
 
             return services;
         }

@@ -13,13 +13,17 @@ export class AppComponent implements OnInit {
 
   isLoggedIn: boolean = false;
 
-  constructor
-    (private _loginService: LoginService, private _drawerService: DrawerService) {
-
-  }
+  constructor(
+    private _loginService: LoginService,
+    private _drawerService: DrawerService
+  ) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this._loginService.isLoggedIn();
+
+    this._loginService.onLoginChange.subscribe({
+      next: (isLoggedIn: boolean) => this.isLoggedIn = isLoggedIn
+    });
 
     let currentThemeMode = <any>localStorage.getItem('vpl_thememode');
 

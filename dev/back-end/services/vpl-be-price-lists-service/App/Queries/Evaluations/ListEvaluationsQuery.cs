@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
-using PriceListsService.Domain.ViewModels.Evaluations;
 using PriceListsService.Domain.Contracts;
 using PriceListsService.Domain.Contracts.Services;
+using PriceListsService.Domain.ViewModels.Evaluations;
 
-namespace PriceListsService.App.Queries.ReferenceYears
+namespace PriceListsService.App.Queries.Evaluations
 {
     public class ListEvaluationsQuery : IRequest<IList<EvaluationVm>>
     {
@@ -23,13 +23,18 @@ namespace PriceListsService.App.Queries.ReferenceYears
 
             public async Task<IList<EvaluationVm>> Handle(ListEvaluationsQuery request, CancellationToken cancellationToken)
             {
+                var evaluations = await _uow.Evaluations.ListAsync();
 
-                    var vehicle = await _vehicleService.FindVehicleById(2);
+                var vehiclesIds = evaluations.Select(x => x.VehicleId).Distinct().ToList();
 
+                var vehicles = await _vehicleService.FindByIds(vehiclesIds);
 
-                var brands = await _uow.Evaluations.ListAsync();
+                var result = _mapper.Map<IList<EvaluationVm>>(evaluations);
 
-                return _mapper.Map<IList<EvaluationVm>>(brands);
+                foreach (var evaluation in result)
+                    evaluation.VehicleName = vehicles?.FirstOrDefault(x => x.Id == evaluation.VehicleId)?.Name ?? "";
+
+                return result.OrderByDescending(x => x.Year).ThenBy(x => x.VehicleName).ToList();
             }
         }
     }

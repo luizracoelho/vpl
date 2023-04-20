@@ -4,7 +4,7 @@ using PriceListsService.Domain.ViewModels.ReferenceYears;
 using PriceListsService.Domain.Contracts;
 
 
-namespace PriceListsService.App.Queries.Evaluations
+namespace PriceListsService.App.Queries.ReferenceYears
 {
     /// <summary>
     /// Responsável por encontrar um ano de referência a partir de um Id

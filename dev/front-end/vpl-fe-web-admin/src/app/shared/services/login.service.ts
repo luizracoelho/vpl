@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { User } from '../models/user';
 import { Login } from '../models/login';
@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class LoginService {
 
+  @Output() onLoginChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   constructor(
     private _http: HttpClient,
     private _router: Router
@@ -20,12 +22,15 @@ export class LoginService {
     return this._http.post<User>(`${environment.api}/auth/users/login`, login).pipe(
       tap((user: User) => {
         localStorage.setItem('vpl_user', JSON.stringify(user));
+        this.onLoginChange.emit(true);
       })
     );
   }
 
   logout(): void {
     localStorage.removeItem('vpl_user');
+
+    this.onLoginChange.emit(false);
 
     this._router.navigate(['/login']);
   }
@@ -40,7 +45,12 @@ export class LoginService {
   }
 
   isLoggedIn(): boolean {
-    return this.getUser() != null;
+    const user = this.getUser();
+
+    if (!user)
+      return false;
+
+    return new Date(user.tokenExpiration) >= new Date();
   }
 
   canActivate(): boolean {

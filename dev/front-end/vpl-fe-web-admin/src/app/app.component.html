@@ -1,7 +1,7 @@
 <div class="{{themeMode}}-mode h-100">
     <mat-toolbar color="primary" class="d-flex justify-content-between">
         <div class="d-flex align-items-center">
-            <button mat-icon-button (click)="onDrawerToggle()" class="drawer-toggle-button me-2">
+            <button mat-icon-button (click)="onDrawerToggle()" class="drawer-toggle-button me-2" *ngIf="isLoggedIn">
                 <fa-icon icon="bars"></fa-icon>
             </button>
 

@@ -38,6 +38,20 @@ namespace VehiclesService.Api.Controllers
         }
 
         /// <summary>
+        /// Ação responsável por listar todas os veiculos cadastrados pelos ids especificados
+        /// </summary>
+        /// <param name="ids">Ids dos veículos a serem listados</param>
+        /// <returns>Lista de veiculos cadastradas</returns>
+        [HttpPost("listByIds")]
+        public async Task<IList<VehicleVm>?> ListByIds([FromBody] IList<long> ids)
+        {
+            return await _mediator.Send(new ListVehiclesByIdsQuery
+            {
+                Ids = ids
+            }) ;
+        }
+
+        /// <summary>
         /// Ação responsável por encontrar uma veiculos a partir de um Id
         /// </summary>
         /// <param name="id">Id da veiculos a ser encontrada</param>

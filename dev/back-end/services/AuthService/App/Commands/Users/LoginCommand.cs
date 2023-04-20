@@ -36,34 +36,37 @@ namespace AuthService.App.Commands.Users
                 if (user == null)
                     throw new Exception("Usuário ou senha inválidos.");
 
-
                 if (user.Password != request.Password.PasswordEncrypt("SAltKey1"))
                     throw new Exception("Usuário ou senha inválidos.");
 
                 var userVm = _mapper.Map<UserVm>(user);
 
-                userVm.Token = GenerateToken(user.Id);
+                var (token, expiration) = GenerateToken(user.Id);
+                userVm.Token = token;
+                userVm.TokenExpiration = expiration;
 
                 return userVm;
             }
 
-            private static string GenerateToken(long subject)
+            private static (string, DateTime) GenerateToken(long subject)
             {
                 var claims = new List<Claim>()
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, subject.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, subject.ToString()),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
+
+                var tokenExpiration = DateTime.UtcNow.AddHours(12);
 
                 var token = new JwtSecurityToken(
                     issuer: "br.com.vpl",
                     audience: "br.com.vpl",
                     claims: claims,
-                expires: DateTime.UtcNow.AddHours(12),
+                expires: tokenExpiration,
                     signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes("V3h!cLe@2os3TesT")), SecurityAlgorithms.HmacSha256)
                 );
 
-                return new JwtSecurityTokenHandler().WriteToken(token);
+                return (new JwtSecurityTokenHandler().WriteToken(token), tokenExpiration);
             }
         }
     }

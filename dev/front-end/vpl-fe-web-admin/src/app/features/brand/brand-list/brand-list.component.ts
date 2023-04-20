@@ -14,7 +14,7 @@ export class BrandListComponent implements OnInit {
 
   brands: Brand[] = [];
   brandsDataSource!: MatTableDataSource<Brand>;
-  columns: string[] = ['logo', 'name', 'actions'];
+  columns: string[] = ['name', 'logo', 'actions'];
 
   isLoading: boolean = true;
 

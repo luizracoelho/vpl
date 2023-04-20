@@ -28,10 +28,14 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="App\Queries\Evaluations\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\vpl-be-vehicles-service\VehiclesService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="App\Queries\Evaluations\" />
+  </ItemGroup>
 </Project>

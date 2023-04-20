@@ -13,7 +13,7 @@ import { EvaluationService } from '../../evaluation.service';
 export class EvaluationListComponent {
   evaluations: Evaluation[] = [];
   evaluationsDataSource!: MatTableDataSource<Evaluation>;
-  columns: string[] = ['year', 'value', 'actions'];
+  columns: string[] = ['year', 'vehicleName', 'value', 'actions'];
   isLoading: boolean = true;
 
   constructor(

@@ -43,5 +43,10 @@ namespace VehiclesService.Data.Repos
                               .OrderBy(x => x.Name)
                               .ToListAsync();
         }
+
+        public async Task<IList<Vehicle>> ListByIdsAsync(IList<long> ids)
+        {
+            return await dbSet.Where(x => ids.Contains(x.Id)).ToListAsync();
+        }
     }
 }
