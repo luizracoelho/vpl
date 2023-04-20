@@ -6,6 +6,7 @@ using PriceListsService.App.Queries.Evaluations;
 using PriceListsService.App.Queries.ReferenceYears;
 using PriceListsService.Domain.ViewModels;
 using PriceListsService.Domain.ViewModels.ReferenceYears;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PriceListsService.Api.Controllers
 {
@@ -55,6 +56,7 @@ namespace PriceListsService.Api.Controllers
         /// <param name="referenceYear">ano de referência a ser inserida</param>
         /// <returns>ano de referência inserida</returns>
         [HttpPost]
+        [Authorize]
         public async Task<ReferenceYearVm> Create([FromBody] CreateReferenceYearVm referenceYear)
         {
             var command = _mapper.Map<CreateReferenceYearCommand>(referenceYear);
@@ -72,6 +74,7 @@ namespace PriceListsService.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BadRequestResultVm))]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound, "text/plain")]
+        [Authorize]
         public async Task<ReferenceYearVm> Update(long id, [FromBody] CreateReferenceYearVm referenceYear)
         {
             var command = _mapper.Map<UpdateReferenceYearCommand>(referenceYear);
@@ -86,6 +89,7 @@ namespace PriceListsService.Api.Controllers
         /// <param name="id">Id do ano de referência a ser removida</param>
         /// <returns>Resultado de remoção</returns>
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<RemoveResultVm> Remove(long id)
         {
             return await _mediator.Send(new RemoveReferenceYearCommand

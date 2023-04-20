@@ -7,6 +7,7 @@ using PriceListsService.App.Queries.Evaluations;
 using PriceListsService.App.Queries.ReferenceYears;
 using PriceListsService.Domain.ViewModels;
 using PriceListsService.Domain.ViewModels.Evaluations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PriceListsService.Api.Controllers
 {
@@ -56,6 +57,7 @@ namespace PriceListsService.Api.Controllers
         /// <param name="evaluation">Marca a ser inserida</param>
         /// <returns>Marca inserida</returns>
         [HttpPost]
+        [Authorize]
         public async Task<EvaluationVm> Create([FromBody] CreateEvaluationVm evaluation)
         {
             var command = _mapper.Map<CreateEvaluationCommand>(evaluation);
@@ -73,6 +75,7 @@ namespace PriceListsService.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BadRequestResultVm))]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound, "text/plain")]
+        [Authorize]
         public async Task<EvaluationVm> Update(long id, [FromBody] CreateEvaluationVm evaluation)
         {
             var command = _mapper.Map<UpdateEvaluationCommand>(evaluation);
@@ -87,6 +90,7 @@ namespace PriceListsService.Api.Controllers
         /// <param name="id">Id do avaliação a ser removida</param>
         /// <returns>Resultado de remoção</returns>
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<RemoveResultVm> Remove(long id)
         {
             return await _mediator.Send(new RemoveEvaluationCommand
