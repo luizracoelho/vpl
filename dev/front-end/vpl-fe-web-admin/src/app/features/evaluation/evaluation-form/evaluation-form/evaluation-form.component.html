@@ -34,5 +34,8 @@
         </mat-card-content>
     </mat-card>
 
-    <button mat-raised-button type="submit" color="primary" [disabled]="!canSubmit()">Salvar</button>
+    <div class="d-flex justify-content-between">
+        <div></div>
+        <button mat-raised-button type="submit" color="primary" [disabled]="!canSubmit()">Confirmar</button>
+      </div>
 </form>
