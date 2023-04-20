@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/shared/models/user';
+import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
   selector: 'app-home',
@@ -7,19 +9,16 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
-  form!: FormGroup;
-  myControl = new FormControl('', Validators.required)
   
-  constructor(private _formBuilder: FormBuilder){}
+  user !: User | null;
+
+  constructor(private _loginService: LoginService) {}
 
   ngOnInit() { 
-    this.form = this._formBuilder.group({
-      teste: new FormControl('', Validators.required)
-    });
+    this.findUser();
   }
 
-  showForm(): void{
-    console.log(this.form)
+  findUser(){
+    this.user = this._loginService.getUser()
   }
 }
