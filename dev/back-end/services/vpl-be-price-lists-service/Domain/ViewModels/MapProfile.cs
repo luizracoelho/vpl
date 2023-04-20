@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+
 using PriceListsService.App.Commands.Evaluations;
 using PriceListsService.App.Commands.ReferenceYears;
 using PriceListsService.Domain.Models;
@@ -13,6 +14,14 @@ namespace PriceListsService.Domain.ViewModels
         {
             #region Evaluation
             CreateMap<Evaluation, EvaluationVm>().ReverseMap();
+
+            CreateMap<Evaluation, EvaluationVm>()
+                .ForMember(vm => vm.ReferenceYearName, opt =>
+                {
+                    opt.MapFrom(vehicle => vehicle.ReferenceYear != null ? vehicle.ReferenceYear.Year : 0);
+                }); ;
+
+
             CreateMap<CreateEvaluationVm, CreateEvaluationCommand>();
             CreateMap<CreateEvaluationVm, UpdateEvaluationCommand>();
             #endregion

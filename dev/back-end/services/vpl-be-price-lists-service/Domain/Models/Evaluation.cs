@@ -1,4 +1,6 @@
-﻿namespace PriceListsService.Domain.Models
+﻿using VehiclesService.Domain.Models;
+
+namespace PriceListsService.Domain.Models
 {
     public sealed class Evaluation : BaseDomain
     {

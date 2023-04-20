@@ -18,5 +18,8 @@ namespace PriceListsService.Domain.ViewModels.Evaluations
 
         [Required]
         public long VehicleId { get; set; }
+
+        public string VehicleName { get; set; }
+        public int ReferenceYearName { get; set; }
     }
 }

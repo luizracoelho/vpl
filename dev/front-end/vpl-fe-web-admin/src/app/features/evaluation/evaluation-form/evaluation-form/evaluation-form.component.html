@@ -12,16 +12,32 @@
 
                 <div class="col-12 col-md-7 col-lg-8">
                     <div class="row">
-                        <mat-form-field class="col-12 col-lg-8" appearance="outline">
+                        <mat-form-field class="col-12 col-lg-4" appearance="outline">
                             <mat-label>Ano</mat-label>
-                            <input matInput type="number" formControlName="year" required />
+                            <input matInput type="text" formControlName="year" required />
                             <mat-error>Campo obrigatório</mat-error>
                         </mat-form-field>
 
-                        <mat-form-field class="col-12 col-lg-8" appearance="outline">
+                        <mat-form-field class="col-12 col-lg-4" appearance="outline">
                             <mat-label>Valor</mat-label>
-                            <input matInput type="text" formControlName="value" currencyMask
-                            [options]="currencyOptions" required />
+                            <input matInput type="text" formControlName="value" currencyMask [options]="currencyOptions"
+                                required />
+                            <mat-error>Campo obrigatório</mat-error>
+                        </mat-form-field>
+
+                        <div class="col-12 col-lg-8">
+                            <app-auto-complete [options]="vehicles" label="Veículo" displayField="name"
+                                [value]="selectedVehicle"
+                                (changed)="form.controls['vehicleId'].setValue($event?.id)"></app-auto-complete>
+                        </div>
+
+                        <mat-form-field class="col-12 col-lg-8" appearance="outline">
+                            <mat-label>Ano de Referência</mat-label>
+                            <mat-select formControlName="referenceYearId" required>
+                                <mat-option [value]="referenceYear.id" *ngFor="let referenceYear of referenceYears">
+                                    {{referenceYear.year}}
+                                </mat-option>
+                            </mat-select>
                             <mat-error>Campo obrigatório</mat-error>
                         </mat-form-field>
                     </div>
