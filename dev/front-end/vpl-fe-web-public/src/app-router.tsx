@@ -17,6 +17,7 @@ const AppRouter = () => {
                     <Route path="brands" element={<BrandsPage />} />
                     <Route path="brands/:brandId/models" element={<ModelsPage />} />
                     <Route path="models" element={<ModelsPage />} />
+                    <Route path="priceReference/:priceReference/year/:year/vehicles" element={<VehiclesPage />} />
                     <Route path="brands/:brandId/models/:modelId/vehicles" element={<VehiclesPage />} />
                     <Route path="vehicles" element={<VehiclesPage />} />
                     <Route path="references/:table" element={<ReferencesPage />} />

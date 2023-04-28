@@ -32,7 +32,6 @@ namespace VehiclesService.Api.Controllers
         /// </summary>
         /// <returns>Lista de modelos cadastradas</returns>
         [HttpGet]
-        [Authorize]
         public async Task<IList<ModelVm>?> List()
         {
             return await _mediator.Send(new ListModelQuery());

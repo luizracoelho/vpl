@@ -19,7 +19,7 @@ namespace PriceListsService.Data.Repos
 
         public async Task<IList<ReferenceYear>> ListByPriceReferenceAsync(PriceReference priceReference)
         {
-            return await dbSet.Where(x => x.PriceReference == priceReference).ToListAsync();
+            return await dbSet.Where(x => x.PriceReference == priceReference).OrderByDescending(x => x.Year).ToListAsync();
         }
     }
 }

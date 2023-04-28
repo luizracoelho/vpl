@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PriceListsService.App.Commands.ReferenceYears;
-using PriceListsService.App.Queries.Evaluations;
 using PriceListsService.App.Queries.ReferenceYears;
+using PriceListsService.Domain.Enums;
 using PriceListsService.Domain.ViewModels;
 using PriceListsService.Domain.ViewModels.ReferenceYears;
-using Microsoft.AspNetCore.Authorization;
-using PriceListsService.Domain.Enums;
 
 namespace PriceListsService.Api.Controllers
 {
