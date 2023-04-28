@@ -1,7 +1,6 @@
 import { Search } from "@mui/icons-material";
 import { Grid, IconButton, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useGlobalSearchResult from "../../hooks/global-search-result/use-global-search-result";
 import useSetGlobalSearchResult from "../../hooks/global-search-result/use-set-global-search-result";
@@ -16,9 +15,11 @@ import BrandCard from "../brands-page/brand-card";
 import ModelCard from "../models-page/model-card";
 import VehicleCard from "../vehicles-page/Vehicle-card";
 import HomeCard from "./home-card";
+import useTablesMenu from "../../hooks/menu/use-tables-menu";
 
 const HomePage = () => {
     const menus = useListMenu();
+    const menusTables = useTablesMenu();
     const globalSearch = useGlobalSearch();
     const setGlobalSearchResult = useSetGlobalSearchResult();
     const { globalSearchTerms, globalSearchResult } = useGlobalSearchResult();
@@ -134,6 +135,15 @@ const HomePage = () => {
             <Typography variant="h4" component="h2" sx={{ mb: 3, mt: 10, textAlign: 'center' }}>Selecione uma das opções a seguir:</Typography>
             <Grid container spacing={3} sx={{ mb: 10 }}>
                 {menus.map((menu) => (
+                    <Grid item key={menu.route.toString()} xs={12} sm={6} md={4}>
+                        <HomeCard {...menu} />
+                    </Grid>
+                ))}
+            </Grid>
+
+            <Typography variant="h4" component="h2" sx={{ mb: 3, mt: 10, textAlign: 'center' }}>Selecione uma das tabelas a seguir:</Typography>
+            <Grid container spacing={3} sx={{ mb: 10 }}>
+                {menusTables.map((menu) => (
                     <Grid item key={menu.route.toString()} xs={12} sm={6} md={4}>
                         <HomeCard {...menu} />
                     </Grid>

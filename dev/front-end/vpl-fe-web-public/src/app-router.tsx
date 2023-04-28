@@ -6,6 +6,7 @@ import HomePage from "./pages/home-page";
 import ModelsPage from "./pages/models-page";
 import NotFoundPage from "./pages/not-found-page";
 import VehiclesPage from "./pages/vehicles-page";
+import ReferencesPage from "./pages/references-page";
 
 const AppRouter = () => {
     return (
@@ -18,6 +19,7 @@ const AppRouter = () => {
                     <Route path="models" element={<ModelsPage />} />
                     <Route path="brands/:brandId/models/:modelId/vehicles" element={<VehiclesPage />} />
                     <Route path="vehicles" element={<VehiclesPage />} />
+                    <Route path="references/:table" element={<ReferencesPage />} />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

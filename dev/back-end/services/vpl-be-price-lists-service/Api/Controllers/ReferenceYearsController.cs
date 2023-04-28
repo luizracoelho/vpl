@@ -7,6 +7,7 @@ using PriceListsService.App.Queries.ReferenceYears;
 using PriceListsService.Domain.ViewModels;
 using PriceListsService.Domain.ViewModels.ReferenceYears;
 using Microsoft.AspNetCore.Authorization;
+using PriceListsService.Domain.Enums;
 
 namespace PriceListsService.Api.Controllers
 {
@@ -34,6 +35,15 @@ namespace PriceListsService.Api.Controllers
         public async Task<IList<ReferenceYearVm>?> List()
         {
             return await _mediator.Send(new ListReferenceYearsQuery());
+        }
+
+        [HttpGet("priceReference/{priceReference}")]
+        public async Task<IList<ReferenceYearVm>?> ListByType(PriceReference priceReference)
+        {
+            return await _mediator.Send(new ListReferenceYearByPriceReferenceQuery
+            {
+                PriceReference = priceReference
+            }) ;
         }
 
         /// <summary>
