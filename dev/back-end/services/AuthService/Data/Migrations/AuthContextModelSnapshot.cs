@@ -46,7 +46,7 @@ namespace AuthService.Migrations
                             Id = 1L,
                             Email = "contato@vpl.com.br",
                             Name = "Contato",
-                            Password = "Wun5cxwA59NNaGw9+AwltBdKyAd5Zaqrq4bfSk12qquUbOoMLCFTKU2ApkHBhgEHhyREW8KVs8aDJRKMJDjMPychwJLSL+g6BT7CcCVCxgNn4JWoHauvM9z1M2k6dkE72gTHoUMbAKtRPGsMJnotH7KT0KZhCR8ZHzp+z7VxGpjatf5m934b1Haw3IYoetClUWkH3zH03GTHGblcoyyEKqfYO9x8acoteKQ85/l3Fymgd2UQ74RIMLrERIrY+bpiZHoC5yTThMkmyjHWpaYpnAqvSZZeNQVjAw/MS0/AcJaAwbr+0FwaPtQbS6fAVOHjzW35jQFurPUuTMF12nNUzna2T7KA7YCnPPYhWL7o7cLDRcwsXI5+X3ll9ENS1GATKCXkVimu4W7V22jUS7HRKe9HfAbLDSb2EmtD6VeWb1A="
+                            Password = "CTUsd8zLybZuAyNWBTLEa6EKM4XpZtRPH77DscmRhOYcui9+fbdf/pu3pZJA1bbKiMn1r+SxLorPh24+LxtLVKcNyTFGtsypvR27SJE6sDJrVXTMLcc8rqe7eZwvQLDwlrLRTsS6UV3C33HLv6jd5FSDc+xQPno/aHUtOQdlit2UXF82o1nKitVQ7Uzm5IcECqdZTWTj0CyZLs9xIgJZO1Jipesj+LhaTk7G3MMFjg6JIs0mmuI2BSrqtxg5BUDdY+l8zRqqu4ECsuP57G1VR1HF2U1x7MiRmo4f2q3aBd1P9NaVHF21+JehDGQCRIjOAu+SY0Q7sl42q71TWpDbndEpqVE/MMqciDefbbyDqfub4QfrykjQqib6RezwTyIGUQrRV9c/+j2xlPZ5Yu+tiBbTmk0fJuxUNjiRX90dINo="
                         });
                 });
 #pragma warning restore 612, 618

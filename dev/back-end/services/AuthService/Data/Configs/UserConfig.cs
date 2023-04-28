@@ -10,7 +10,7 @@ namespace AuthService.Data.Configs
         {
             builder.HasKey(x => x.Id);
 
-            var user = new User(1, "Contato", "contato@vpl.com.br", "123456");
+            var user = new User(1, "Contato", "contato@vpl.com.br", "12345678");
 
             builder.HasData(user);
         }
