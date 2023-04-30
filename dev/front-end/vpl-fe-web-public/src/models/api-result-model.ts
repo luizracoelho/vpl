@@ -53,4 +53,10 @@ export class ApiResult{
         
         return apiResult;
     }
+
+    static setNone(): ApiResult {
+        let apiResult = new ApiResult();
+
+        return apiResult;
+    }
 }
