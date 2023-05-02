@@ -1,5 +1,6 @@
 import { Search } from "@mui/icons-material";
-import { Grid, IconButton, TextField, Typography } from "@mui/material";
+import { Cancel } from "@mui/icons-material";
+import { Divider, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useGlobalSearchResult from "../../hooks/global-search-result/use-global-search-result";
@@ -16,6 +17,7 @@ import ModelCard from "../models-page/model-card";
 import VehicleCard from "../vehicles-page/Vehicle-card";
 import HomeCard from "./home-card";
 import useTablesMenu from "../../hooks/menu/use-tables-menu";
+import { useEffect } from "react";
 
 const HomePage = () => {
     const menus = useListMenu();
@@ -76,9 +78,20 @@ const HomePage = () => {
                     fullWidth
                     InputProps={{
                         endAdornment:
-                            <IconButton type="submit" edge="end">
-                                <Search />
-                            </IconButton>
+                            <>
+                                {globalSearchResult.status === ApiResultStatus.loading ||
+                                 globalSearchResult.status === ApiResultStatus.error ||
+                                 globalSearchResult.status === ApiResultStatus.success &&
+                                    <>
+                                        <IconButton type="reset" edge="end" onClick={() => { setGlobalSearchResult(globalSearchTerms, ApiResult.setNone()) }}>
+                                            <Cancel />
+                                        </IconButton>
+                                    </>}
+                                <IconButton type="submit" edge="end">
+                                    <Search />
+                                </IconButton>
+                            </>
+
                     }}
                 />
 
@@ -132,6 +145,7 @@ const HomePage = () => {
             {globalSearchResult.status === ApiResultStatus.success && !globalSearchResult.data.brands?.length && !globalSearchResult.data.models?.length && !globalSearchResult.data.vehicles?.length && <p>:( Nenhum registro econtrado</p>}
 
             {/* Cards pré definidos */}
+            <Divider />
             <Typography variant="h4" component="h2" sx={{ mb: 3, mt: 10, textAlign: 'center' }}>Selecione uma das opções a seguir:</Typography>
             <Grid container spacing={3} sx={{ mb: 10 }}>
                 {menus.map((menu) => (
@@ -140,6 +154,8 @@ const HomePage = () => {
                     </Grid>
                 ))}
             </Grid>
+
+            <Divider />
 
             <Typography variant="h4" component="h2" sx={{ mb: 3, mt: 10, textAlign: 'center' }}>Selecione uma das tabelas a seguir:</Typography>
             <Grid container spacing={3} sx={{ mb: 10 }}>
