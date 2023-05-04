@@ -66,8 +66,6 @@ export class EvaluationFormComponent {
         this.referenceYears = referenceYears;
 
         if (evaluation) {
-          console.log(evaluation);
-
           this.form.patchValue(evaluation);
 
           this.selectedVehicle = this.vehicles.find(x => x.id == evaluation.vehicleId);
