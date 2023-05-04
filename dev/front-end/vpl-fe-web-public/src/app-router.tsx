@@ -7,6 +7,7 @@ import ModelsPage from "./pages/models-page";
 import NotFoundPage from "./pages/not-found-page";
 import VehiclesPage from "./pages/vehicles-page";
 import VeicleTestePage from "./components/chart/line";
+import ReferencesPage from "./pages/references-page";
 
 const AppRouter = () => {
     return (
@@ -17,9 +18,11 @@ const AppRouter = () => {
                     <Route path="brands" element={<BrandsPage />} />
                     <Route path="brands/:brandId/models" element={<ModelsPage />} />
                     <Route path="models" element={<ModelsPage />} />
+                    <Route path="priceReference/:priceReference/year/:year/vehicles" element={<VehiclesPage />} />
                     <Route path="brands/:brandId/models/:modelId/vehicles" element={<VehiclesPage />} />
                     <Route path="vehicles" element={<VehiclesPage />} />
                     <Route path="vehicles-teste" element={<VeicleTestePage />} />
+                    <Route path="references/:table" element={<ReferencesPage />} />
                 </Route>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
