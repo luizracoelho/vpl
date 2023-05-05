@@ -1,27 +1,35 @@
 import { ChevronRight, DirectionsCar, TwoWheeler } from "@mui/icons-material";
 import { Card, CardActionArea, CardContent, List, ListItem, ListItemAvatar, Avatar, Typography, ListItemText, Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { VehicleType } from "../../../models/model";
 import { Vehicle } from "../../../models/vehicle";
 
-const VehicleCard = ({ id, name, type, brandName, brandLogo }: Vehicle) => {
+const VehicleCard = ({ id, name, type, brandName, brandLogo, brandId, modelId, modelYear, productionYear, model }: Vehicle) => {
 
     const navigate = useNavigate();
 
     const goToVehicle = () => {
-        // navigate(`/brands/${brandId}/models/${id}/vehicles`, {
-        //     state: {
-        //         modelName: name,
-        //     }
-        // });
+
+        if (brandId && modelId)
+            navigate(`/brands/${brandId}/models/${modelId}/vehicle/details/${id}`, {
+                state: {
+                    modelName: model,
+                    brandLogo: brandLogo,
+                    brandId: brandId,
+                    vehicleName: name,
+                    modelYear: modelYear,
+                    productionYear: productionYear
+                }
+            });
+
     };
 
     const VehicleTypeAvatar = () => {
         switch (type) {
             case VehicleType.Car:
                 return (<DirectionsCar style={{ fontSize: 48 }} />);
-                case VehicleType.Moto:
-                    return (<TwoWheeler style={{ fontSize: 48 }} />);
+            case VehicleType.Moto:
+                return (<TwoWheeler style={{ fontSize: 48 }} />);
             default:
                 return (<Typography variant="h4">{name[0]}</Typography>);
         }
