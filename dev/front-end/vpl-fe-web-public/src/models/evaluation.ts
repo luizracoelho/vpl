@@ -1,9 +1,10 @@
-import { VehicleType } from "./model";
+import { ReferenceYear } from "./reference-year";
 
 export class Evaluation {
-    id!: number;
+    referenceYearId!: number;
+    referenceYear!: ReferenceYear;
     year!: number;
     value!: number;
     vehicleId!: number;
-    referenceYearId!: number;
+    
 }

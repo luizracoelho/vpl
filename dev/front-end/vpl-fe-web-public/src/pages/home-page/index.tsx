@@ -14,7 +14,7 @@ import { Model } from "../../models/model";
 import { Vehicle } from "../../models/vehicle";
 import BrandCard from "../brands-page/brand-card";
 import ModelCard from "../models-page/model-card";
-import VehicleCard from "../vehicles-page/Vehicle-card";
+import VehicleCard from "../vehicles-page/vehicle-card";
 import HomeCard from "./home-card";
 import useTablesMenu from "../../hooks/menu/use-tables-menu";
 import { useEffect } from "react";

@@ -8,6 +8,8 @@ import NotFoundPage from "./pages/not-found-page";
 import VehiclesPage from "./pages/vehicles-page";
 import VeicleTestePage from "./components/chart/line";
 import ReferencesPage from "./pages/references-page";
+import VehiclePriceReferenceTable from "./pages/vehicles-page/vehicle-price-reference-table";
+import { Vehicle } from "./models/vehicle";
 import VehicleDetails from "./pages/vehicles-page/vehicle-details";
 
 const AppRouter = () => {
@@ -20,6 +22,7 @@ const AppRouter = () => {
                     <Route path="models" element={<ModelsPage />} />
                     <Route path="brands/:brandId/models" element={<ModelsPage />} />
                     <Route path="vehicles" element={<VehiclesPage />} />
+                    <Route path="table-component" element={<VehiclePriceReferenceTable vehicleId={1} />} />
                     <Route path="brands/:brandId/models/:modelId/vehicles" element={<VehiclesPage />} />
                     <Route path="priceReference/:priceReference/year/:year/vehicles" element={<VehiclesPage />} />
                     <Route path="vehicle/details/:id" element={<VehicleDetails />} />

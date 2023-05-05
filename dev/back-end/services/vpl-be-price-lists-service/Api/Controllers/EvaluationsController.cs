@@ -39,7 +39,7 @@ namespace PriceListsService.Api.Controllers
             return await _mediator.Send(new ListEvaluationsQuery());
         }
 
-        /// <summary>
+       
         /// Ação responsável por listar todas as avaliações cadastradas pelo id especificados
         /// </summary>
         /// <param name="id">Id das avaliações a serem listados</param>
@@ -50,8 +50,8 @@ namespace PriceListsService.Api.Controllers
             return await _mediator.Send(new ListEvaluationsByVehicleIdQuery
             {
                 VehicleId = vehicleId
-            });
-        }
+            }); ;
+         }
 
         /// <summary>
         /// Ação responsável por encontrar um avaliação a partir de um Id

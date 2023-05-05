@@ -28,8 +28,6 @@ namespace PriceListsService.App.Services
             var content = new StringContent(JsonSerializer.Serialize(ids), Encoding.UTF8, "application/json");
             httpRequest.Content = content;
 
-            httpRequest.Headers.Add("Authorization", _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString());
-
             var response = await client.SendAsync(httpRequest);
 
             if (response.IsSuccessStatusCode)
