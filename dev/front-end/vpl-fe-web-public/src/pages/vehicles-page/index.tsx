@@ -99,7 +99,9 @@ const VehiclesBrandModelFlow = () => {
                     </Avatar>
                 </Box>
 
-                <VehiclesList vehiclesResult={vehiclesResult} />
+                <VehiclesList vehiclesResult={vehiclesResult}
+                              brandId={parseInt(brandId ? brandId : '')}
+                              modelId={parseInt(modelId ? modelId : '')} />
 
             </>
         )
@@ -145,8 +147,9 @@ const VehiclesBrandModelFlow = () => {
                     </Avatar>
                 </Box>
 
-                <VehiclesList vehiclesResult={vehiclesResult} />
-
+                <VehiclesList vehiclesResult={vehiclesResult}
+                              brandId={parseInt(brandId ? brandId : '')}
+                              modelId={parseInt(modelId ? modelId : '')} />
             </>
         )
     }
@@ -219,7 +222,9 @@ const VehiclesReferenceYearFlow = () => {
                 </Box>
             </Box>
 
-            <VehiclesList vehiclesResult={vehiclesResult} />
+            <VehiclesList vehiclesResult={vehiclesResult} 
+                          yearReference={parseInt(year?year:'')} 
+                          priceReference={parseInt(priceReference?priceReference:'')}/>
         </>
     );
 };

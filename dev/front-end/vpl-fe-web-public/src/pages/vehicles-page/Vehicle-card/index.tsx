@@ -4,34 +4,69 @@ import { useNavigate, useParams } from "react-router-dom";
 import { VehicleType } from "../../../models/model";
 import { Vehicle } from "../../../models/vehicle";
 
-const VehicleCard = ({ id, name, type, brandName, brandLogo, brandId, modelId, modelYear, productionYear, model }: Vehicle) => {
+export interface VehicleCardListProps {
+    vehicle: Vehicle;
+    year?: Number;
+    priceReference?: Number;
+    modelId?: Number;
+    brandId?: Number;
+}
+
+const VehicleCard = ({vehicle, year, priceReference, modelId, brandId}:VehicleCardListProps) => {
 
     const navigate = useNavigate();
 
     const goToVehicle = () => {
 
-        if (brandId && modelId)
-            navigate(`/brands/${brandId}/models/${modelId}/vehicle/details/${id}`, {
+        if (year && priceReference)
+            navigate(`/priceReference/${priceReference}/year/${year}/vehicle/details/${vehicle.id}`, {
                 state: {
-                    modelName: model,
-                    brandLogo: brandLogo,
-                    brandId: brandId,
-                    vehicleName: name,
-                    modelYear: modelYear,
-                    productionYear: productionYear
-                }
+                    modelName: vehicle.model,
+                    brandLogo: vehicle.brandLogo,
+                    brandId: vehicle.brandId,
+                    vehicleName: vehicle.name,
+                    modelYear: vehicle.modelYear,
+                    typeVehicle: vehicle.type,
+                    productionYear: vehicle.productionYear,
+                    priceReference: priceReference,
+                    yearReference: year
+                } // Fluxo Tabela/Ano
             });
+        else if (brandId && modelId)
+            navigate(`/brands/${vehicle.brandId}/models/${vehicle.modelId}/vehicle/details/${vehicle.id}`, {
+                state: {
+                    modelName: vehicle.model,
+                    brandLogo: vehicle.brandLogo,
+                    brandId: vehicle.brandId,
+                    vehicleName: vehicle.name,
+                    modelYear: vehicle.modelYear,
+                    productionYear: vehicle.productionYear,
+                    typeVehicle: vehicle.type
+                } // Fluxo Brand/Model
+            });
+        else
+            navigate(`/vehicle/details/${vehicle.id}`, {
+                state: {
+                    modelName: vehicle.model,
+                    brandLogo: vehicle.brandLogo,
+                    brandId: vehicle.brandId,
+                    vehicleName: vehicle.name,
+                    modelYear: vehicle.modelYear,
+                    productionYear: vehicle.productionYear,
+                    typeVehicle: vehicle.type
+                } // Fluxo padrão
+            }); 
 
     };
 
     const VehicleTypeAvatar = () => {
-        switch (type) {
+        switch (vehicle.type) {
             case VehicleType.Car:
                 return (<DirectionsCar style={{ fontSize: 48 }} />);
             case VehicleType.Moto:
                 return (<TwoWheeler style={{ fontSize: 48 }} />);
             default:
-                return (<Typography variant="h4">{name[0]}</Typography>);
+                return (<Typography variant="h4">{vehicle.name[0]}</Typography>);
         }
     };
 
@@ -53,7 +88,7 @@ const VehicleCard = ({ id, name, type, brandName, brandLogo, brandId, modelId, m
                             </ListItemAvatar>
                             <ListItemText disableTypography
                                 primary={<Typography gutterBottom variant="h6" component="div">
-                                    {name}
+                                    {vehicle.name}
                                 </Typography>}
                                 secondary={<>
                                     <Typography gutterBottom variant="subtitle2" component="div">
@@ -61,17 +96,17 @@ const VehicleCard = ({ id, name, type, brandName, brandLogo, brandId, modelId, m
                                     </Typography>
                                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                         <Avatar
-                                            src={brandLogo}
-                                            alt={brandName}
+                                            src={vehicle.brandLogo}
+                                            alt={vehicle.brandName}
                                             sx={{
                                                 width: 24,
                                                 height: 24,
                                                 mr: 1
                                             }}>
-                                            <Typography variant="h4">{brandName[0]}</Typography>
+                                            <Typography variant="h4">{vehicle.brandName[0]}</Typography>
                                         </Avatar>
                                         <Typography gutterBottom variant="subtitle2" component="div" sx={{ mb: 0 }}>
-                                            {brandName}
+                                            {vehicle.brandName}
                                         </Typography>
                                     </Box>
                                 </>} />
