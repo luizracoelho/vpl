@@ -6,10 +6,14 @@ import VehicleCard from "../vehicle-card";
 
 export interface VehiclesListProps {
     vehiclesResult: ApiResult;
+    yearReference?: Number;
+    priceReference?: Number;
+    modelId?: Number;
+    brandId?: Number;
 }
 
-const VehiclesList = ({ vehiclesResult }: VehiclesListProps) => {
-
+const VehiclesList = ({ vehiclesResult, yearReference, priceReference, modelId, brandId }: VehiclesListProps) => {
+    
     return (
         <>
             {vehiclesResult.status === ApiResultStatus.loading && <p>Carregando...</p>}
@@ -19,7 +23,11 @@ const VehiclesList = ({ vehiclesResult }: VehiclesListProps) => {
                 <Grid container spacing={1} sx={{ my: 3 }}>
                     {vehiclesResult.data.map((vehicle: Vehicle) => (
                         <Grid item key={vehicle.id} xs={12} lg={6}>
-                            <VehicleCard {...vehicle} />
+                            <VehicleCard vehicle={vehicle} 
+                                         year={yearReference} 
+                                         priceReference={priceReference}
+                                         modelId={modelId}
+                                         brandId={brandId}/>
                         </Grid>
                     ))}
                 </Grid>

@@ -11,6 +11,7 @@ namespace PriceListsService.App.Queries.Evaluations
     public class ListEvaluationsByVehicleIdQuery : IRequest<IList<EvaluationVm>>
     {
         public long VehicleId { get; set; }
+
         public class ListEvaluationsByVehicleIdQueryHandler : IRequestHandler<ListEvaluationsByVehicleIdQuery, IList<EvaluationVm>>
         {
             private readonly IUnitOfWork _uow;
@@ -22,6 +23,11 @@ namespace PriceListsService.App.Queries.Evaluations
                 _uow = uow;
                 _mapper = mapper;
                 _vehicleService = vehicleService;
+
+            public ListEvaluationsByVehicleIdQueryHandler(IUnitOfWork uow, IMapper mapper)
+            {
+                _uow = uow;
+                _mapper = mapper;
             }
 
             public async Task<IList<EvaluationVm>> Handle(ListEvaluationsByVehicleIdQuery request, CancellationToken cancellationToken)
@@ -38,6 +44,7 @@ namespace PriceListsService.App.Queries.Evaluations
                     evaluation.VehicleName = vehicles?.FirstOrDefault(x => x.Id == request.VehicleId)?.Name ?? "";
 
                 return result.OrderByDescending(x => x.Year).ThenBy(x => x.VehicleName).ToList();
+                return _mapper.Map<IList<EvaluationVm>>(await _uow.Evaluations.ListByVehicleAsync(request.VehicleId));
             }
         }
     }

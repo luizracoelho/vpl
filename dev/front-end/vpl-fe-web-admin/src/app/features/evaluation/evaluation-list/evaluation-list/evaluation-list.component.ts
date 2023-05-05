@@ -30,7 +30,6 @@ export class EvaluationListComponent {
 
     this._service.list().subscribe({
       next: (evaluations: Evaluation[]) => {
-        console.log(evaluations);
         
         this.evaluations = evaluations;
 

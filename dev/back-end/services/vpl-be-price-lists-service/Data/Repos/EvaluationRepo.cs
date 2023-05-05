@@ -15,5 +15,15 @@ namespace PriceListsService.Data.Repos
                                .OrderBy(x => x.Year)
                                .ToListAsync();
         }
+
+        public async Task<IList<Evaluation>> ListByVehicleAsync(long vehicleId)
+        {
+            var evaluations = await dbSet.Where(x => x.VehicleId == vehicleId)
+                               .Include(x => x.ReferenceYear)
+                               .OrderBy(x => x.Year)
+                               .ToListAsync();
+
+            return evaluations;
+        }
     }
 }

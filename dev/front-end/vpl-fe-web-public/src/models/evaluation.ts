@@ -6,4 +6,5 @@ export class Evaluation {
     year!: number;
     value!: number;
     vehicleId!: number;
+    
 }
