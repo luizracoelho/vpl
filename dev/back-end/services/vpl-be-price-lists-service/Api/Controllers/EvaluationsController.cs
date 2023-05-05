@@ -38,6 +38,20 @@ namespace PriceListsService.Api.Controllers
         }
 
         /// <summary>
+        /// Ação responsável por listar as avaliação cadastradas
+        /// </summary>
+        /// <returns>Lista de valores cadastradas</returns>
+        [HttpGet("vehicle/{vehicleId}")]
+        public async Task<IList<EvaluationVm>?> ListByVehiceId(long vehicleId)
+        {
+            return await _mediator.Send(new ListEvaluationsByVehicleIdQuery
+            {
+                VehicleId = vehicleId
+            }); ;
+
+        }
+
+        /// <summary>
         /// Ação responsável por encontrar um avaliação a partir de um Id
         /// </summary>
         /// <param name="id">Id da marca a ser encontrada</param>

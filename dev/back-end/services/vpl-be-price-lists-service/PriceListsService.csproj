@@ -34,10 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App\Queries\Evaluations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\vpl-be-vehicles-service\VehiclesService.csproj" />
   </ItemGroup>
 
