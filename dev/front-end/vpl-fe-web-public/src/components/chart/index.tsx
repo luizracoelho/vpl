@@ -1,18 +1,19 @@
-import { Line } from "react-chartjs-2";
 import {
-    Chart as ChartJS,
-    LineElement,
     CategoryScale,
+    Chart as ChartJS,
+    ChartOptions,
+    Legend,
+    LineElement,
     LinearScale,
     PointElement,
-    Legend,
     Tooltip
 } from 'chart.js';
-import { Vehicle } from "../../models/vehicle";
 import { useEffect, useState } from "react";
-import { ApiResult, ApiResultStatus } from "../../models/api-result-model";
+import { Line } from "react-chartjs-2";
 import useListEvaluationsByVehicleId from "../../hooks/evaluation/use-list-evaluations-by-vehicle-id";
+import { ApiResult, ApiResultStatus } from "../../models/api-result-model";
 import { Evaluation } from "../../models/evaluation";
+import { PriceReference } from '../../enums/price-reference.enum';
 
 ChartJS.register(
     LineElement,
@@ -23,41 +24,43 @@ ChartJS.register(
     Tooltip
 )
 
-const ChartPage = ({ id }: Vehicle) => {
+interface ChartComponentProps {
+    vehicleId: number,
+    priceReference: PriceReference
+}
+
+const ChartComponent = ({ vehicleId, priceReference }: ChartComponentProps) => {
 
     const [evaluationsResult, setEvaluationsResult] = useState<ApiResult>(ApiResult.start());
 
     const listEvaluationsByVehicleId = useListEvaluationsByVehicleId();
 
     const fetchData = async () => {
-        setEvaluationsResult(await listEvaluationsByVehicleId(id));
+        setEvaluationsResult(await listEvaluationsByVehicleId(vehicleId, priceReference));
     };
 
     useEffect(() => {
-        if (evaluationsResult.status === ApiResultStatus.loading) {
-            if (id > 0)
-                fetchData();
+        if (evaluationsResult.status === ApiResultStatus.loading && vehicleId > 0) {
+            fetchData();
         }
     });
 
-
-
     const data = {
-        labels: ['2018'],
+        labels: Array.of<string>(),
         datasets: [
             {
                 label: 'Valores por ano',
-                data: [67000],
-                backgroundColor: 'aqua',
-                borderColor: 'aqua',
-                pointBorderColor: 'blue',
-                fill: true,
+                data: Array.of<number>(),
+                backgroundColor: priceReference === PriceReference.Fipe ? 'aqua' : 'lime',
+                borderColor: priceReference === PriceReference.Fipe ? 'aqua' : 'lime',
+                pointBorderColor: priceReference === PriceReference.Fipe ? 'blue' : 'olive',
+                fill: 'start',
                 tension: 0.4
             }
         ]
     }
 
-    const options = {
+    const options: any = {
         plugins: {
             legend: true
         },
@@ -94,7 +97,6 @@ const ChartPage = ({ id }: Vehicle) => {
                         <Line
                             data={data}
                             options={options}>
-
                         </Line>
                     </div>
                 </>
@@ -107,4 +109,4 @@ const ChartPage = ({ id }: Vehicle) => {
     );
 }
 
-export default ChartPage;
+export default ChartComponent;

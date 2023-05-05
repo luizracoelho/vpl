@@ -1,6 +1,6 @@
 import { HttpStatusCode } from "axios";
+import { PriceReference } from "../enums/price-reference.enum";
 import AppHttp from "../http/app-http";
-import { Vehicle } from "../models/vehicle";
 import { Evaluation } from "../models/evaluation";
 
 export default class EvaluationsService {
@@ -10,8 +10,8 @@ export default class EvaluationsService {
         return EvaluationsService.myInstance ??= new EvaluationsService();
     }
 
-    async listByVehicleId(vehicleId: number): Promise<Evaluation[]> {
-        const response = await AppHttp.instance.get(`/prices/evaluations/listById/${vehicleId}`);
+    async listByVehicleId(vehicleId: number, priceReference: PriceReference): Promise<Evaluation[]> {
+        const response = await AppHttp.instance.get(`/prices/evaluations/listById/${vehicleId}/${priceReference}`);
 
         if (response.status === HttpStatusCode.Ok)
             return response.data;

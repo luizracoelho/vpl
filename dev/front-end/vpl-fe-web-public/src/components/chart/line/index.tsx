@@ -1,5 +1,5 @@
 import { Line } from "react-chartjs-2";
-import ChartPage from "..";
+import ChartComponent from "..";
 
 import { useEffect, useState } from "react";
 import { ApiResult, ApiResultStatus } from "../../../models/api-result-model";
@@ -29,7 +29,7 @@ function VeicleTestePage() {
       {vehiclesResult.status === ApiResultStatus.success && vehiclesResult.data.length > 0 &&
         <>
           <h2 style={{ textAlign: "center" }}>Detalhe de Veiculo teste</h2>
-          <ChartPage {...vehiclesResult.data[0]}></ChartPage>
+          <ChartComponent {...vehiclesResult.data[0]}></ChartComponent>
         </>
       }
 

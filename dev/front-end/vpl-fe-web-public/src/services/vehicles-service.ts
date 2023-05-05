@@ -26,4 +26,13 @@ export default class VehiclesService {
         else
             throw new Error(response.data);
     };
+
+    async find(id: number): Promise<Vehicle> {
+        const response = await AppHttp.instance.get(`/vehicles/vehicles/${id}`);
+
+        if (response.status === HttpStatusCode.Ok)
+            return response.data;
+        else
+            throw new Error(response.data);
+    };
 }

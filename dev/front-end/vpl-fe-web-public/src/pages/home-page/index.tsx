@@ -18,6 +18,8 @@ import VehicleCard from "../vehicles-page/vehicle-card";
 import HomeCard from "./home-card";
 import useTablesMenu from "../../hooks/menu/use-tables-menu";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import SEO from "../../components/seo";
 
 const HomePage = () => {
     const menus = useListMenu();
@@ -38,6 +40,10 @@ const HomePage = () => {
 
     return (
         <>
+            <SEO title="Página Inicial"
+                description="Saiba tudo sobre os preços dos veículos."
+                keywords="fipe, molicar, chevrolet, carro" />
+
             {/* Banner principal */}
             <Box sx={{ position: 'relative' }}>
                 <img
@@ -80,8 +86,8 @@ const HomePage = () => {
                         endAdornment:
                             <>
                                 {globalSearchResult.status === ApiResultStatus.loading ||
-                                 globalSearchResult.status === ApiResultStatus.error ||
-                                 globalSearchResult.status === ApiResultStatus.success &&
+                                    globalSearchResult.status === ApiResultStatus.error ||
+                                    globalSearchResult.status === ApiResultStatus.success &&
                                     <>
                                         <IconButton type="reset" edge="end" onClick={() => { setGlobalSearchResult(globalSearchTerms, ApiResult.setNone()) }}>
                                             <Cancel />

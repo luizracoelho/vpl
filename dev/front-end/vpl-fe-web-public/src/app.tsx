@@ -5,16 +5,28 @@ import useThemeMode from "./hooks/theme-mode/use-theme-mode";
 
 const App = () => {
 
+    const components = {
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    borderRadius: '2rem',
+                }
+            }
+        },
+    };
+
     const lightTheme = createTheme({
         palette: {
-            mode: 'light'
-        }
+            mode: 'light',
+        },
+        components: components
     });
 
     const darkTheme = createTheme({
         palette: {
             mode: 'dark'
-        }
+        },
+        components: components
     });
 
     const themeMode = useThemeMode();

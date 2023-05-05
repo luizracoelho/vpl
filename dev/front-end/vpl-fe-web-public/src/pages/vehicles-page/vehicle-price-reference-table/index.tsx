@@ -2,20 +2,22 @@ import { Table, TableRow, TableCell, TableHead, TableBody, TableContainer } from
 import { useState, useEffect } from "react";
 import { ApiResult, ApiResultStatus } from "../../../models/api-result-model";
 import { Evaluation } from "../../../models/evaluation";
-import useListEvaluationsByVehicleId from "../../../hooks/evaluation/use-list-evaluation-by-vehicle-id";
+import useListEvaluationsByVehicleId from "../../../hooks/evaluation/use-list-evaluations-by-vehicle-id";
+import { PriceReference } from "../../../enums/price-reference.enum";
 
 interface VehiclePriceReferenceTableProps {
     vehicleId: number;
+    priceReference: PriceReference
 }
 
-const VehiclePriceReferenceTable = ({ vehicleId }: VehiclePriceReferenceTableProps) => {
+const VehiclePriceReferenceTable = ({ vehicleId, priceReference }: VehiclePriceReferenceTableProps) => {
 
     const [evaluationsResult, setEvaluationsResult] = useState<ApiResult>(ApiResult.start());
 
     const listEvaluationsByVehicleId = useListEvaluationsByVehicleId();
 
     const fetchData = async () => {
-        setEvaluationsResult(await listEvaluationsByVehicleId(vehicleId));
+        setEvaluationsResult(await listEvaluationsByVehicleId(vehicleId, priceReference));
     };
 
     useEffect(() => {
@@ -40,19 +42,19 @@ const VehiclePriceReferenceTable = ({ vehicleId }: VehiclePriceReferenceTablePro
                     <Table sx={{ borderCollapse: 'separate', borderSpacing: '0 8px', '& td': { border: 'none', padding: '8px', maxWidth: '80px', lineHeight: 1.2 }, '& th': { border: 'none', padding: '8px', lineHeight: 1.2 } }}>
                         <TableHead>
                             <TableRow>
-                                <TableCell sx={{ borderRight: '3px solid white', textAlign: 'center', width: '50%', fontSize: '1.2rem' }}>FIPE</TableCell>
-                                <TableCell sx={{ textAlign: 'center', width: '50%', fontSize: '1.2rem' }}>MOLICAR</TableCell>
+                                <TableCell sx={{ borderRight: '3px solid white', textAlign: 'center', width: '50%', fontSize: '1.2rem' }}>Ano</TableCell>
+                                <TableCell sx={{ textAlign: 'center', width: '50%', fontSize: '1.2rem' }}>Valor</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {
                                 evaluationsResult.data.map((evaluation: Evaluation) => (
-                                    <TableRow key={`${evaluation.referenceYearId}-${evaluation.year}`} sx={{ '& > *:first-child': { borderRight: '3px solid white', height: '100%' } }}>
+                                    <TableRow key={`${evaluation.referenceYearId}-${evaluation.year}`}>
                                         <TableCell sx={{ textAlign: 'center', width: '50%', height: '100%', borderRight: '3px solid white' }}>
-                                            {evaluation.year} -  {evaluation.value}
+                                            {evaluation.year}
                                         </TableCell>
                                         <TableCell sx={{ textAlign: 'center', width: '50%' }}>
-                                            {evaluation.year} -  {evaluation.value}
+                                            {evaluation.value}
                                         </TableCell>
                                     </TableRow>
                                 ))

@@ -10,6 +10,7 @@ using PriceListsService.Domain.ViewModels.Evaluations;
 using Microsoft.AspNetCore.Authorization;
 using VehiclesService.App.Queries.Vehicles;
 using VehiclesService.Domain.ViewModels.Vehicles;
+using PriceListsService.Domain.Enums;
 
 namespace PriceListsService.Api.Controllers
 {
@@ -44,13 +45,14 @@ namespace PriceListsService.Api.Controllers
         /// </summary>
         /// <param name="id">Id das avaliações a serem listados</param>
         /// <returns>Lista de avaliações cadastradas</returns>
-        [HttpGet("listById/{vehicleId}")]
-        public async Task<IList<EvaluationVm>?> ListById(long vehicleId)
+        [HttpGet("listById/{vehicleId}/{priceReference}")]
+        public async Task<IList<EvaluationVm>?> ListById(long vehicleId, PriceReference priceReference)
         {
             return await _mediator.Send(new ListEvaluationsByVehicleIdQuery
             {
-                VehicleId = vehicleId
-            }); ;
+                VehicleId = vehicleId,
+                PriceReference = priceReference
+            });
          }
 
         /// <summary>

@@ -4,6 +4,7 @@ using MediatR;
 
 using PriceListsService.Domain.Contracts;
 using PriceListsService.Domain.Contracts.Services;
+using PriceListsService.Domain.Enums;
 using PriceListsService.Domain.ViewModels.Evaluations;
 
 namespace PriceListsService.App.Queries.Evaluations
@@ -11,6 +12,7 @@ namespace PriceListsService.App.Queries.Evaluations
     public class ListEvaluationsByVehicleIdQuery : IRequest<IList<EvaluationVm>>
     {
         public long VehicleId { get; set; }
+        public PriceReference PriceReference { get; set; }
 
         public class ListEvaluationsByVehicleIdQueryHandler : IRequestHandler<ListEvaluationsByVehicleIdQuery, IList<EvaluationVm>>
         {
@@ -23,16 +25,11 @@ namespace PriceListsService.App.Queries.Evaluations
                 _uow = uow;
                 _mapper = mapper;
                 _vehicleService = vehicleService;
-
-            public ListEvaluationsByVehicleIdQueryHandler(IUnitOfWork uow, IMapper mapper)
-            {
-                _uow = uow;
-                _mapper = mapper;
             }
 
             public async Task<IList<EvaluationVm>> Handle(ListEvaluationsByVehicleIdQuery request, CancellationToken cancellationToken)
             {
-                var evaluations = await _uow.Evaluations.ListAsync();
+                var evaluations = await _uow.Evaluations.ListByVehiclePriceReferenceAsync(request.VehicleId, request.PriceReference);
 
                 var vehiclesIds = evaluations.Select(x => x.VehicleId).Distinct().ToList();
 
@@ -43,8 +40,7 @@ namespace PriceListsService.App.Queries.Evaluations
                 foreach (var evaluation in result)
                     evaluation.VehicleName = vehicles?.FirstOrDefault(x => x.Id == request.VehicleId)?.Name ?? "";
 
-                return result.OrderByDescending(x => x.Year).ThenBy(x => x.VehicleName).ToList();
-                return _mapper.Map<IList<EvaluationVm>>(await _uow.Evaluations.ListByVehicleAsync(request.VehicleId));
+                return result;
             }
         }
     }
