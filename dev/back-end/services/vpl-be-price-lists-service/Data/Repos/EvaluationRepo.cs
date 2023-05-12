@@ -34,7 +34,7 @@ namespace PriceListsService.Data.Repos
                                .OrderBy(x => x.Year)
                                .ToListAsync();
 
-            return evaluations; 
+            return evaluations;
         }
     }
 }
