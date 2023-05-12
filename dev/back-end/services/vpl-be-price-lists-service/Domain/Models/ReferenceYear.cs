@@ -7,7 +7,7 @@ namespace PriceListsService.Domain.Models
         #region Properties
         public int Year { get; private set; }
         public PriceReference PriceReference { get; private set; }
-        public IList<Evaluation> Evaluationn { get; private set; }
+        public IList<Evaluation> Evaluations { get; private set; }
         #endregion
 
         #region Constructors

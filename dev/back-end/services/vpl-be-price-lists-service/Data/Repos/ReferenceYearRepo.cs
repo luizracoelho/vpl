@@ -10,6 +10,10 @@ namespace PriceListsService.Data.Repos
     {
         public ReferenceYearRepo(PriceListsContext context) : base(context) { }
 
+        public async Task<ReferenceYear> FindByPriceYearReference(PriceReference priceReference, long year)
+            => await dbSet.Include(x => x.Evaluations)
+                          .FirstOrDefaultAsync( x => x.PriceReference == priceReference && x.Year == year);
+
         public override async Task<IList<ReferenceYear>> ListAsync()
         {
             return await dbSet.OrderByDescending(x => x.Year)

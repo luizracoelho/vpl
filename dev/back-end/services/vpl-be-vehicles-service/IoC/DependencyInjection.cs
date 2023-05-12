@@ -4,12 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
+using VehiclesService.App.Services;
 using VehiclesService.Data;
 using VehiclesService.Data.Context;
 using VehiclesService.Data.Repos;
 using VehiclesService.Domain.Contracts;
 using VehiclesService.Domain.Contracts.Context;
 using VehiclesService.Domain.Contracts.Repos;
+using VehiclesService.Domain.Contracts.Services;
 using VehiclesService.Domain.ViewModels;
 
 namespace VehiclesService.IoC
@@ -62,6 +65,13 @@ namespace VehiclesService.IoC
                         options.SaveToken = true;
                         options.TokenValidationParameters = GetValidationParameters();
                     });
+            #endregion
+
+            #region IntegrationServices
+            services.AddHttpClient();
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<IReferenceYearService, ReferenceYearService>();
             #endregion
 
             return services;
