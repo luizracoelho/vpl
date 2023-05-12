@@ -1,14 +1,14 @@
 import { DirectionsCar, TwoWheeler } from "@mui/icons-material";
 import { Avatar, Box, Card, CardContent, CardHeader, Chip, Divider, Grid, Typography } from "@mui/material";
-import { useLocation, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import ChartComponent from "../../../components/chart";
 import { PriceReference } from "../../../enums/price-reference.enum";
+import useListEvaluationsByVehicleId from "../../../hooks/evaluation/use-list-evaluations-by-vehicle-id";
+import { EvaluationPriceReference } from "../../../models/EvaluationPriceReference";
+import { ApiResult, ApiResultStatus } from "../../../models/api-result-model";
 import { VehicleType } from "../../../models/model";
 import VehiclePriceReferenceTable from "../vehicle-price-reference-table";
-import ChartComponent from "../../../components/chart";
-import { Vehicle } from "../../../models/vehicle";
-import { useEffect, useState } from "react";
-import { ApiResult, ApiResultStatus } from "../../../models/api-result-model";
-import useFindVehicle from "../../../hooks/vehicle/use-find-vehicle";
 
 enum Flows {
     BrandModel,
@@ -16,7 +16,8 @@ enum Flows {
     Default
 }
 
-const VehicleDetailsDefault = ({ name, type, modelYear, productionYear, model }: Vehicle) => {
+const VehicleDetailsDefault = ({ vehicle, evaluationsFipe, evaluationsMolicar }: EvaluationPriceReference) => {
+    const { name, type, modelYear, productionYear, model } = vehicle;
     const { id, year } = useParams();
 
     return (
@@ -82,10 +83,10 @@ const VehicleDetailsDefault = ({ name, type, modelYear, productionYear, model }:
                 <CardContent>
                     <Grid container>
                         <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable vehicleId={parseInt(id!)} priceReference={PriceReference.Fipe} yearSelect={parseInt(year!)} />
+                            <VehiclePriceReferenceTable evaluations={evaluationsFipe} yearSelect={parseInt(year!)} />
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <ChartComponent vehicleId={parseInt(id!)} priceReference={PriceReference.Fipe} />
+                            <ChartComponent evaluations={evaluationsFipe} priceReference={PriceReference.Fipe} />
                         </Grid>
                     </Grid>
                 </CardContent>
@@ -96,10 +97,10 @@ const VehicleDetailsDefault = ({ name, type, modelYear, productionYear, model }:
                 <CardContent>
                     <Grid container>
                         <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable vehicleId={parseInt(id!)} priceReference={PriceReference.Molicar} yearSelect={parseInt(year!)} />
+                            <VehiclePriceReferenceTable evaluations={evaluationsMolicar} yearSelect={parseInt(year!)} />
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <ChartComponent vehicleId={parseInt(id!)} priceReference={PriceReference.Molicar} />
+                            <ChartComponent evaluations={evaluationsMolicar} priceReference={PriceReference.Molicar} />
                         </Grid>
                     </Grid>
                 </CardContent>
@@ -109,7 +110,8 @@ const VehicleDetailsDefault = ({ name, type, modelYear, productionYear, model }:
     );
 }
 
-const VehicleDetailsBrandModel = ({ name, type, modelYear, productionYear, model, brandLogo }: Vehicle) => {
+const VehicleDetailsBrandModel = ({ vehicle, evaluationsFipe, evaluationsMolicar }: EvaluationPriceReference) => {
+    const { name, type, modelYear, productionYear, model, brandLogo } = vehicle;
     const { vehicleId, year } = useParams();
 
     return (
@@ -181,10 +183,10 @@ const VehicleDetailsBrandModel = ({ name, type, modelYear, productionYear, model
                 <CardContent>
                     <Grid container>
                         <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Fipe} yearSelect={parseInt(year!)} />
+                            <VehiclePriceReferenceTable evaluations={evaluationsFipe} yearSelect={parseInt(year!)} />
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <ChartComponent vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Fipe} />
+                            <ChartComponent evaluations={evaluationsFipe} priceReference={PriceReference.Fipe} />
                         </Grid>
                     </Grid>
                 </CardContent>
@@ -195,10 +197,10 @@ const VehicleDetailsBrandModel = ({ name, type, modelYear, productionYear, model
                 <CardContent>
                     <Grid container>
                         <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Molicar} yearSelect={parseInt(year!)} />
+                            <VehiclePriceReferenceTable evaluations={evaluationsMolicar} yearSelect={parseInt(year!)} />
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <ChartComponent vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Molicar} />
+                            <ChartComponent evaluations={evaluationsMolicar} priceReference={PriceReference.Molicar} />
                         </Grid>
                     </Grid>
                 </CardContent>
@@ -207,8 +209,13 @@ const VehicleDetailsBrandModel = ({ name, type, modelYear, productionYear, model
     );
 }
 
-const VehicleDetailsPriceYear = ({ name, type, modelYear, productionYear, model }: Vehicle) => {
+const VehicleDetailsPriceYear = ({ vehicle, evaluationsFipe, evaluationsMolicar }: EvaluationPriceReference) => {
+    const { name, type, modelYear, productionYear, model } = vehicle;
     const { vehicleId, priceReference, year } = useParams();
+
+    const valueInYear = parseInt(priceReference!) === PriceReference.Fipe ?
+        evaluationsFipe.find(x => x.year === parseInt(year!))?.value :
+        evaluationsMolicar.find(x => x.year === parseInt(year!))?.value;
 
     return (
         <>
@@ -269,7 +276,7 @@ const VehicleDetailsPriceYear = ({ name, type, modelYear, productionYear, model 
                             <Typography variant='overline' component='small'>Valor no Ano</Typography>
                         </Box>
                         <Box>
-                            <Chip color="primary" label={year} sx={{ mr: 1 }} /><Typography variant='body1' component='strong'>?????</Typography>
+                            <Chip color="primary" label={year} sx={{ mr: 1 }} /><Typography variant='body1' component='strong'>{valueInYear}</Typography>
                         </Box>
                     </Grid>
                     <Divider />
@@ -282,10 +289,10 @@ const VehicleDetailsPriceYear = ({ name, type, modelYear, productionYear, model 
                     <CardContent>
                         <Grid container>
                             <Grid item xs={12} lg={6}>
-                                <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Fipe} yearSelect={parseInt(year!)} />
+                                <VehiclePriceReferenceTable evaluations={evaluationsFipe} yearSelect={parseInt(year!)} />
                             </Grid>
                             <Grid item xs={12} lg={6}>
-                                <ChartComponent vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Fipe} />
+                                <ChartComponent evaluations={evaluationsFipe} priceReference={PriceReference.Fipe} />
                             </Grid>
                         </Grid>
                     </CardContent>
@@ -298,10 +305,10 @@ const VehicleDetailsPriceYear = ({ name, type, modelYear, productionYear, model 
                     <CardContent>
                         <Grid container>
                             <Grid item xs={12} lg={6}>
-                                <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Molicar} yearSelect={parseInt(year!)} />
+                                <VehiclePriceReferenceTable evaluations={evaluationsMolicar} yearSelect={parseInt(year!)} />
                             </Grid>
                             <Grid item xs={12} lg={6}>
-                                <ChartComponent vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Molicar} />
+                                <ChartComponent evaluations={evaluationsMolicar} priceReference={PriceReference.Molicar} />
                             </Grid>
                         </Grid>
                     </CardContent>
@@ -365,18 +372,18 @@ function getFlow(modelId: any, brandId: any,
 }
 
 const VehicleDetails = () => {
-    const [vehicleResult, setVehicleResult] = useState<ApiResult>(ApiResult.start());
+    const [evaluationsResult, setEvaluationsResult] = useState<ApiResult>(ApiResult.start());
     const { vehicleId, modelId, brandId, priceReference, year } = useParams();
     const flow = getFlow(modelId, brandId, priceReference, year);
 
-    const findVehicle = useFindVehicle();
+    const listEvaluationsByVehicleId = useListEvaluationsByVehicleId();
 
     const fetchData = async () => {
-        setVehicleResult(await findVehicle(parseInt(vehicleId!)));
-    }
+        setEvaluationsResult(await listEvaluationsByVehicleId(parseInt(vehicleId!), priceReference ? parseInt(priceReference!) : null));
+    };
 
     useEffect(() => {
-        if (vehicleResult.status === ApiResultStatus.loading)
+        if (evaluationsResult.status === ApiResultStatus.loading)
             fetchData();
     })
 
@@ -384,21 +391,21 @@ const VehicleDetails = () => {
 
     switch (flow) {
         case Flows.BrandModel:
-            renderFlow = <VehicleDetailsBrandModel {...vehicleResult.data} />;
+            renderFlow = <VehicleDetailsBrandModel {...evaluationsResult.data} />;
             break;
         case Flows.PriceYear:
-            renderFlow = <VehicleDetailsPriceYear {...vehicleResult.data} />;
+            renderFlow = <VehicleDetailsPriceYear {...evaluationsResult.data} />;
             break;
         default:
-            renderFlow = <VehicleDetailsDefault {...vehicleResult.data} />
+            renderFlow = <VehicleDetailsDefault {...evaluationsResult.data} />
             break;
     }
 
     return (
         <>
-            {vehicleResult.status === ApiResultStatus.loading && <p>Carregando...</p>}
-            {vehicleResult.status === ApiResultStatus.error && <p>{vehicleResult.errorMessage ?? '-'}</p>}
-            {vehicleResult.status === ApiResultStatus.success && renderFlow}
+            {evaluationsResult.status === ApiResultStatus.loading && <p>Carregando...</p>}
+            {evaluationsResult.status === ApiResultStatus.error && <p>{evaluationsResult.errorMessage ?? '-'}</p>}
+            {evaluationsResult.status === ApiResultStatus.success && renderFlow}
         </>
     );
 }

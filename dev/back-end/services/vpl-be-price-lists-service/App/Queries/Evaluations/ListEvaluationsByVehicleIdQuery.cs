@@ -7,8 +7,6 @@ using PriceListsService.Domain.Contracts.Services;
 using PriceListsService.Domain.Enums;
 using PriceListsService.Domain.ViewModels.Evaluations;
 
-using VehiclesService.Domain.ViewModels.Vehicles;
-
 namespace PriceListsService.App.Queries.Evaluations
 {
     public class ListEvaluationsByVehicleIdQuery : IRequest<EvaluationPriceReferenceVm>
@@ -52,9 +50,7 @@ namespace PriceListsService.App.Queries.Evaluations
 
                 var evaluationsPriceReference = new EvaluationPriceReferenceVm();
 
-                var vehicleVm = _mapper.Map<VehicleVm>(vehicles.FirstOrDefault(x => x.Id == request.VehicleId));
-
-                evaluationsPriceReference.Vehicle = vehicleVm;
+                evaluationsPriceReference.Vehicle = vehicles.FirstOrDefault(x => x.Id == request.VehicleId);
 
                 if (request.PriceReference == null || request.PriceReference == Domain.Enums.PriceReference.Fipe)
                     evaluationsPriceReference.EvaluationsFipe = listEvaluationsFipe;

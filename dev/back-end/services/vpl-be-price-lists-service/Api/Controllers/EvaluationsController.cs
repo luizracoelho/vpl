@@ -1,16 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using PriceListsService.App.Commands.Evaluations;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PriceListsService.App.Commands.Evaluations;
 using PriceListsService.App.Queries.Evaluations;
-using PriceListsService.App.Queries.ReferenceYears;
+using PriceListsService.Domain.Enums;
 using PriceListsService.Domain.ViewModels;
 using PriceListsService.Domain.ViewModels.Evaluations;
-using Microsoft.AspNetCore.Authorization;
-using VehiclesService.App.Queries.Vehicles;
-using VehiclesService.Domain.ViewModels.Vehicles;
-using PriceListsService.Domain.Enums;
 
 namespace PriceListsService.Api.Controllers
 {
@@ -45,7 +41,7 @@ namespace PriceListsService.Api.Controllers
         /// </summary>
         /// <param name="id">Id das avaliações a serem listados</param>
         /// <returns>Lista de avaliações cadastradas</returns>
-        [HttpGet("listById/{vehicleId}/{priceReference}")]
+        [HttpGet("listById/{vehicleId}/{priceReference?}")]
         public async Task<EvaluationPriceReferenceVm> ListById(long vehicleId, PriceReference? priceReference)
         {
             return await _mediator.Send(new ListEvaluationsByVehicleIdQuery

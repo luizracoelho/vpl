@@ -21,7 +21,6 @@ export default class VehiclesService {
 
     async listByPriceYearReference(priceReference: PriceReference, year: Number): Promise<Vehicle[]> {
         const response = await AppHttp.instance.get(`/vehicles/vehicles/${priceReference}/${year}`);
-        console.log(response)
         if (response.status === HttpStatusCode.Ok)
             return response.data;
         else

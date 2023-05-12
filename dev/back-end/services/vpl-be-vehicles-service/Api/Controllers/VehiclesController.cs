@@ -73,7 +73,7 @@ namespace VehiclesService.Api.Controllers
         /// <param name="priceReferenceNumber">Preço de referência</param>
         /// <param name="year">Ano de referência</param>
         /// <returns>veiculo encontrada</returns>
-        [HttpGet("vehicles/{priceReferenceNumber}/{year}")]
+        [HttpGet("{priceReferenceNumber}/{year}")]
         public async Task<IList<VehicleVm>?> listByPriceYearReference(long priceReferenceNumber, long year) 
             => await _mediator.Send(new ListVehicleByReferenceYearQuery
                 {

@@ -4,7 +4,7 @@ import { ApiResult } from "../../models/api-result-model";
 import EvaluationsService from "../../services/evaluations-service";
 
 const useListEvaluationsByVehicleId = () => {
-    return async (vehicleId: number, priceReference: PriceReference) => {
+    return async (vehicleId: number, priceReference: PriceReference | null) => {
         try {
             const data = await EvaluationsService.instance.listByVehicleId(vehicleId, priceReference);
             return ApiResult.success<EvaluationPriceReference>(data);

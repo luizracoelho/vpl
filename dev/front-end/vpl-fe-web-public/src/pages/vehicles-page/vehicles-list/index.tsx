@@ -1,6 +1,5 @@
 import { Grid } from "@mui/material";
 import { ApiResult, ApiResultStatus } from "../../../models/api-result-model";
-import { Model } from "../../../models/model";
 import { Vehicle } from "../../../models/vehicle";
 import VehicleCard from "../vehicle-card";
 

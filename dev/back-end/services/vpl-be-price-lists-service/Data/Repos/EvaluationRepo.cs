@@ -29,12 +29,16 @@ namespace PriceListsService.Data.Repos
 
         public async Task<IList<Evaluation>> ListByVehiclePriceReferenceAsync(long vehicleId, PriceReference? priceReference)
         {
-            var evaluations = await dbSet.Where(x => x.VehicleId == vehicleId && x.ReferenceYear.PriceReference == priceReference)
-                               .Include(x => x.ReferenceYear)
-                               .OrderBy(x => x.Year)
-                               .ToListAsync();
+            if (priceReference != null)
+                return await dbSet.Where(x => x.VehicleId == vehicleId && x.ReferenceYear.PriceReference == priceReference)
+                                   .Include(x => x.ReferenceYear)
+                                   .OrderBy(x => x.Year)
+                                   .ToListAsync();
 
-            return evaluations;
+            return await dbSet.Where(x => x.VehicleId == vehicleId)
+                   .Include(x => x.ReferenceYear)
+                   .OrderBy(x => x.Year)
+                   .ToListAsync();
         }
     }
 }

@@ -7,8 +7,6 @@ using PriceListsService.Domain.Models;
 using PriceListsService.Domain.ViewModels.Evaluations;
 using PriceListsService.Domain.ViewModels.ReferenceYears;
 
-using VehiclesService.Domain.Enums;
-
 
 namespace PriceListsService.Domain.ViewModels
 {
@@ -41,15 +39,6 @@ namespace PriceListsService.Domain.ViewModels
             CreateMap<CreateReferenceYearVm, CreateReferenceYearCommand>();
             CreateMap<CreateReferenceYearVm, UpdateReferenceYearCommand>();
             #endregion
-
-            //#region Vehicle
-            //CreateMap<Vehicle, VehicleVm>()
-            //    .ForMember(vm => vm.Name, opt =>
-            //    {
-            //        opt.MapFrom(vehicle => vehicle.Name != null ? vehicle.Name : "");
-            //    });
-            //#endregion
-
         }
     }
 }
