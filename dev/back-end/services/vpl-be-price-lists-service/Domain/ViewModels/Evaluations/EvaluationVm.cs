@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PriceListsService.Domain.Enums;
+using PriceListsService.Domain.Models;
+using PriceListsService.Domain.ViewModels.ReferenceYears;
+
+using System.ComponentModel.DataAnnotations;
 
 namespace PriceListsService.Domain.ViewModels.Evaluations
 {
@@ -21,5 +25,7 @@ namespace PriceListsService.Domain.ViewModels.Evaluations
 
         public string VehicleName { get; set; }
         public int ReferenceYearName { get; set; }
+        public PriceReference ReferecenYearPriceReference { get; set; }
+
     }
 }
