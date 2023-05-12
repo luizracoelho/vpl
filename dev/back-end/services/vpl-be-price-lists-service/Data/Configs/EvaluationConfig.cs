@@ -11,7 +11,7 @@ namespace PriceListsService.Data.Configs
             builder.HasKey(x => x.Id);
 
             builder.HasOne(evaluation => evaluation.ReferenceYear)
-                   .WithMany(referenceYear => referenceYear.Evaluationn)
+                   .WithMany(referenceYear => referenceYear.Evaluations)
                    .HasForeignKey(evaluation => evaluation.ReferenceYearId)
                    .OnDelete(DeleteBehavior.Restrict);
         }

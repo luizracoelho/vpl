@@ -6,5 +6,6 @@ namespace PriceListsService.Domain.Contracts.Repos
     public interface IReferenceYearRepo : IBaseRepo<ReferenceYear>
     {
         Task<IList<ReferenceYear>> ListByPriceReferenceAsync(PriceReference priceReference);
+        Task<ReferenceYear> FindByPriceYearReference(PriceReference priceReference, long year);
     }
 }

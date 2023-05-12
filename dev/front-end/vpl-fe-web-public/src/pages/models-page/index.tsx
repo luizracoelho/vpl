@@ -7,6 +7,7 @@ import useListModels from "../../hooks/model/use-list-models";
 import useListModelsByBrandId from "../../hooks/model/use-list-models-by-brand-id";
 import { ApiResult, ApiResultStatus } from "../../models/api-result-model";
 import ModelsList from "./models-list";
+import SEO from "../../components/seo";
 
 const ModelsPage = () => {
     const [modelsResult, setModelsResult] = useState<ApiResult>(ApiResult.start());
@@ -47,6 +48,10 @@ const ModelsPage = () => {
                     alignItems: 'center',
                     mb: 5
                 }}>
+                    <SEO title="Modelos"
+                        description="Confira a relação de modelos que controlamos o valor de mercado"
+                        keywords="ford, volkswagen, chevrolet, carro, preço, vender, comprar, veículo" />
+
                     <Box sx={{ flexGrow: 1 }}>
                         <Typography variant="h1" component="h1">Modelos</Typography>
                         <Typography variant="h6" component="p">
@@ -84,6 +89,10 @@ const ModelsPage = () => {
 
         return (
             <>
+                <SEO title="Modelos"
+                    description="Confira a relação de modelos que controlamos o valor de mercado"
+                    keywords="ford, volkswagen, chevrolet, carro, preço, vender, comprar, veículo" />
+
                 <Box sx={{
                     width: '100%',
                     display: 'flex',
@@ -117,6 +126,10 @@ const ModelsPage = () => {
     } else {
         return (
             <>
+                <SEO title="Modelos"
+                    description="Confira a relação de modelos que controlamos o valor de mercado"
+                    keywords="ford, volkswagen, chevrolet, carro, preço, vender, comprar, veículo" />
+                    
                 <Box sx={{ mb: 5 }}>
                     <Typography variant="h1" component="h1">Modelos</Typography>
                     <Typography variant="h6" component="p">

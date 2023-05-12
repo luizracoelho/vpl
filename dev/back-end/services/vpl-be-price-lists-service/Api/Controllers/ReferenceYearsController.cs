@@ -45,6 +45,16 @@ namespace PriceListsService.Api.Controllers
             }) ;
         }
 
+        [HttpGet("priceReference/vehicles/{priceReference}/{year}")]
+        public async Task<IList<long>?> ListVehiclesIdByPriceYearReference(PriceReference priceReference, long year)
+        {
+            return await _mediator.Send(new ListVehicleIdsByPriceYearReferenceQuery
+            {
+                PriceReference = priceReference,
+                Year = year
+            });
+        }
+
         /// <summary>
         /// Ação responsável por encontrar um ano de referência a partir de um Id
         /// </summary>

@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using VehiclesService.App.Commands.Vehicles;
 using VehiclesService.App.Queries.Vehicles;
+using VehiclesService.Domain.Contracts.Services;
 using VehiclesService.Domain.ViewModels;
 using VehiclesService.Domain.ViewModels.Vehicles;
 
@@ -48,7 +50,7 @@ namespace VehiclesService.Api.Controllers
             return await _mediator.Send(new ListVehiclesByIdsQuery
             {
                 Ids = ids
-            }) ;
+            });
         }
 
         /// <summary>
@@ -64,6 +66,21 @@ namespace VehiclesService.Api.Controllers
                 Id = id
             });
         }
+
+        /// <summary>
+        /// Ação responsável por encontrar os veiculos a partir do ano e referencia de preço.
+        /// </summary>
+        /// <param name="priceReferenceNumber">Preço de referência</param>
+        /// <param name="year">Ano de referência</param>
+        /// <returns>veiculo encontrada</returns>
+        [HttpGet("vehicles/{priceReferenceNumber}/{year}")]
+        public async Task<IList<VehicleVm>?> listByPriceYearReference(long priceReferenceNumber, long year) 
+            => await _mediator.Send(new ListVehicleByReferenceYearQuery
+                {
+                    PriceReferenceNumber = priceReferenceNumber,
+                    Year = year,
+
+                });
 
         /// <summary>
         /// Ação responsável por listar os veículos por uma marca especifica

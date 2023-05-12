@@ -6,6 +6,7 @@ import { ApiResult, ApiResultStatus } from "../../models/api-result-model";
 import useListReferenceYearByPriceReference from "../../hooks/reference-year/use-list-reference-year-by-price-reference";
 import { ReferenceYear } from "../../models/reference-year";
 import { ChevronRight } from "@mui/icons-material";
+import SEO from "../../components/seo";
 
 const ReferencesPage = () => {
     const [referenceYearsResult, setReferenceYearsResult] = useState<ApiResult>(ApiResult.start());
@@ -51,6 +52,10 @@ const ReferencesPage = () => {
 
     return (
         <>
+            <SEO title="Referências"
+                description="Confira a relação de referências que controlamos o valor de mercado"
+                keywords="ford, volkswagen, chevrolet, carro, preço, vender, comprar, veículo" />
+                
             <Typography variant="h1" component="h1">{tableName}</Typography>
             <Typography variant="h6" component="p" sx={{ mb: 3 }}>
                 Selecione o ano de referência desejado

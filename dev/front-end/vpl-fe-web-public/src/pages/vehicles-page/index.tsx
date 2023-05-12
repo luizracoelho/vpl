@@ -2,13 +2,13 @@ import { Avatar, Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useFindBrand from "../../hooks/brand/use-find-brand";
-import useFindModel from "../../hooks/model/use-find-model";
 import useListVehicles from "../../hooks/vehicle/use-list-vehicles";
 import useListVehiclesByModelId from "../../hooks/vehicle/use-list-vehicles-by-model-id";
 import { ApiResult, ApiResultStatus } from "../../models/api-result-model";
 import VehiclesList from "./vehicles-list";
-import { Brand } from "../../models/brand";
 import { PriceReference } from "../../enums/price-reference.enum";
+import useListVehiclesByPriceYearReference from "../../hooks/vehicle/use-list-vehicles-by-price-year-reference";
+import SEO from "../../components/seo";
 
 // JSX Veículos padrão
 const VehiclesFlow = () => {
@@ -28,6 +28,10 @@ const VehiclesFlow = () => {
 
     return (
         <>
+            <SEO title="Veículos"
+                description="Confira a relação de veículos que controlamos o valor de mercado"
+                keywords="ford, volkswagen, chevrolet, carro, preço, vender, comprar, veículo" />
+
             <Box sx={{ mb: 5 }}>
                 <Typography variant="h1" component="h1">Veículos</Typography>
                 <Typography variant="h6" component="p">
@@ -73,6 +77,10 @@ const VehiclesBrandModelFlow = () => {
 
         return (
             <>
+                <SEO title="Veículos"
+                    description="Confira a relação de veículos que controlamos o valor de mercado"
+                    keywords="ford, volkswagen, chevrolet, carro, preço, vender, comprar, veículo" />
+
                 <Box sx={{
                     width: '100%',
                     display: 'flex',
@@ -100,8 +108,8 @@ const VehiclesBrandModelFlow = () => {
                 </Box>
 
                 <VehiclesList vehiclesResult={vehiclesResult}
-                              brandId={parseInt(brandId ? brandId : '')}
-                              modelId={parseInt(modelId ? modelId : '')} />
+                    brandId={parseInt(brandId ? brandId : '')}
+                    modelId={parseInt(modelId ? modelId : '')} />
 
             </>
         )
@@ -121,6 +129,10 @@ const VehiclesBrandModelFlow = () => {
 
         return (
             <>
+                <SEO title="Veículos"
+                    description="Confira a relação de veículos que controlamos o valor de mercado"
+                    keywords="ford, volkswagen, chevrolet, carro, preço, vender, comprar, veículo" />
+
                 <Box sx={{
                     width: '100%',
                     display: 'flex',
@@ -148,8 +160,8 @@ const VehiclesBrandModelFlow = () => {
                 </Box>
 
                 <VehiclesList vehiclesResult={vehiclesResult}
-                              brandId={parseInt(brandId ? brandId : '')}
-                              modelId={parseInt(modelId ? modelId : '')} />
+                    brandId={parseInt(brandId ? brandId : '')}
+                    modelId={parseInt(modelId ? modelId : '')} />
             </>
         )
     }
@@ -164,13 +176,11 @@ const VehiclesReferenceYearFlow = () => {
     const navigate = useNavigate();
 
     // TODO: Validar ano da tabela de preço
-    // TODO: Listar método correto no back-end
-    // const listVehiclesByReferenceYear = useListVehiclesByReferenceYear();
-    const listVehicles = useListVehicles();
+    const listVehiclesByPriceYearReference = useListVehiclesByPriceYearReference();
 
     const fetchDataReferenceYear = async () => {
         if (priceReference && year) {
-            setVehiclesResult(await listVehicles());
+            setVehiclesResult(await listVehiclesByPriceYearReference(parseInt(priceReference!), parseInt(year!)));
             // setVehiclesResult(await listVehiclesByReferenceYear(parseInt(priceReference), parseInt(year)));
         }
     };
@@ -207,6 +217,10 @@ const VehiclesReferenceYearFlow = () => {
 
     return (
         <>
+            <SEO title="Veículos"
+                description="Confira a relação de veículos que controlamos o valor de mercado"
+                keywords="ford, volkswagen, chevrolet, carro, preço, vender, comprar, veículo" />
+
             <Typography variant="h1" component="h1">Veículos</Typography>
             <Box sx={{ mb: 5, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Box>
@@ -222,9 +236,9 @@ const VehiclesReferenceYearFlow = () => {
                 </Box>
             </Box>
 
-            <VehiclesList vehiclesResult={vehiclesResult} 
-                          yearReference={parseInt(year?year:'')} 
-                          priceReference={parseInt(priceReference?priceReference:'')}/>
+            <VehiclesList vehiclesResult={vehiclesResult}
+                yearReference={parseInt(year ? year : '')}
+                priceReference={parseInt(priceReference ? priceReference : '')} />
         </>
     );
 };

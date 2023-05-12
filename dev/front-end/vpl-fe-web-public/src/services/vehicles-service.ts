@@ -1,6 +1,7 @@
 import { HttpStatusCode } from "axios";
 import AppHttp from "../http/app-http";
 import { Vehicle } from "../models/vehicle";
+import { PriceReference } from "../enums/price-reference.enum";
 
 export default class VehiclesService {
     static myInstance: VehiclesService | null = null;
@@ -12,6 +13,15 @@ export default class VehiclesService {
     async list(): Promise<Vehicle[]> {
         const response = await AppHttp.instance.get('/vehicles/vehicles');
 
+        if (response.status === HttpStatusCode.Ok)
+            return response.data;
+        else
+            throw new Error(response.data);
+    }
+
+    async listByPriceYearReference(priceReference: PriceReference, year: Number): Promise<Vehicle[]> {
+        const response = await AppHttp.instance.get(`/vehicles/vehicles/${priceReference}/${year}`);
+        console.log(response)
         if (response.status === HttpStatusCode.Ok)
             return response.data;
         else
