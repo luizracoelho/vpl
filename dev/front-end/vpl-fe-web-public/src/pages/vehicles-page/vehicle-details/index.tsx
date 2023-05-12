@@ -17,7 +17,7 @@ enum Flows {
 }
 
 const VehicleDetailsDefault = ({ name, type, modelYear, productionYear, model }: Vehicle) => {
-    const { id } = useParams();
+    const { id, year } = useParams();
 
     return (
         <>
@@ -82,7 +82,7 @@ const VehicleDetailsDefault = ({ name, type, modelYear, productionYear, model }:
                 <CardContent>
                     <Grid container>
                         <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable vehicleId={parseInt(id!)} priceReference={PriceReference.Fipe} />
+                            <VehiclePriceReferenceTable vehicleId={parseInt(id!)} priceReference={PriceReference.Fipe} yearSelect={parseInt(year!)} />
                         </Grid>
                         <Grid item xs={12} lg={6}>
                             <ChartComponent vehicleId={parseInt(id!)} priceReference={PriceReference.Fipe} />
@@ -96,7 +96,7 @@ const VehicleDetailsDefault = ({ name, type, modelYear, productionYear, model }:
                 <CardContent>
                     <Grid container>
                         <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable vehicleId={parseInt(id!)} priceReference={PriceReference.Molicar} />
+                            <VehiclePriceReferenceTable vehicleId={parseInt(id!)} priceReference={PriceReference.Molicar} yearSelect={parseInt(year!)} />
                         </Grid>
                         <Grid item xs={12} lg={6}>
                             <ChartComponent vehicleId={parseInt(id!)} priceReference={PriceReference.Molicar} />
@@ -110,7 +110,7 @@ const VehicleDetailsDefault = ({ name, type, modelYear, productionYear, model }:
 }
 
 const VehicleDetailsBrandModel = ({ name, type, modelYear, productionYear, model, brandLogo }: Vehicle) => {
-    const { vehicleId } = useParams();
+    const { vehicleId, year } = useParams();
 
     return (
         <>
@@ -181,7 +181,7 @@ const VehicleDetailsBrandModel = ({ name, type, modelYear, productionYear, model
                 <CardContent>
                     <Grid container>
                         <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Fipe} />
+                            <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Fipe} yearSelect={parseInt(year!)} />
                         </Grid>
                         <Grid item xs={12} lg={6}>
                             <ChartComponent vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Fipe} />
@@ -195,7 +195,7 @@ const VehicleDetailsBrandModel = ({ name, type, modelYear, productionYear, model
                 <CardContent>
                     <Grid container>
                         <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Molicar} />
+                            <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Molicar} yearSelect={parseInt(year!)} />
                         </Grid>
                         <Grid item xs={12} lg={6}>
                             <ChartComponent vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Molicar} />
@@ -282,7 +282,7 @@ const VehicleDetailsPriceYear = ({ name, type, modelYear, productionYear, model 
                     <CardContent>
                         <Grid container>
                             <Grid item xs={12} lg={6}>
-                                <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Fipe} />
+                                <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Fipe} yearSelect={parseInt(year!)} />
                             </Grid>
                             <Grid item xs={12} lg={6}>
                                 <ChartComponent vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Fipe} />
@@ -298,7 +298,7 @@ const VehicleDetailsPriceYear = ({ name, type, modelYear, productionYear, model 
                     <CardContent>
                         <Grid container>
                             <Grid item xs={12} lg={6}>
-                                <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Molicar} />
+                                <VehiclePriceReferenceTable vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Molicar} yearSelect={parseInt(year!)} />
                             </Grid>
                             <Grid item xs={12} lg={6}>
                                 <ChartComponent vehicleId={parseInt(vehicleId!)} priceReference={PriceReference.Molicar} />

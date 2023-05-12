@@ -4,13 +4,15 @@ import { ApiResult, ApiResultStatus } from "../../../models/api-result-model";
 import { Evaluation } from "../../../models/evaluation";
 import useListEvaluationsByVehicleId from "../../../hooks/evaluation/use-list-evaluations-by-vehicle-id";
 import { PriceReference } from "../../../enums/price-reference.enum";
+import { blueGrey } from "@mui/material/colors";
 
 interface VehiclePriceReferenceTableProps {
     vehicleId: number;
-    priceReference: PriceReference
+    priceReference: PriceReference;
+    yearSelect: number
 }
 
-const VehiclePriceReferenceTable = ({ vehicleId, priceReference }: VehiclePriceReferenceTableProps) => {
+const VehiclePriceReferenceTable = ({ vehicleId, priceReference, yearSelect }: VehiclePriceReferenceTableProps) => {
 
     const [evaluationsResult, setEvaluationsResult] = useState<ApiResult>(ApiResult.start());
 
@@ -19,6 +21,7 @@ const VehiclePriceReferenceTable = ({ vehicleId, priceReference }: VehiclePriceR
     const fetchData = async () => {
         setEvaluationsResult(await listEvaluationsByVehicleId(vehicleId, priceReference));
     };
+
 
     useEffect(() => {
         if (evaluationsResult.status === ApiResultStatus.loading && vehicleId > 0) {
@@ -50,9 +53,18 @@ const VehiclePriceReferenceTable = ({ vehicleId, priceReference }: VehiclePriceR
                             {
                                 evaluationsResult.data.map((evaluation: Evaluation) => (
                                     <TableRow key={`${evaluation.referenceYearId}-${evaluation.year}`}>
-                                        <TableCell sx={{ textAlign: 'center', width: '50%', height: '100%', borderRight: '3px solid white' }}>
-                                            {evaluation.year}
-                                        </TableCell>
+                                        {evaluation.year === yearSelect &&
+                                            <TableCell sx={{ textAlign: 'center', width: '50%', height: '100%', borderRight: '3px solid white', color: 'blue' }}>
+                                                {evaluation.year}
+                                            </TableCell>
+                                        }
+
+                                        {evaluation.year !== yearSelect &&
+                                            <TableCell sx={{ textAlign: 'center', width: '50%', height: '100%', borderRight: '3px solid white' }}>
+                                                {evaluation.year}
+                                            </TableCell>
+                                        }
+
                                         <TableCell sx={{ textAlign: 'center', width: '50%' }}>
                                             {evaluation.value}
                                         </TableCell>
