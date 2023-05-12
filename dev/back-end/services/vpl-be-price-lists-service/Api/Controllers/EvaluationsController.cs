@@ -40,20 +40,20 @@ namespace PriceListsService.Api.Controllers
             return await _mediator.Send(new ListEvaluationsQuery());
         }
 
-       
+
         /// Ação responsável por listar todas as avaliações cadastradas pelo id especificados
         /// </summary>
         /// <param name="id">Id das avaliações a serem listados</param>
         /// <returns>Lista de avaliações cadastradas</returns>
         [HttpGet("listById/{vehicleId}/{priceReference}")]
-        public async Task<IList<EvaluationVm>?> ListById(long vehicleId, PriceReference priceReference)
+        public async Task<EvaluationPriceReferenceVm> ListById(long vehicleId, PriceReference? priceReference)
         {
             return await _mediator.Send(new ListEvaluationsByVehicleIdQuery
             {
                 VehicleId = vehicleId,
                 PriceReference = priceReference
             });
-         }
+        }
 
         /// <summary>
         /// Ação responsável por encontrar um avaliação a partir de um Id

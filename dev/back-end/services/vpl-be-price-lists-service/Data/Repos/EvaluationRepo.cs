@@ -27,14 +27,14 @@ namespace PriceListsService.Data.Repos
             return evaluations;
         }
 
-        public async Task<IList<Evaluation>> ListByVehiclePriceReferenceAsync(long vehicleId, PriceReference priceReference)
+        public async Task<IList<Evaluation>> ListByVehiclePriceReferenceAsync(long vehicleId, PriceReference? priceReference)
         {
             var evaluations = await dbSet.Where(x => x.VehicleId == vehicleId && x.ReferenceYear.PriceReference == priceReference)
                                .Include(x => x.ReferenceYear)
                                .OrderBy(x => x.Year)
                                .ToListAsync();
 
-            return evaluations; 
+            return evaluations;
         }
     }
 }
