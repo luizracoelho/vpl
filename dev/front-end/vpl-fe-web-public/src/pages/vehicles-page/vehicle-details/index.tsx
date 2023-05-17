@@ -78,33 +78,41 @@ const VehicleDetailsDefault = ({ vehicle, evaluationsFipe, evaluationsMolicar }:
                 </Grid>
             </Card>
 
-            <Card sx={{ mt: 3 }}>
-                <CardHeader title="FIPE"></CardHeader>
-                <CardContent>
-                    <Grid container>
-                        <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable evaluations={evaluationsFipe} yearSelect={parseInt(year!)} />
-                        </Grid>
-                        <Grid item xs={12} lg={6}>
-                            <ChartComponent evaluations={evaluationsFipe} priceReference={PriceReference.Fipe} />
-                        </Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
+            {evaluationsFipe.length == 0 && evaluationsMolicar.length == 0 &&
+                <Typography variant='h4' component='h4' sx={{textAlign: 'center', mt: 4}} >Não há avaliações !</Typography>
+            }
 
-            <Card sx={{ mt: 3 }}>
-                <CardHeader title="Molicar"></CardHeader>
-                <CardContent>
-                    <Grid container>
-                        <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable evaluations={evaluationsMolicar} yearSelect={parseInt(year!)} />
+            {evaluationsFipe.length > 0 &&
+                <Card sx={{ mt: 3 }}>
+                    <CardHeader title="FIPE"></CardHeader>
+                    <CardContent>
+                        <Grid container>
+                            <Grid item xs={12} lg={6}>
+                                <VehiclePriceReferenceTable evaluations={evaluationsFipe} yearSelect={parseInt(year!)} />
+                            </Grid>
+                            <Grid item xs={12} lg={6}>
+                                <ChartComponent evaluations={evaluationsFipe} priceReference={PriceReference.Fipe} />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} lg={6}>
-                            <ChartComponent evaluations={evaluationsMolicar} priceReference={PriceReference.Molicar} />
+                    </CardContent>
+                </Card>
+            }
+
+            {evaluationsMolicar.length > 0 &&
+                <Card sx={{ mt: 3 }}>
+                    <CardHeader title="Molicar"></CardHeader>
+                    <CardContent>
+                        <Grid container>
+                            <Grid item xs={12} lg={6}>
+                                <VehiclePriceReferenceTable evaluations={evaluationsMolicar} yearSelect={parseInt(year!)} />
+                            </Grid>
+                            <Grid item xs={12} lg={6}>
+                                <ChartComponent evaluations={evaluationsMolicar} priceReference={PriceReference.Molicar} />
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            }
 
         </>
     );
@@ -178,33 +186,41 @@ const VehicleDetailsBrandModel = ({ vehicle, evaluationsFipe, evaluationsMolicar
                 </Grid>
             </Card>
 
-            <Card sx={{ mt: 3 }}>
-                <CardHeader title="FIPE"></CardHeader>
-                <CardContent>
-                    <Grid container>
-                        <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable evaluations={evaluationsFipe} yearSelect={parseInt(year!)} />
-                        </Grid>
-                        <Grid item xs={12} lg={6}>
-                            <ChartComponent evaluations={evaluationsFipe} priceReference={PriceReference.Fipe} />
-                        </Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
+            {evaluationsFipe.length == 0 && evaluationsMolicar.length == 0 &&
+                <Typography variant='h4' component='h4' sx={{textAlign: 'center', mt: 4}} >Não há avaliações !</Typography>
+            }
 
-            <Card sx={{ mt: 3 }}>
-                <CardHeader title="Molicar"></CardHeader>
-                <CardContent>
-                    <Grid container>
-                        <Grid item xs={12} lg={6}>
-                            <VehiclePriceReferenceTable evaluations={evaluationsMolicar} yearSelect={parseInt(year!)} />
+            {evaluationsFipe.length > 0 &&
+                <Card sx={{ mt: 3 }}>
+                    <CardHeader title="FIPE"></CardHeader>
+                    <CardContent>
+                        <Grid container>
+                            <Grid item xs={12} lg={6}>
+                                <VehiclePriceReferenceTable evaluations={evaluationsFipe} yearSelect={parseInt(year!)} />
+                            </Grid>
+                            <Grid item xs={12} lg={6}>
+                                <ChartComponent evaluations={evaluationsFipe} priceReference={PriceReference.Fipe} />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} lg={6}>
-                            <ChartComponent evaluations={evaluationsMolicar} priceReference={PriceReference.Molicar} />
+                    </CardContent>
+                </Card>
+            }
+
+            {evaluationsMolicar.length > 0 &&
+                <Card sx={{ mt: 3 }}>
+                    <CardHeader title="Molicar"></CardHeader>
+                    <CardContent>
+                        <Grid container>
+                            <Grid item xs={12} lg={6}>
+                                <VehiclePriceReferenceTable evaluations={evaluationsMolicar} yearSelect={parseInt(year!)} />
+                            </Grid>
+                            <Grid item xs={12} lg={6}>
+                                <ChartComponent evaluations={evaluationsMolicar} priceReference={PriceReference.Molicar} />
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            }
         </>
     );
 }
@@ -283,7 +299,7 @@ const VehicleDetailsPriceYear = ({ vehicle, evaluationsFipe, evaluationsMolicar 
                 </Grid>
             </Card>
 
-            {parseInt(priceReference!) === PriceReference.Fipe &&
+            {parseInt(priceReference!) === PriceReference.Fipe && 
                 <Card sx={{ mt: 3 }}>
                     <CardHeader title="FIPE"></CardHeader>
                     <CardContent>
@@ -373,6 +389,7 @@ function getFlow(modelId: any, brandId: any,
 
 const VehicleDetails = () => {
     const [evaluationsResult, setEvaluationsResult] = useState<ApiResult>(ApiResult.start());
+
     const { vehicleId, modelId, brandId, priceReference, year } = useParams();
     const flow = getFlow(modelId, brandId, priceReference, year);
 

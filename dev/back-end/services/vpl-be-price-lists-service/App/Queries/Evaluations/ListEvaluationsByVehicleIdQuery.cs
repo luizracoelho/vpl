@@ -29,36 +29,43 @@ namespace PriceListsService.App.Queries.Evaluations
 
             public async Task<EvaluationPriceReferenceVm> Handle(ListEvaluationsByVehicleIdQuery request, CancellationToken cancellationToken)
             {
+                try
+                {
+                    var evaluations = await _uow.Evaluations.ListByVehiclePriceReferenceAsync(request.VehicleId, request.PriceReference);
+
+                    var listEvaluationsFipe = new List<EvaluationVm>();
+                    var listEvaluationsMolicar = new List<EvaluationVm>();
+
+                    var vehicle = await _vehicleService.FindVehicleById(request.VehicleId);
+                    if (vehicle == null)
+                        return null;
+
+                    var result = _mapper.Map<IList<EvaluationVm>>(evaluations);
+
+                    foreach (var evaluation in result)
+                        evaluation.VehicleName = vehicle?.Name ?? "";
+
+                    listEvaluationsFipe = result.Where(x => x.ReferecenYearPriceReference == Domain.Enums.PriceReference.Fipe).ToList();
+
+                    listEvaluationsMolicar = result.Where(x => x.ReferecenYearPriceReference == Domain.Enums.PriceReference.Molicar).ToList();
+
+                    var evaluationsPriceReference = new EvaluationPriceReferenceVm();
+
+                    evaluationsPriceReference.Vehicle = vehicle;
+
+                    if (request.PriceReference == null || request.PriceReference == Domain.Enums.PriceReference.Fipe)
+                        evaluationsPriceReference.EvaluationsFipe = listEvaluationsFipe;
+
+                    if (request.PriceReference == null || request.PriceReference == Domain.Enums.PriceReference.Molicar)
+                        evaluationsPriceReference.EvaluationsMolicar = listEvaluationsMolicar;
+
+                    return evaluationsPriceReference;
+                }
+                catch (Exception ex)
+                {
+                    return null;
+                }
                 //NULAR PRICE REFERENCE
-                var evaluations = await _uow.Evaluations.ListByVehiclePriceReferenceAsync(request.VehicleId, request.PriceReference);
-
-                var listEvaluationsFipe = new List<EvaluationVm>();
-                var listEvaluationsMolicar = new List<EvaluationVm>();
-
-                var vehiclesIds = evaluations.Select(x => x.VehicleId).Distinct().ToList();
-
-                var vehicles = await _vehicleService.FindByIds(vehiclesIds);
-
-                var result = _mapper.Map<IList<EvaluationVm>>(evaluations);
-
-                foreach (var evaluation in result)
-                    evaluation.VehicleName = vehicles?.FirstOrDefault(x => x.Id == request.VehicleId)?.Name ?? "";
-
-                listEvaluationsFipe = result.Where(x => x.ReferecenYearPriceReference == Domain.Enums.PriceReference.Fipe).ToList();
-
-                listEvaluationsMolicar = result.Where(x => x.ReferecenYearPriceReference == Domain.Enums.PriceReference.Molicar).ToList();
-
-                var evaluationsPriceReference = new EvaluationPriceReferenceVm();
-
-                evaluationsPriceReference.Vehicle = vehicles.FirstOrDefault(x => x.Id == request.VehicleId);
-
-                if (request.PriceReference == null || request.PriceReference == Domain.Enums.PriceReference.Fipe)
-                    evaluationsPriceReference.EvaluationsFipe = listEvaluationsFipe;
-
-                if (request.PriceReference == null || request.PriceReference == Domain.Enums.PriceReference.Molicar)
-                    evaluationsPriceReference.EvaluationsMolicar = listEvaluationsMolicar;
-
-                return evaluationsPriceReference;
             }
         }
     }

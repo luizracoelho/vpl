@@ -19,43 +19,11 @@ const VehicleCard = ({vehicle, year, priceReference, modelId, brandId}:VehicleCa
     const goToVehicle = () => {
 
         if (year && priceReference)
-            navigate(`/priceReference/${priceReference}/year/${year}/vehicle/details/${vehicle.id}`, {
-                state: {
-                    modelName: vehicle.model,
-                    brandLogo: vehicle.brandLogo,
-                    brandId: vehicle.brandId,
-                    vehicleName: vehicle.name,
-                    modelYear: vehicle.modelYear,
-                    typeVehicle: vehicle.type,
-                    productionYear: vehicle.productionYear,
-                    priceReference: priceReference,
-                    yearReference: year
-                } // Fluxo Tabela/Ano
-            });
+            navigate(`/priceReference/${priceReference}/year/${year}/vehicle/details/${vehicle.id}`);
         else if (brandId && modelId)
-            navigate(`/brands/${vehicle.brandId}/models/${vehicle.modelId}/vehicle/details/${vehicle.id}`, {
-                state: {
-                    modelName: vehicle.model,
-                    brandLogo: vehicle.brandLogo,
-                    brandId: vehicle.brandId,
-                    vehicleName: vehicle.name,
-                    modelYear: vehicle.modelYear,
-                    productionYear: vehicle.productionYear,
-                    typeVehicle: vehicle.type
-                } // Fluxo Brand/Model
-            });
+            navigate(`/brands/${brandId}/models/${modelId}/vehicle/details/${vehicle.id}`);
         else
-            navigate(`/vehicle/details/${vehicle.id}`, {
-                state: {
-                    modelName: vehicle.model,
-                    brandLogo: vehicle.brandLogo,
-                    brandId: vehicle.brandId,
-                    vehicleName: vehicle.name,
-                    modelYear: vehicle.modelYear,
-                    productionYear: vehicle.productionYear,
-                    typeVehicle: vehicle.type
-                } // Fluxo padrão
-            }); 
+            navigate(`/vehicle/details/${vehicle.id}`); 
 
     };
 
