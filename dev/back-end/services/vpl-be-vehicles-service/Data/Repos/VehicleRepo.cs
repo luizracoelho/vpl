@@ -35,6 +35,13 @@ namespace VehiclesService.Data.Repos
                               .ToListAsync();
         }
 
+        public async override Task<Vehicle> FindAsync(long id)
+        {
+            return await dbSet.Include(x => x.Brand)
+                              .Include(x => x.Model)
+                              .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<IList<Vehicle>> SearchAsync(string searchTerms)
         {
             return await dbSet.Where(x => x.Name.Trim().ToLower().Contains(searchTerms.Trim().ToLower()))
@@ -46,7 +53,10 @@ namespace VehiclesService.Data.Repos
 
         public async Task<IList<Vehicle>> ListByIdsAsync(IList<long> ids)
         {
-            return await dbSet.Where(x => ids.Contains(x.Id)).ToListAsync();
+            return await dbSet.Include(x => x.Brand)
+                              .Include(x => x.Model)
+                              .Where(x => ids.Contains(x.Id))
+                              .ToListAsync();
         }
     }
 }

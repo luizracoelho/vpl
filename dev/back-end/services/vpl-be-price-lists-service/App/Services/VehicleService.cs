@@ -43,8 +43,6 @@ namespace PriceListsService.App.Services
             var requestUri = $"{_config["SERVICES:VEHICLE"]}/vehicles/{id}";
             var httpRequest = new HttpRequestMessage(HttpMethod.Get, requestUri);
 
-            httpRequest.Headers.Add("Authorization", _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString());
-
             var response = await client.SendAsync(httpRequest);
 
             if (response.IsSuccessStatusCode)
