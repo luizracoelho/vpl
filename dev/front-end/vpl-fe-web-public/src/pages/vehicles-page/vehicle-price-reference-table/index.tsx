@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { Evaluation } from "../../../models/evaluation";
-
+import { NumericFormat } from 'react-number-format';
 interface VehiclePriceReferenceTableProps {
     evaluations: Evaluation[];
     yearSelect: number
@@ -25,7 +25,10 @@ const VehiclePriceReferenceTable = ({ evaluations, yearSelect }: VehiclePriceRef
                                 </TableCell>
 
                                 <TableCell sx={{ textAlign: 'center', width: '50%', color: evaluation.year === yearSelect ? 'primary.main' : 'inherit' }}>
-                                    {evaluation.value}
+
+                                    <NumericFormat value={evaluation.value} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={2} fixedDecimalScale={true} prefix={'R$'} />
+
+
                                 </TableCell>
                             </TableRow>
                         ))
