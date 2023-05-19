@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
 
 class ModelsListPage extends StatelessWidget {
   const ModelsListPage({super.key});
@@ -9,6 +10,7 @@ class ModelsListPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Models'),
       ),
+      drawer: const VplDrawer(),
       body: const SizedBox(
         width: double.infinity,
         height: double.infinity,

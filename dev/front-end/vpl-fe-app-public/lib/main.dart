@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vpl/routes.dart';
 
-import 'features/brands/pages/brands_list_page.dart';
 import 'features/home/pages/home_page.dart';
 
 void main() {
@@ -18,11 +18,12 @@ class MyApp extends StatelessWidget {
       title: 'VPL',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          brightness: Brightness.dark,
+          seedColor: Colors.yellowAccent,
+          brightness: Brightness.light,
         ),
         useMaterial3: true,
       ),
+      routes: routes,
       home: const HomePage(),
     );
   }
