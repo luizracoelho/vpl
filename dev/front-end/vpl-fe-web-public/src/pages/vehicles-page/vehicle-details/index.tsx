@@ -9,6 +9,7 @@ import { EvaluationPriceReference } from "../../../models/EvaluationPriceReferen
 import { ApiResult, ApiResultStatus } from "../../../models/api-result-model";
 import { VehicleType } from "../../../models/model";
 import VehiclePriceReferenceTable from "../vehicle-price-reference-table";
+import { NumericFormat } from 'react-number-format';
 
 enum Flows {
     BrandModel,
@@ -79,7 +80,7 @@ const VehicleDetailsDefault = ({ vehicle, evaluationsFipe, evaluationsMolicar }:
             </Card>
 
             {evaluationsFipe.length == 0 && evaluationsMolicar.length == 0 &&
-                <Typography variant='h4' component='h4' sx={{textAlign: 'center', mt: 4}} >Não há avaliações !</Typography>
+                <Typography variant='h4' component='h4' sx={{ textAlign: 'center', mt: 4 }} >Não há avaliações !</Typography>
             }
 
             {evaluationsFipe.length > 0 &&
@@ -187,7 +188,7 @@ const VehicleDetailsBrandModel = ({ vehicle, evaluationsFipe, evaluationsMolicar
             </Card>
 
             {evaluationsFipe.length == 0 && evaluationsMolicar.length == 0 &&
-                <Typography variant='h4' component='h4' sx={{textAlign: 'center', mt: 4}} >Não há avaliações !</Typography>
+                <Typography variant='h4' component='h4' sx={{ textAlign: 'center', mt: 4 }} >Não há avaliações !</Typography>
             }
 
             {evaluationsFipe.length > 0 &&
@@ -292,14 +293,17 @@ const VehicleDetailsPriceYear = ({ vehicle, evaluationsFipe, evaluationsMolicar 
                             <Typography variant='overline' component='small'>Valor no Ano</Typography>
                         </Box>
                         <Box>
-                            <Chip color="primary" label={year} sx={{ mr: 1 }} /><Typography variant='body1' component='strong'>{valueInYear}</Typography>
+                            <Chip color="primary" label={year} sx={{ mr: 1 }} /><Typography variant='body1' component='strong'>
+                                <NumericFormat value={valueInYear} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={2} fixedDecimalScale={true}  prefix={'R$'} />
+
+                            </Typography>
                         </Box>
                     </Grid>
                     <Divider />
                 </Grid>
             </Card>
 
-            {parseInt(priceReference!) === PriceReference.Fipe && 
+            {parseInt(priceReference!) === PriceReference.Fipe &&
                 <Card sx={{ mt: 3 }}>
                     <CardHeader title="FIPE"></CardHeader>
                     <CardContent>
