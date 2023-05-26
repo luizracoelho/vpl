@@ -1,3 +1,3 @@
 class Environment {
-  static String apiUrl = 'http://192.168.15.70:8000';
+  static String apiUrl = 'http://192.168.3.12:8000';
 }

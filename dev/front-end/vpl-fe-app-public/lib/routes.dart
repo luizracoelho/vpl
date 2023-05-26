@@ -10,5 +10,6 @@ final routes = {
   '/brands/models': (context) => const ModelsListPage(),
   '/models': (context) => const ModelsListPage(),
   '/vehicles': (context) => const VehiclesListPage(),
+  '/models/vehicles': (context) => const VehiclesListPage(),
   '/references': (context) => const ReferenceYearsListPage(),
 };
