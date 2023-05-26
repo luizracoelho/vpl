@@ -1,0 +1,4 @@
+enum TabelaConsulta {
+  FIPE,
+  Molicar,
+}

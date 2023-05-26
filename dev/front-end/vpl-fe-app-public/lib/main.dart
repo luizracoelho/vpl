@@ -21,6 +21,11 @@ class MyApp extends StatelessWidget {
           seedColor: Colors.yellowAccent,
           brightness: Brightness.light,
         ),
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(
+            color: Colors.blue,
+          ),
+        ),
         useMaterial3: true,
       ),
       routes: routes,
