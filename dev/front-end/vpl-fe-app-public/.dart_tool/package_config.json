@@ -51,7 +51,11 @@
     },
     {
       "name": "flutter",
+<<<<<<< HEAD
       "rootUri": "file:///C:/flutter/packages/flutter",
+=======
+      "rootUri": "file:///C:/src/flutter/packages/flutter",
+>>>>>>> 78252fbca242f7eeba42e951bba5925b8e61094b
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -63,7 +67,11 @@
     },
     {
       "name": "flutter_test",
+<<<<<<< HEAD
       "rootUri": "file:///C:/flutter/packages/flutter_test",
+=======
+      "rootUri": "file:///C:/src/flutter/packages/flutter_test",
+>>>>>>> 78252fbca242f7eeba42e951bba5925b8e61094b
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -76,12 +84,15 @@
     {
       "name": "js",
       "rootUri": "file:///C:/Users/ValorUp/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
+<<<<<<< HEAD
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
       "name": "json_annotation",
       "rootUri": "file:///C:/Users/ValorUp/AppData/Local/Pub/Cache/hosted/pub.dev/json_annotation-4.8.1",
+=======
+>>>>>>> 78252fbca242f7eeba42e951bba5925b8e61094b
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -123,7 +134,11 @@
     },
     {
       "name": "sky_engine",
+<<<<<<< HEAD
       "rootUri": "file:///C:/flutter/bin/cache/pkg/sky_engine",
+=======
+      "rootUri": "file:///C:/src/flutter/bin/cache/pkg/sky_engine",
+>>>>>>> 78252fbca242f7eeba42e951bba5925b8e61094b
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -182,7 +197,11 @@
       "languageVersion": "3.0"
     }
   ],
+<<<<<<< HEAD
   "generated": "2023-05-26T04:53:07.996577Z",
+=======
+  "generated": "2023-05-26T11:14:08.382539Z",
+>>>>>>> 78252fbca242f7eeba42e951bba5925b8e61094b
   "generator": "pub",
   "generatorVersion": "3.0.2"
 }
