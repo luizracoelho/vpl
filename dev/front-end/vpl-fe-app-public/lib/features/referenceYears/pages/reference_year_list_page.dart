@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vpl/features/referenceYears/enum/reference_year_enum.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
+
+import '../enums/price_reference.dart';
 
 class ReferenceYearsListPage extends StatelessWidget {
   const ReferenceYearsListPage({Key? key}) : super(key: key);
@@ -8,13 +9,13 @@ class ReferenceYearsListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     dynamic args = ModalRoute.of(context)!.settings.arguments;
-    int type = args.first;
+    int type = args;
 
-    TabelaConsulta tabelaConsulta;
+    PriceReference tabelaConsulta;
     if (type == 0) {
-      tabelaConsulta = TabelaConsulta.FIPE;
+      tabelaConsulta = PriceReference.Fipe;
     } else if (type == 1) {
-      tabelaConsulta = TabelaConsulta.Molicar;
+      tabelaConsulta = PriceReference.Molicar;
     } else {
       return Container();
     }
@@ -31,8 +32,7 @@ class ReferenceYearsListPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-                'Aqui estarão os ano de referência para ${tabelaConsulta.toString()}'),
+            Text('Aqui estarão os ano de referência para ${tabelaConsulta.toString()}'),
             Placeholder(),
           ],
         ),

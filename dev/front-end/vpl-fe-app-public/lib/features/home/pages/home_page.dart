@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
+import 'package:vpl/features/shared/states/primary_flow_state.dart';
 import 'package:vpl/features/shared/states/theme_state.dart';
 
 class HomePage extends StatelessWidget {
@@ -149,14 +150,12 @@ class HomePage extends StatelessWidget {
                   subtitle: 'Consulte as referências da tabela FIPE',
                   icon: Icons.table_chart_outlined,
                   route: '/references',
-                  routeParams: 1,
                 ),
                 HomeCard(
                   title: 'Molicar',
                   subtitle: 'Consulte as referências da tabela Molicar',
                   icon: Icons.table_chart_outlined,
                   route: '/references',
-                  routeParams: 2,
                 )
               ],
             ),
@@ -172,46 +171,46 @@ class HomeCard extends StatelessWidget {
   final String? subtitle;
   final IconData icon;
   final String route;
-  final dynamic routeParams;
 
   const HomeCard({
     super.key,
     required this.title,
     required this.icon,
     required this.route,
-    this.routeParams,
     this.subtitle,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.of(context).pushReplacementNamed(
-        route,
-        arguments: routeParams,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(right: 8.0),
-        child: Card(
-          child: SizedBox(
-            width: 250,
-            height: 100,
-            child: Center(
-              child: ListTile(
-                leading: CircleAvatar(
-                  child: Icon(
-                    icon,
+    return Consumer<PrimaryFlowState>(builder: (context, state, child) {
+      return GestureDetector(
+        onTap: () {
+          state.clear();
+          Navigator.of(context).pushReplacementNamed(route);
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: Card(
+            child: SizedBox(
+              width: 250,
+              height: 100,
+              child: Center(
+                child: ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(
+                      icon,
+                    ),
                   ),
+                  title: Text(
+                    title,
+                  ),
+                  subtitle: Text(subtitle ?? ''),
                 ),
-                title: Text(
-                  title,
-                ),
-                subtitle: Text(subtitle ?? ''),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

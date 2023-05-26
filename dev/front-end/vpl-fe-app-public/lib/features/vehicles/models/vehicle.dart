@@ -10,7 +10,7 @@ class Vehicle {
   late String name;
   late int productionYear;
   late int modelYear;
-  late int type;
+  late VehicleType type;
 
   Vehicle();
 
@@ -24,6 +24,6 @@ class Vehicle {
     name = json['name'];
     productionYear = json['productionYear'];
     modelYear = json['modelYear'];
-    type = json['type'];
+    type = VehicleType.values[json['type']];
   }
 }

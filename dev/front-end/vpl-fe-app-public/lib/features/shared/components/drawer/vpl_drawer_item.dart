@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vpl/features/shared/states/primary_flow_state.dart';
 
 class VplDrawerItem extends StatelessWidget {
   final String title;
@@ -16,18 +18,19 @@ class VplDrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title, style: Theme.of(context).textTheme.headlineSmall),
-      subtitle: Text(subtitle ?? ''),
-      leading: CircleAvatar(
-        child: Icon(icon),
-      ),
-      trailing: const Icon(Icons.chevron_right),
-      onTap: () {
-        Navigator.of(context).pushReplacementNamed(
-          route,
-        );
-      },
-    );
+    return Consumer<PrimaryFlowState>(builder: (context, state, child) {
+      return ListTile(
+        title: Text(title, style: Theme.of(context).textTheme.headlineSmall),
+        subtitle: Text(subtitle ?? ''),
+        leading: CircleAvatar(
+          child: Icon(icon),
+        ),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () {
+          state.clear();
+          Navigator.of(context).pushReplacementNamed(route);
+        },
+      );
+    });
   }
 }

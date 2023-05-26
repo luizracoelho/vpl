@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
+import 'package:vpl/features/shared/states/primary_flow_state.dart';
 
 import '../models/model.dart';
 import '../service/model_service.dart';
@@ -37,71 +39,71 @@ class _ModelsListPageState extends State<ModelsListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('VPL Modelos'),
-      ),
-      drawer: const VplDrawer(),
-      body: SafeArea(
-        child: isLoading
-            ? Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: SingleChildScrollView(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                      ],
+    return Consumer<PrimaryFlowState>(builder: (context, state, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(state.brand == null ? 'VPL Modelos' : state.brand!.name),
+        ),
+        drawer: const VplDrawer(),
+        body: SafeArea(
+          child: isLoading
+              ? Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: SingleChildScrollView(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            : models?.isEmpty ?? true
-                ? const Center(
-                    child: Text(
-                      'Nenhum modelo encontrado',
+                )
+              : models?.isEmpty ?? true
+                  ? const Center(
+                      child: Text(
+                        'Nenhum modelo encontrado',
+                      ),
+                    )
+                  : RefreshIndicator(
+                      color: Theme.of(context).primaryColor,
+                      onRefresh: () async => listModels(),
+                      child: ListView.builder(
+                        itemCount: models?.length ?? 0,
+                        itemBuilder: (_, index) {
+                          final Model model = models![index];
+                          return Column(
+                            children: [
+                              ListTile(
+                                title: Text(model.name),
+                                trailing: const Icon(Icons.chevron_right),
+                                onTap: () {
+                                  state.selectModel(model);
+                                  Navigator.of(context).pushNamed('/vehicles');
+                                },
+                              ),
+                              const Divider(),
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  )
-                : RefreshIndicator(
-                    color: Theme.of(context).primaryColor,
-                    onRefresh: () async => listModels(),
-                    child: ListView.builder(
-                      itemCount: models?.length ?? 0,
-                      itemBuilder: (_, index) {
-                        final Model model = models![index];
-                        return Column(
-                          children: [
-                            ListTile(
-                              title: Text(model.name),
-                              trailing: const Icon(Icons.chevron_right),
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  '/models/vehicles',
-                                  arguments: model.id,
-                                );
-                              },
-                            ),
-                            const Divider(),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-      ),
-    );
+        ),
+      );
+    });
   }
 
   Widget getLoadingItem() {

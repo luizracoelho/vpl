@@ -1,107 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vpl/features/brands/models/brand.dart';
-import 'package:vpl/features/brands/service/brand_service.dart';
+import 'package:vpl/features/brands/states/brands_list_state.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
+import 'package:vpl/features/shared/states/primary_flow_state.dart';
 
-class BrandsListPage extends StatefulWidget {
+class BrandsListPage extends StatelessWidget {
   const BrandsListPage({super.key});
 
   @override
-  State<BrandsListPage> createState() => _BrandsListPageState();
-}
-
-class _BrandsListPageState extends State<BrandsListPage> {
-  List<Brand>? brands;
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-
-    listBrands();
-  }
-
-  Future<void> listBrands() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    brands = await BrandService.instance.list();
-
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('VPL Marcas'),
-      ),
-      drawer: const VplDrawer(),
-      body: SafeArea(
-        child: isLoading
-            ? Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: SingleChildScrollView(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                      ],
+    return Consumer<BrandsListState>(builder: (_, listState, listChild) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('VPL Marcas'),
+        ),
+        drawer: const VplDrawer(),
+        body: SafeArea(
+          child: FutureBuilder(
+            future: listState.listBrands(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.none ||
+                  snapshot.connectionState == ConnectionState.waiting) {
+                return Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: SingleChildScrollView(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            : brands?.isEmpty ?? true
-                ? const Center(
-                    child: Text(
-                      'Nenhuma marca encontrada',
-                    ),
-                  )
-                : RefreshIndicator(
-                    color: Theme.of(context).primaryColor,
-                    onRefresh: () async => listBrands(),
-                    child: ListView.builder(
-                      itemCount: brands?.length ?? 0,
-                      itemBuilder: (_, index) {
-                        final Brand brand = brands![index];
-                        return Column(
-                          children: [
-                            ListTile(
-                              leading: CircleAvatar(backgroundImage: NetworkImage(brand.logo)),
-                              title: Text(brand.name),
-                              trailing: const Icon(Icons.chevron_right),
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  '/brands/models',
-                                  arguments: brand.id,
-                                );
-                              },
-                            ),
-                            const Divider(),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-      ),
-    );
+                );
+              } else if (!snapshot.hasError) {
+                return listState.brands?.isEmpty ?? true
+                    ? const Center(
+                        child: Text(
+                          'Nenhuma marca encontrada',
+                        ),
+                      )
+                    : RefreshIndicator(
+                        color: Theme.of(context).primaryColor,
+                        onRefresh: () async => listState.refresh(),
+                        child: Consumer<PrimaryFlowState>(builder: (_, flowState, flowChild) {
+                          return ListView.builder(
+                            itemCount: listState.brands?.length ?? 0,
+                            itemBuilder: (_, index) {
+                              final Brand brand = listState.brands![index];
+
+                              return Column(
+                                children: [
+                                  ListTile(
+                                    leading: CircleAvatar(backgroundImage: NetworkImage(brand.logo)),
+                                    title: Text(brand.name),
+                                    trailing: const Icon(Icons.chevron_right),
+                                    onTap: () {
+                                      flowState.selectBrand(brand);
+                                      Navigator.of(context).pushNamed('/models');
+                                    },
+                                  ),
+                                  const Divider(),
+                                ],
+                              );
+                            },
+                          );
+                        }),
+                      );
+              }
+
+              return Container();
+            },
+          ),
+        ),
+      );
+    });
   }
 
   Widget getLoadingItem() {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
+import 'package:vpl/features/shared/states/primary_flow_state.dart';
 import 'package:vpl/features/vehicles/models/vehicle.dart';
 
 import '../service/vehicle_service.dart';
@@ -37,72 +39,82 @@ class _VehiclesListPageState extends State<VehiclesListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Veículos'),
-      ),
-      drawer: const VplDrawer(),
-      body: SafeArea(
-        child: isLoading
-            ? Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: SingleChildScrollView(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                        getLoadingItem(),
-                      ],
+    return Consumer<PrimaryFlowState>(builder: (context, state, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Column(
+            children: [
+              Text(
+                state.model == null ? '' : state.model!.brandName,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              Text(state.model == null ? 'Veículos' : state.model!.name),
+            ],
+          ),
+        ),
+        drawer: const VplDrawer(),
+        body: SafeArea(
+          child: isLoading
+              ? Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: SingleChildScrollView(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        children: [
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                          getLoadingItem(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            : vehicles?.isEmpty ?? true
-                ? const Center(
-                    child: Text(
-                      'Nenhum veículo encontrado',
+                )
+              : vehicles?.isEmpty ?? true
+                  ? const Center(
+                      child: Text(
+                        'Nenhum veículo encontrado',
+                      ),
+                    )
+                  : RefreshIndicator(
+                      color: Theme.of(context).primaryColor,
+                      onRefresh: () async => listVehicles(),
+                      child: ListView.builder(
+                        itemCount: vehicles?.length ?? 0,
+                        itemBuilder: (_, index) {
+                          final Vehicle vehicle = vehicles![index];
+                          return Column(
+                            children: [
+                              ListTile(
+                                leading: CircleAvatar(backgroundImage: NetworkImage(vehicle.brandLogo)),
+                                title: Text(vehicle.name),
+                                trailing: const Icon(Icons.chevron_right),
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                    '/vehicles',
+                                    arguments: vehicle.id,
+                                  );
+                                },
+                              ),
+                              const Divider(),
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  )
-                : RefreshIndicator(
-                    color: Theme.of(context).primaryColor,
-                    onRefresh: () async => listVehicles(),
-                    child: ListView.builder(
-                      itemCount: vehicles?.length ?? 0,
-                      itemBuilder: (_, index) {
-                        final Vehicle vehicle = vehicles![index];
-                        return Column(
-                          children: [
-                            ListTile(
-                              leading: CircleAvatar(backgroundImage: NetworkImage(vehicle.brandLogo)),
-                              title: Text(vehicle.name),
-                              trailing: const Icon(Icons.chevron_right),
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  '/vehicles',
-                                  arguments: vehicle.id,
-                                );
-                              },
-                            ),
-                            const Divider(),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-      ),
-    );
+        ),
+      );
+    });
   }
 
   Widget getLoadingItem() {

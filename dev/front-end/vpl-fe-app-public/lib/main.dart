@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vpl/features/shared/states/theme_state.dart';
+import 'package:vpl/providers.dart';
 import 'package:vpl/routes.dart';
-
-import 'features/home/pages/home_page.dart';
+import 'package:vpl/theme.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeState(Brightness.dark),
+    MultiProvider(
+      providers: providers,
       child: const MyApp(),
     ),
   );
@@ -23,21 +23,10 @@ class MyApp extends StatelessWidget {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         debugShowMaterialGrid: false,
-        title: 'VPL',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.yellowAccent,
-            brightness: state.brightness,
-          ),
-          textTheme: const TextTheme(
-            bodyLarge: TextStyle(
-              color: Colors.blue,
-            ),
-          ),
-          useMaterial3: true,
-        ),
+        theme: getTheme(state),
         routes: routes,
-        home: const HomePage(),
+        title: 'VPL',
+        initialRoute: '/home',
       );
     });
   }
