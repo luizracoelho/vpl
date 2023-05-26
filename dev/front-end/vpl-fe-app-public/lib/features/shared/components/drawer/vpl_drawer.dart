@@ -14,7 +14,7 @@ class VplDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
             ),
-            child: Text('Drawer Header', style: Theme.of(context).textTheme.headlineLarge),
+            child: Text('VPL', style: Theme.of(context).textTheme.headlineLarge),
           ),
           const VplDrawerItem(
             title: 'Home',
