@@ -39,7 +39,7 @@ class _ModelsListPageState extends State<ModelsListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('VPL Marcas'),
+        title: const Text('VPL Modelos'),
       ),
       drawer: const VplDrawer(),
       body: SafeArea(

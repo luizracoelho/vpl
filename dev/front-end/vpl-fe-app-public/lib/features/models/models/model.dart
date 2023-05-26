@@ -1,15 +1,13 @@
-import '../../brands/models/brand.dart';
-import '../../enums/vehicle_type.dart';
-
 class Model {
   late int id;
   late int brandId;
-  late Brand brand;
+  late String brandName;
+  late String brandLogo;
   late String name;
   late String description;
-  late VehicleType type;
+  late int type;
   late DateTime productionStart;
-  late DateTime productionEnd;
+  DateTime? productionEnd;
   late bool productionEnded;
 
   Model();
@@ -17,13 +15,13 @@ class Model {
   Model.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     brandId = json['brandId'];
-    brand = json['brand'];
+    brandName = json['brandName'];
+    brandLogo = json['brandLogo'];
     name = json['name'];
     description = json['description'];
     type = json['type'];
-    productionStart = json['productionStart'];
-    productionEnd = json['productionEnd'];
-    productionEnded = json['productionEnded'];
+    productionStart = DateTime.parse(json['productionStart']);
+    productionEnd = json['productionEnd'] != null ? DateTime.parse(json['productionEnd']) : null;
+    productionEnded = !!json['productionEnded'];
   }
-  
 }

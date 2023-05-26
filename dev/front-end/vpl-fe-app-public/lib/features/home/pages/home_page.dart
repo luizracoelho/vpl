@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
+import 'package:vpl/features/shared/states/theme_state.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -9,6 +11,14 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('VPL Home'),
+        actions: [
+          Consumer<ThemeState>(builder: (context, state, child) {
+            return IconButton(
+              onPressed: () => state.toggleTheme(),
+              icon: Icon(state.icon),
+            );
+          })
+        ],
       ),
       drawer: const VplDrawer(),
       body: SafeArea(
