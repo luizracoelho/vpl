@@ -6,56 +6,35 @@ import 'package:vpl/features/shared/states/primary_flow_state.dart';
 import 'package:vpl/features/vehicles/models/vehicle.dart';
 
 import '../service/vehicle_service.dart';
+import '../states/vehicles_list_state.dart';
 
-class VehiclesListPage extends StatefulWidget {
+class VehiclesListPage extends StatelessWidget {
   const VehiclesListPage({super.key});
 
   @override
-  State<VehiclesListPage> createState() => _VehiclesListPageState();
-}
-
-class _VehiclesListPageState extends State<VehiclesListPage> {
-  List<Vehicle>? vehicles;
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-
-    listVehicles();
-  }
-
-  Future<void> listVehicles() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    vehicles = await VehicleService.instance.list();
-
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Consumer<PrimaryFlowState>(builder: (context, state, child) {
+    return Consumer<VehiclesListState>(builder: (_, listState, listChild) {
       return Scaffold(
         appBar: AppBar(
           title: Column(
             children: [
-              Text(
-                state.model == null ? '' : state.model!.brandName,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              Text(state.model == null ? 'Veículos' : state.model!.name),
+              // Text(
+              //   state.model == null ? '' : state.model!.brandName,
+              //   style: Theme.of(context).textTheme.bodySmall,
+              // ),
+              // Text(state.model == null ? 'Veículos' : state.model!.name),
+              Text('Veículos')
             ],
           ),
         ),
         drawer: const VplDrawer(),
         body: SafeArea(
-          child: isLoading
-              ? Padding(
+          child: FutureBuilder(
+            future: listState.listVehicles(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.none ||
+                  snapshot.connectionState == ConnectionState.waiting) {
+                return Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: SingleChildScrollView(
                     child: SizedBox(
@@ -79,39 +58,52 @@ class _VehiclesListPageState extends State<VehiclesListPage> {
                       ),
                     ),
                   ),
-                )
-              : vehicles?.isEmpty ?? true
-                  ? const Center(
-                      child: Text(
-                        'Nenhum veículo encontrado',
-                      ),
-                    )
-                  : RefreshIndicator(
-                      color: Theme.of(context).primaryColor,
-                      onRefresh: () async => listVehicles(),
-                      child: ListView.builder(
-                        itemCount: vehicles?.length ?? 0,
-                        itemBuilder: (_, index) {
-                          final Vehicle vehicle = vehicles![index];
-                          return Column(
-                            children: [
-                              ListTile(
-                                leading: CircleAvatar(backgroundImage: NetworkImage(vehicle.brandLogo)),
-                                title: Text(vehicle.name),
-                                trailing: const Icon(Icons.chevron_right),
-                                onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                    '/vehicles',
-                                    arguments: vehicle.id,
-                                  );
-                                },
-                              ),
-                              const Divider(),
-                            ],
+                );
+              } else if (!snapshot.hasError) {
+                return listState.vehicles?.isEmpty ?? true
+                    ? const Center(
+                        child: Text(
+                          'Nenhum veículo encontrado',
+                        ),
+                      )
+                    : RefreshIndicator(
+                        color: Theme.of(context).primaryColor,
+                        onRefresh: () async => listState.listVehicles(),
+                        child: Consumer<PrimaryFlowState>(
+                            builder: (_, flowState, flowChild) {
+                          return ListView.builder(
+                            itemCount: listState.vehicles?.length ?? 0,
+                            itemBuilder: (_, index) {
+                              final Vehicle vehicle =
+                                  listState.vehicles![index];
+
+                              return Column(
+                                children: [
+                                  ListTile(
+                                    leading: CircleAvatar(
+                                        backgroundImage:
+                                            NetworkImage(vehicle.brandLogo)),
+                                    title: Text(vehicle.name),
+                                    trailing: const Icon(Icons.chevron_right),
+                                    onTap: () {
+                                      Navigator.of(context).pushNamed(
+                                        '/vehicles',
+                                        arguments: vehicle.id,
+                                      );
+                                    },
+                                  ),
+                                  const Divider(),
+                                ],
+                              );
+                            },
                           );
-                        },
-                      ),
-                    ),
+                        }),
+                      );
+              }
+
+              return Container();
+            },
+          ),
         ),
       );
     });
