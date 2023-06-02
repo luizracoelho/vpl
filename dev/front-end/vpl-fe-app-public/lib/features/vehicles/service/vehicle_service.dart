@@ -29,4 +29,23 @@ class VehicleService {
       return null;
     }
   }
+
+  Future<List<Vehicle>?> listByModelId(int modelId) async {
+    var dio = Dio();
+    List<Vehicle> vehicles = [];
+
+    final response = await dio.get(
+      '${Environment.apiUrl}/vehicles/vehicles/model/$modelId',
+    );
+
+    if (response.statusCode == 200) {
+      for (var item in response.data) {
+        vehicles.add(Vehicle.fromJson(item));
+      }
+
+      return vehicles;
+    } else {
+      return null;
+    }
+  }
 }
