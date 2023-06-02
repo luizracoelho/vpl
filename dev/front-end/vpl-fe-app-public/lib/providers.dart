@@ -7,6 +7,7 @@ import 'features/brands/states/brands_list_state.dart';
 import 'features/models/states/models_list_state.dart';
 import 'features/shared/states/primary_flow_state.dart';
 import 'features/shared/states/theme_state.dart';
+import 'features/vehicles/states/vehicles_detail_state.dart';
 import 'features/vehicles/states/vehicles_list_state.dart';
 
 final List<SingleChildWidget> providers = [
@@ -15,4 +16,5 @@ final List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (_) => BrandsListState()),
   ChangeNotifierProvider(create: (_) => ModelsListState()),
   ChangeNotifierProvider(create: (_) => VehiclesListState()),
+  ChangeNotifierProvider(create: (_) => VehiclesDetailState()),
 ];
