@@ -10,6 +10,10 @@ class ModelsListState extends ChangeNotifier {
     models = await ModelService.instance.list();
   }
 
+  Future<void> listModelsByBrand(int brandId) async {
+    models = await ModelService.instance.listByBrand(brandId);
+  }
+
   void refresh() {
     notifyListeners();
   }

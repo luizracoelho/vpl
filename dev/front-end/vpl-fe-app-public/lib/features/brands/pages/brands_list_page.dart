@@ -7,7 +7,7 @@ import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
 import 'package:vpl/features/shared/states/primary_flow_state.dart';
 
 class BrandsListPage extends StatelessWidget {
-  const BrandsListPage({super.key});
+  const BrandsListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,8 @@ class BrandsListPage extends StatelessWidget {
                     : RefreshIndicator(
                         color: Theme.of(context).primaryColor,
                         onRefresh: () async => listState.refresh(),
-                        child: Consumer<PrimaryFlowState>(builder: (_, flowState, flowChild) {
+                        child: Consumer<PrimaryFlowState>(
+                            builder: (_, flowState, flowChild) {
                           return ListView.builder(
                             itemCount: listState.brands?.length ?? 0,
                             itemBuilder: (_, index) {
@@ -67,12 +68,15 @@ class BrandsListPage extends StatelessWidget {
                               return Column(
                                 children: [
                                   ListTile(
-                                    leading: CircleAvatar(backgroundImage: NetworkImage(brand.logo)),
+                                    leading: CircleAvatar(
+                                        backgroundImage:
+                                            NetworkImage(brand.logo)),
                                     title: Text(brand.name),
                                     trailing: const Icon(Icons.chevron_right),
                                     onTap: () {
                                       flowState.selectBrand(brand);
-                                      Navigator.of(context).pushNamed('/models');
+                                      Navigator.of(context).pushNamed('/models',
+                                          arguments: brand);
                                     },
                                   ),
                                   const Divider(),
@@ -122,22 +126,20 @@ class BrandsListPage extends StatelessWidget {
                       baseColor: Colors.grey.shade400,
                       highlightColor: Colors.grey.shade300,
                       child: Container(
-                        height: 15,
+                        height: 20,
                         width: 100,
-                        color: Colors.grey.shade400,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.circular(
+                            10,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
-              Shimmer.fromColors(
-                baseColor: Colors.grey.shade400,
-                highlightColor: Colors.grey.shade300,
-                child: Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey.shade400,
-                ),
-              ),
+              const Icon(Icons.chevron_right),
             ],
           ),
           const Divider(),
