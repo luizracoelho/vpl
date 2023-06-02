@@ -28,4 +28,24 @@ class ModelService {
       return null;
     }
   }
+
+  Future<List<Model>?> listByBrand(int brandId) async {
+    var dio = Dio();
+
+    final response = await dio.get(
+      '${Environment.apiUrl}/vehicles/models/brand/$brandId',
+    );
+
+    List<Model> models = [];
+
+    if (response.statusCode == 200) {
+      for (var item in response.data) {
+        models.add(Model.fromJson(item));
+      }
+
+      return models;
+    } else {
+      return null;
+    }
+  }
 }
