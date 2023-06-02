@@ -4,7 +4,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:vpl/features/brands/models/brand.dart';
 import 'package:vpl/features/models/states/models_list_state.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
-import 'package:vpl/features/shared/states/primary_flow_state.dart';
+import 'package:vpl/features/shared/states/vehicle_flow_state.dart';
 import '../models/model.dart';
 import '../service/model_service.dart';
 
@@ -14,20 +14,17 @@ class ModelsListPage extends StatelessWidget {
   const ModelsListPage({Key? key, this.brand}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Consumer<PrimaryFlowState>(builder: (_, flowState, listChild) {
+    return Consumer<VehicleFlowState>(builder: (_, flowState, listChild) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(
-              flowState.brand == null ? 'VPL Modelos' : flowState.brand!.name),
+          title: Text(flowState.brand == null ? 'VPL Modelos' : flowState.brand!.name),
         ),
         drawer: const VplDrawer(),
         body: SafeArea(
-          child:
-              Consumer<ModelsListState>(builder: (context, listState, child) {
+          child: Consumer<ModelsListState>(builder: (context, listState, child) {
             return FutureBuilder(
-              future: flowState.brand == null
-                  ? listState.listModels()
-                  : listState.listModelsByBrand(flowState.brand!.id),
+              future:
+                  flowState.brand == null ? listState.listModels() : listState.listModelsByBrand(flowState.brand!.id),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.none ||
                     snapshot.connectionState == ConnectionState.waiting) {
@@ -66,8 +63,7 @@ class ModelsListPage extends StatelessWidget {
                       : RefreshIndicator(
                           color: Theme.of(context).primaryColor,
                           onRefresh: () async => listState.refresh(),
-                          child: Consumer<PrimaryFlowState>(
-                              builder: (_, flowState, flowChild) {
+                          child: Consumer<VehicleFlowState>(builder: (_, flowState, flowChild) {
                             return ListView.builder(
                               itemCount: listState.models?.length ?? 0,
                               itemBuilder: (_, index) {
@@ -76,15 +72,12 @@ class ModelsListPage extends StatelessWidget {
                                 return Column(
                                   children: [
                                     ListTile(
-                                      leading: CircleAvatar(
-                                          backgroundImage:
-                                              NetworkImage(model.brandLogo)),
+                                      leading: CircleAvatar(backgroundImage: NetworkImage(model.brandLogo)),
                                       title: Text(model.name),
                                       trailing: const Icon(Icons.chevron_right),
                                       onTap: () {
                                         flowState.selectModel(model);
-                                        Navigator.of(context)
-                                            .pushNamed('/vehicles');
+                                        Navigator.of(context).pushNamed('/vehicles');
                                       },
                                     ),
                                     const Divider(),

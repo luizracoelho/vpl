@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vpl/features/shared/states/primary_flow_state.dart';
+import 'package:vpl/features/shared/states/price_list_flow_state.dart';
+import 'package:vpl/features/shared/states/vehicle_flow_state.dart';
 
 class VplDrawerItem extends StatelessWidget {
   final String title;
@@ -18,19 +19,23 @@ class VplDrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PrimaryFlowState>(builder: (context, state, child) {
-      return ListTile(
-        title: Text(title, style: Theme.of(context).textTheme.headlineSmall),
-        subtitle: Text(subtitle ?? ''),
-        leading: CircleAvatar(
-          child: Icon(icon),
-        ),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: () {
-          state.clear();
-          Navigator.of(context).pushReplacementNamed(route);
-        },
-      );
+    return Consumer<VehicleFlowState>(builder: (context, vehicleState, child) {
+      return Consumer<PriceListFlowState>(builder: (context, priceListState, child) {
+        return ListTile(
+          title: Text(title, style: Theme.of(context).textTheme.headlineSmall),
+          subtitle: Text(subtitle ?? ''),
+          leading: CircleAvatar(
+            child: Icon(icon),
+          ),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () {
+            vehicleState.clear();
+            priceListState.clear();
+
+            Navigator.of(context).pushReplacementNamed(route);
+          },
+        );
+      });
     });
   }
 }

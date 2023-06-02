@@ -4,7 +4,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:vpl/features/brands/models/brand.dart';
 import 'package:vpl/features/brands/states/brands_list_state.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
-import 'package:vpl/features/shared/states/primary_flow_state.dart';
+import 'package:vpl/features/shared/states/vehicle_flow_state.dart';
 
 class BrandsListPage extends StatelessWidget {
   const BrandsListPage({Key? key}) : super(key: key);
@@ -58,8 +58,7 @@ class BrandsListPage extends StatelessWidget {
                     : RefreshIndicator(
                         color: Theme.of(context).primaryColor,
                         onRefresh: () async => listState.refresh(),
-                        child: Consumer<PrimaryFlowState>(
-                            builder: (_, flowState, flowChild) {
+                        child: Consumer<VehicleFlowState>(builder: (_, flowState, flowChild) {
                           return ListView.builder(
                             itemCount: listState.brands?.length ?? 0,
                             itemBuilder: (_, index) {
@@ -68,15 +67,12 @@ class BrandsListPage extends StatelessWidget {
                               return Column(
                                 children: [
                                   ListTile(
-                                    leading: CircleAvatar(
-                                        backgroundImage:
-                                            NetworkImage(brand.logo)),
+                                    leading: CircleAvatar(backgroundImage: NetworkImage(brand.logo)),
                                     title: Text(brand.name),
                                     trailing: const Icon(Icons.chevron_right),
                                     onTap: () {
                                       flowState.selectBrand(brand);
-                                      Navigator.of(context).pushNamed('/models',
-                                          arguments: brand);
+                                      Navigator.of(context).pushNamed('/models');
                                     },
                                   ),
                                   const Divider(),

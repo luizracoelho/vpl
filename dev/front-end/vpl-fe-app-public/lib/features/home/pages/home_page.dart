@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vpl/features/home/components/home_card.dart';
+import 'package:vpl/features/home/components/price_list_home_card.dart';
+import 'package:vpl/features/referenceYears/enums/price_reference.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
-import 'package:vpl/features/shared/states/primary_flow_state.dart';
+import 'package:vpl/features/shared/states/price_list_flow_state.dart';
 import 'package:vpl/features/shared/states/theme_state.dart';
+import 'package:vpl/features/shared/states/vehicle_flow_state.dart';
+
+import '../components/vehicle_home_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -28,45 +34,48 @@ class HomePage extends StatelessWidget {
           height: double.infinity,
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 16.0,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 300,
-                    width: double.infinity,
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 16.0,
+                ),
+                child: Consumer<VehicleFlowState>(builder: (context, vehicleState, child) {
+                  return Consumer<PriceListFlowState>(builder: (context, priceListState, child) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.network(
-                            'https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1600'),
-                        const Padding(
-                          padding: EdgeInsets.only(
-                            bottom: 8.0,
-                          ),
-                          child: Text(
-                            'Consulte todas as marcas, modelos, veículos e seu histórico de valor de mercado através do app VPL.',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                            textAlign: TextAlign.center,
+                        SizedBox(
+                          height: 300,
+                          width: double.infinity,
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Image.network(
+                                  'https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1600'),
+                              const Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: 8.0,
+                                ),
+                                child: Text(
+                                  'Consulte todas as marcas, modelos, veículos e seu histórico de valor de mercado através do app VPL.',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
+                        getSearch(context),
+                        getOptions(context, vehicleState, priceListState),
+                        getTables(context, vehicleState, priceListState),
                       ],
-                    ),
-                  ),
-                  getSearch(context),
-                  getOptions(context),
-                  getTables(context),
-                ],
-              ),
-            ),
+                    );
+                  });
+                })),
           ),
         ),
       ),
@@ -93,7 +102,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget getOptions(BuildContext context) {
+  Widget getOptions(BuildContext context, VehicleFlowState vehicleState, PriceListFlowState priceListState) {
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: Column(
@@ -102,23 +111,29 @@ class HomePage extends StatelessWidget {
             'Selecione uma das opções a seguir:',
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          const SingleChildScrollView(
+          SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                HomeCard(
+                VehicleHomeCard(
+                  vehicleState: vehicleState,
+                  priceListState: priceListState,
                   title: 'Marcas',
                   subtitle: 'Consulte todas as marcas cadastradas',
                   icon: Icons.flag_circle_outlined,
                   route: '/brands',
                 ),
-                HomeCard(
+                VehicleHomeCard(
+                  vehicleState: vehicleState,
+                  priceListState: priceListState,
                   title: 'Modelos',
                   subtitle: 'Consulte todos os modelos cadastrados',
                   icon: Icons.sell_outlined,
                   route: '/models',
                 ),
-                HomeCard(
+                VehicleHomeCard(
+                  vehicleState: vehicleState,
+                  priceListState: priceListState,
                   title: 'Veículos',
                   subtitle: 'Consulte todos os veículos cadastrados',
                   icon: Icons.directions_car_outlined,
@@ -132,7 +147,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget getTables(BuildContext context) {
+  Widget getTables(BuildContext context, VehicleFlowState vehicleState, PriceListFlowState priceListState) {
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: Column(
@@ -141,17 +156,23 @@ class HomePage extends StatelessWidget {
             'Selecione uma das tabelas a seguir:',
             style: Theme.of(context).textTheme.titleMedium,
           ),
-          const SingleChildScrollView(
+          SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                HomeCard(
+                PriceListHomeCard(
+                  vehicleState: vehicleState,
+                  priceListState: priceListState,
+                  priceReference: PriceReference.Fipe,
                   title: 'Fipe',
                   subtitle: 'Consulte as referências da tabela FIPE',
                   icon: Icons.table_chart_outlined,
                   route: '/references',
                 ),
-                HomeCard(
+                PriceListHomeCard(
+                  vehicleState: vehicleState,
+                  priceListState: priceListState,
+                  priceReference: PriceReference.Molicar,
                   title: 'Molicar',
                   subtitle: 'Consulte as referências da tabela Molicar',
                   icon: Icons.table_chart_outlined,
@@ -163,54 +184,5 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class HomeCard extends StatelessWidget {
-  final String title;
-  final String? subtitle;
-  final IconData icon;
-  final String route;
-
-  const HomeCard({
-    super.key,
-    required this.title,
-    required this.icon,
-    required this.route,
-    this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<PrimaryFlowState>(builder: (context, state, child) {
-      return GestureDetector(
-        onTap: () {
-          state.clear();
-          Navigator.of(context).pushReplacementNamed(route);
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Card(
-            child: SizedBox(
-              width: 250,
-              height: 100,
-              child: Center(
-                child: ListTile(
-                  leading: CircleAvatar(
-                    child: Icon(
-                      icon,
-                    ),
-                  ),
-                  title: Text(
-                    title,
-                  ),
-                  subtitle: Text(subtitle ?? ''),
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    });
   }
 }

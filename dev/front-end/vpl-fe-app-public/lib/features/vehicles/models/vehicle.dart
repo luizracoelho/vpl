@@ -24,6 +24,6 @@ class Vehicle {
     name = json['name'];
     productionYear = json['productionYear'];
     modelYear = json['modelYear'];
-    type = VehicleType.values[json['type']];
+    type = VehicleType.values[json['type'] - 1];
   }
 }

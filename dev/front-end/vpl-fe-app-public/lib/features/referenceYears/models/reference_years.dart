@@ -9,12 +9,8 @@ class ReferenceYear {
 
   factory ReferenceYear.fromJson(Map<String, dynamic> json) {
     return ReferenceYear(
-      id: json['id'] as int?,
-      year: json['year'] as int?,
-      priceReference: json['priceReference'] != null
-          ? PriceReference.values.firstWhere(
-              (e) => e.toString() == 'PriceReference.${json['priceReference']}')
-          : null,
-    );
+        id: json['id'] as int?,
+        year: json['year'] as int?,
+        priceReference: PriceReference.values[json['priceReference']]);
   }
 }

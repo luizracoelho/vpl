@@ -14,8 +14,7 @@ class VplDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
             ),
-            child:
-                Text('VPL', style: Theme.of(context).textTheme.headlineLarge),
+            child: Text('VPL', style: Theme.of(context).textTheme.headlineLarge),
           ),
           const VplDrawerItem(
             title: 'Home',
@@ -43,13 +42,6 @@ class VplDrawer extends StatelessWidget {
             subtitle: 'Acesse os veículos',
             icon: Icons.directions_car_outlined,
             route: '/vehicles',
-          ),
-          const Divider(),
-          const VplDrawerItem(
-            title: 'Veículo detalhe ',
-            subtitle: 'teste de detalhes',
-            icon: Icons.directions_car_outlined,
-            route: '/vehicles-details',
           ),
           const Divider(),
         ],
