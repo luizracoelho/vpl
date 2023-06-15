@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vpl/features/home/components/home_card.dart';
 import 'package:vpl/features/home/components/price_list_home_card.dart';
+import 'package:vpl/features/home/states/search_state.dart';
 import 'package:vpl/features/referenceYears/enums/price_reference.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
 import 'package:vpl/features/shared/states/price_list_flow_state.dart';
@@ -17,14 +17,32 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('VPL Home'),
+        title: Consumer<SearchState>(builder: (context, searchState, child) {
+          return searchState.open ? getSearch(context) : const Text('VPL Home');
+        }),
         actions: [
-          Consumer<ThemeState>(builder: (context, state, child) {
-            return IconButton(
-              onPressed: () => state.toggleTheme(),
-              icon: Icon(state.icon),
+          Consumer<SearchState>(builder: (context, searchState, child) {
+            return Row(
+              children: [
+                Visibility(
+                  visible: searchState.open,
+                  child: Row(
+                    children: [getSearch(context)],
+                  ),
+                ),
+                Visibility(
+                  visible: !searchState.open,
+                  child: Consumer<ThemeState>(builder: (context, state, child) {
+                    return IconButton(
+                      onPressed: () => state.toggleTheme(),
+                      icon: Icon(state.icon),
+                    );
+                  }),
+                ),
+                IconButton(onPressed: () => searchState.toggle(), icon: Icon(Icons.search_outlined)),
+              ],
             );
-          })
+          }),
         ],
       ),
       drawer: const VplDrawer(),
@@ -69,7 +87,6 @@ class HomePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        getSearch(context),
                         getOptions(context, vehicleState, priceListState),
                         getTables(context, vehicleState, priceListState),
                       ],
@@ -83,22 +100,12 @@ class HomePage extends StatelessWidget {
   }
 
   Widget getSearch(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 12.0),
-      child: Column(
-        children: [
-          Text(
-            'Pesquise uma marca, modelo ou veículo:',
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-          const TextField(
-            decoration: InputDecoration(
-              hintText: 'Digite sua pesquisa...',
-              suffixIcon: Icon(Icons.search),
-            ),
-          ),
-        ],
-      ),
+    return const Column(
+      children: [
+        TextField(
+          decoration: InputDecoration(hintText: 'Digite sua pesquisa...'),
+        ),
+      ],
     );
   }
 
