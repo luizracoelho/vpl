@@ -51,23 +51,6 @@ class VehicleDetailPage extends StatelessWidget {
     return const Text('Aqui estarão os gráficos', style: TextStyle(fontSize: 20));
   }
 
-  String getTypeVehicle(VehicleType vehicleType) {
-    switch (vehicleType.value) {
-      case 1:
-        return 'CARRO';
-      case 2:
-        return 'MOTO';
-      case 3:
-        return 'ÔNIBUS';
-      case 4:
-        return 'CAMINHÃO';
-      case 5:
-        return 'VAN';
-      default:
-    }
-    return 'UNDEFINED';
-  }
-
   FutureBuilder<void> getInfoTab(VehicleDetailState detailState, PriceListFlowState priceListFlowState) {
     return FutureBuilder(
       future: detailState.getDetail(
@@ -243,5 +226,22 @@ class VehicleDetailPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  String getTypeVehicle(VehicleType vehicleType) {
+    switch (vehicleType.value) {
+      case 1:
+        return 'CARRO';
+      case 2:
+        return 'MOTO';
+      case 3:
+        return 'ÔNIBUS';
+      case 4:
+        return 'CAMINHÃO';
+      case 5:
+        return 'VAN';
+      default:
+    }
+    return 'UNDEFINED';
   }
 }
