@@ -1,32 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:vpl/features/shared/states/price_list_flow_state.dart';
-import 'package:vpl/features/shared/states/vehicle_flow_state.dart';
+import 'package:vpl/features/evaluations/models/evaluation.dart';
 
 class VehicleTable extends StatelessWidget {
-  final List<Map<String, dynamic>> vehicles;
-  // final String title;
-  // final String? subtitle;
-  const VehicleTable({Key? key, required this.vehicles}) : super(key: key);
+  final List<Evaluation> evaluations;
+  final Color color;
+  final int? year;
+  const VehicleTable(this.evaluations, this.year, this.color, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<VehicleFlowState>(builder: (context, vehicleState, child) {
-      return Consumer<PriceListFlowState>(
-          builder: (context, priceListState, child) {
-        return DataTable(
-          columns: [
-            DataColumn(label: Text('Ano')),
-            DataColumn(label: Text('Valor')),
-          ],
-          rows: vehicles.map((vehicle) {
-            return DataRow(cells: [
-              DataCell(Text(vehicle['ano'].toString())),
-              DataCell(Text('R\$ ${vehicle['valor']}')),
-            ]);
-          }).toList(),
-        );
-      });
-    });
+    return DataTable(
+      columns: [
+        DataColumn(
+          label: Text(
+            'Ano',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        DataColumn(
+          label: Text(
+            'Valor',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+      ],
+      rows: evaluations.map((evaluation) {
+        return DataRow(cells: [
+          DataCell(Row(
+            children: [
+              year == evaluation.year
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(
+                        Icons.check_circle,
+                        color: color,
+                      ),
+                    )
+                  : Container(),
+              Text(evaluation.year.toString()),
+            ],
+          )),
+          DataCell(Text('R\$ ${evaluation.value}')),
+        ]);
+      }).toList(),
+    );
   }
 }

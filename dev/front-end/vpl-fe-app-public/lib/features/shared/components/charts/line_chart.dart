@@ -1,22 +1,45 @@
-import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:vpl/data/data.dart';
+import 'package:flutter/material.dart';
+import 'package:vpl/features/evaluations/models/evaluation.dart';
 
 class MyLineChart extends StatelessWidget {
-  final List<ChartData> points;
-  const MyLineChart(this.points, {Key? key}) : super(key: key);
+  final List<Evaluation> evaluations;
+  final Color color;
+  const MyLineChart(this.evaluations, this.color, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1,
-      child: LineChart(LineChartData(lineBarsData: [
-        LineChartBarData(
-            barWidth: 5,
-            color: Colors.white,
-            spots: points.map((point) => FlSpot(point.x, point.y)).toList(),
-            dotData: FlDotData(show: true)),
-      ])),
+      child: LineChart(
+        LineChartData(
+          lineBarsData: [
+            LineChartBarData(
+              barWidth: 5,
+              color: color,
+              spots:
+                  evaluations.asMap().entries.map((entry) => FlSpot(entry.key.toDouble(), entry.value.value)).toList(),
+              dotData: const FlDotData(show: true),
+            ),
+          ],
+          titlesData: FlTitlesData(
+            show: true,
+            bottomTitles: AxisTitles(
+                sideTitles: SideTitles(
+                    showTitles: true,
+                    getTitlesWidget: (value, meta) {
+                      return Text(evaluations[value.toInt()].year.toString());
+                    },
+                    interval: 1)),
+            topTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            rightTitles: const AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

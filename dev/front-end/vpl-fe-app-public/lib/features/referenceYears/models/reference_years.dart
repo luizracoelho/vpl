@@ -11,6 +11,6 @@ class ReferenceYear {
     return ReferenceYear(
         id: json['id'] as int?,
         year: json['year'] as int?,
-        priceReference: PriceReference.values[json['priceReference']]);
+        priceReference: PriceReference.values[json['priceReference'] - 1]);
   }
 }
