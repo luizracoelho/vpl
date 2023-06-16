@@ -49,6 +49,7 @@ class VehicleDetailPage extends StatelessWidget {
 
   SingleChildScrollView getTableTab(
       VehicleDetailState detailState, PriceListFlowState priceListFlowState) {
+    //
     return SingleChildScrollView(
         // child: VehicleTable(vehicles: ),
         );
