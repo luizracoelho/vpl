@@ -6,6 +6,8 @@ import 'package:vpl/features/vehicles/components/vehicle_table.dart';
 import 'package:vpl/features/vehicles/enums/vehicle_type.dart';
 import 'package:vpl/features/vehicles/models/vehicle.dart';
 import 'package:vpl/features/vehicles/states/vehicle_detail_state.dart';
+import '../../../data/data.dart';
+import '../../shared/components/charts/line_chart.dart';
 
 class VehicleDetailPage extends StatelessWidget {
   late Vehicle vehicle;
@@ -37,7 +39,7 @@ class VehicleDetailPage extends StatelessWidget {
                 body: TabBarView(
                   children: [
                     getInfoTab(detailState, priceListFlowState),
-                    getChartTab(detailState, priceListFlowState),
+                    getChartTab(detailState, priceListFlowState, context),
                     getTableTab(detailState, priceListFlowState)
                   ],
                 )),
@@ -47,17 +49,65 @@ class VehicleDetailPage extends StatelessWidget {
     });
   }
 
-  SingleChildScrollView getTableTab(
+  Text getTableTab(
       VehicleDetailState detailState, PriceListFlowState priceListFlowState) {
-    return SingleChildScrollView(
-        // child: VehicleTable(vehicles: ),
-        );
+    return const Text('Aqui estarão as tabelas',
+        style: TextStyle(fontSize: 20));
   }
 
-  Text getChartTab(
-      VehicleDetailState detailState, PriceListFlowState priceListFlowState) {
-    return const Text('Aqui estarão os gráficos',
-        style: TextStyle(fontSize: 20));
+  SingleChildScrollView getChartTab(VehicleDetailState detailState,
+      PriceListFlowState priceListFlowState, BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.teal,
+                style: BorderStyle.solid,
+                width: 2,
+              ),
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            child: Column(
+              children: [
+                const Text(
+                  'Valores por ano',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                MyLineChart(chartData),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String getTypeVehicle(VehicleType vehicleType) {
+    switch (vehicleType.value) {
+      case 1:
+        return 'CARRO';
+      case 2:
+        return 'MOTO';
+      case 3:
+        return 'ÔNIBUS';
+      case 4:
+        return 'CAMINHÃO';
+      case 5:
+        return 'VAN';
+      default:
+    }
+    return 'UNDEFINED';
   }
 
   FutureBuilder<void> getInfoTab(
