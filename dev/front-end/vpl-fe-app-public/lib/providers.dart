@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
+import 'package:vpl/features/home/states/search_state.dart';
 import 'package:vpl/features/referenceYears/states/reference_years_list_state.dart';
 import 'package:vpl/features/shared/states/price_list_flow_state.dart';
 
@@ -21,5 +22,6 @@ final List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (_) => VehicleListState()),
   ChangeNotifierProvider(create: (_) => VehicleDetailState()),
   ChangeNotifierProvider(create: (_) => VehicleListState()),
+  ChangeNotifierProvider(create: (_) => SearchState()),
   ChangeNotifierProvider(create: (_) => ReferenceYearsListState()),
 ];

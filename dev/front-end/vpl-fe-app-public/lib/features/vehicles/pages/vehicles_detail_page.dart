@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vpl/features/shared/states/price_list_flow_state.dart';
 import 'package:vpl/features/shared/states/vehicle_flow_state.dart';
+import 'package:vpl/features/vehicles/components/vehicle_table.dart';
 import 'package:vpl/features/vehicles/enums/vehicle_type.dart';
 import 'package:vpl/features/vehicles/models/vehicle.dart';
 import 'package:vpl/features/vehicles/states/vehicle_detail_state.dart';
@@ -321,5 +322,22 @@ class VehicleDetailPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  String getTypeVehicle(VehicleType vehicleType) {
+    switch (vehicleType.value) {
+      case 1:
+        return 'CARRO';
+      case 2:
+        return 'MOTO';
+      case 3:
+        return 'ÔNIBUS';
+      case 4:
+        return 'CAMINHÃO';
+      case 5:
+        return 'VAN';
+      default:
+    }
+    return 'UNDEFINED';
   }
 }
