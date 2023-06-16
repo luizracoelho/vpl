@@ -49,10 +49,11 @@ class VehicleDetailPage extends StatelessWidget {
     });
   }
 
-  Text getTableTab(
+  SingleChildScrollView getTableTab(
       VehicleDetailState detailState, PriceListFlowState priceListFlowState) {
-    return const Text('Aqui estarão as tabelas',
-        style: TextStyle(fontSize: 20));
+    return SingleChildScrollView(
+        //child:VehicleTable(vehicles:)
+        );
   }
 
   SingleChildScrollView getChartTab(VehicleDetailState detailState,
