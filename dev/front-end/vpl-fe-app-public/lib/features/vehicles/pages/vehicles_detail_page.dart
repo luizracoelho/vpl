@@ -5,6 +5,8 @@ import 'package:vpl/features/shared/states/vehicle_flow_state.dart';
 import 'package:vpl/features/vehicles/enums/vehicle_type.dart';
 import 'package:vpl/features/vehicles/models/vehicle.dart';
 import 'package:vpl/features/vehicles/states/vehicle_detail_state.dart';
+import '../../../data/data.dart';
+import '../../shared/components/charts/line_chart.dart';
 
 class VehicleDetailPage extends StatelessWidget {
   late Vehicle vehicle;
@@ -13,11 +15,14 @@ class VehicleDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<VehicleFlowState>(builder: (context, vehicleFlowState, child) {
-      return Consumer<PriceListFlowState>(builder: (context, priceListFlowState, child) {
+    return Consumer<VehicleFlowState>(
+        builder: (context, vehicleFlowState, child) {
+      return Consumer<PriceListFlowState>(
+          builder: (context, priceListFlowState, child) {
         vehicle = priceListFlowState.vehicle ?? vehicleFlowState.vehicle!;
 
-        return Consumer<VehicleDetailState>(builder: (context, detailState, child) {
+        return Consumer<VehicleDetailState>(
+            builder: (context, detailState, child) {
           return DefaultTabController(
             initialIndex: 0,
             length: 3,
@@ -33,7 +38,7 @@ class VehicleDetailPage extends StatelessWidget {
                 body: TabBarView(
                   children: [
                     getInfoTab(detailState, priceListFlowState),
-                    getChartTab(detailState, priceListFlowState),
+                    getChartTab(detailState, priceListFlowState, context),
                     getTableTab(detailState, priceListFlowState)
                   ],
                 )),
@@ -43,12 +48,48 @@ class VehicleDetailPage extends StatelessWidget {
     });
   }
 
-  Text getTableTab(VehicleDetailState detailState, PriceListFlowState priceListFlowState) {
-    return const Text('Aqui estarão as tabelas', style: TextStyle(fontSize: 20));
+  Text getTableTab(
+      VehicleDetailState detailState, PriceListFlowState priceListFlowState) {
+    return const Text('Aqui estarão as tabelas',
+        style: TextStyle(fontSize: 20));
   }
 
-  Text getChartTab(VehicleDetailState detailState, PriceListFlowState priceListFlowState) {
-    return const Text('Aqui estarão os gráficos', style: TextStyle(fontSize: 20));
+  SingleChildScrollView getChartTab(VehicleDetailState detailState,
+      PriceListFlowState priceListFlowState, BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.teal,
+                style: BorderStyle.solid,
+                width: 2,
+              ),
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.circular(30.0),
+            ),
+            child: Column(
+              children: [
+                const Text(
+                  'Valores por ano',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                MyLineChart(chartData),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   String getTypeVehicle(VehicleType vehicleType) {
@@ -68,14 +109,16 @@ class VehicleDetailPage extends StatelessWidget {
     return 'UNDEFINED';
   }
 
-  FutureBuilder<void> getInfoTab(VehicleDetailState detailState, PriceListFlowState priceListFlowState) {
+  FutureBuilder<void> getInfoTab(
+      VehicleDetailState detailState, PriceListFlowState priceListFlowState) {
     return FutureBuilder(
       future: detailState.getDetail(
         vehicle.id,
         priceListFlowState.priceReference,
       ),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.none || snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.none ||
+            snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: Text('Carregando...'),
           );
@@ -98,7 +141,8 @@ class VehicleDetailPage extends StatelessWidget {
                               Column(
                                 children: [
                                   CircleAvatar(
-                                    backgroundImage: NetworkImage(detailState.vehicleDetail!.vehicle.brandLogo),
+                                    backgroundImage: NetworkImage(detailState
+                                        .vehicleDetail!.vehicle.brandLogo),
                                     radius: 50,
                                   ),
                                 ],
@@ -106,7 +150,8 @@ class VehicleDetailPage extends StatelessWidget {
                               Column(
                                 children: [
                                   Text(
-                                    detailState.vehicleDetail!.vehicle.brandName,
+                                    detailState
+                                        .vehicleDetail!.vehicle.brandName,
                                     style: const TextStyle(fontSize: 25),
                                   ),
                                   Text(
@@ -125,78 +170,104 @@ class VehicleDetailPage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                      Column(
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: 180,
-                            height: 100,
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                      Column(
-                                        children: [
-                                          Text('Ano Produção'),
-                                        ],
-                                      )
-                                    ]),
-                                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                      Column(
-                                        children: [
-                                          Text(
-                                            detailState.vehicleDetail!.vehicle.productionYear.toString(),
-                                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      )
-                                    ]),
-                                  ],
+                          Column(
+                            children: [
+                              SizedBox(
+                                width: 180,
+                                height: 100,
+                                child: Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text('Ano Produção'),
+                                                ],
+                                              )
+                                            ]),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    detailState.vehicleDetail!
+                                                        .vehicle.productionYear
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              )
+                                            ]),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          SizedBox(
-                            width: 180,
-                            height: 100,
-                            child: Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                      Column(
-                                        children: [
-                                          Text('Ano Modelo'),
-                                        ],
-                                      )
-                                    ]),
-                                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                      Column(
-                                        children: [
-                                          Text(
-                                            detailState.vehicleDetail!.vehicle.modelYear.toString(),
-                                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      )
-                                    ]),
-                                  ],
+                          Column(
+                            children: [
+                              SizedBox(
+                                width: 180,
+                                height: 100,
+                                child: Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text('Ano Modelo'),
+                                                ],
+                                              )
+                                            ]),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    detailState.vehicleDetail!
+                                                        .vehicle.modelYear
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              )
+                                            ]),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ]),
+                        ]),
                   ],
                 ),
                 Row(
@@ -210,23 +281,30 @@ class VehicleDetailPage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                Column(
+                              const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text('Tipo'),
-                                  ],
-                                )
-                              ]),
-                              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                                Column(
+                                    Column(
+                                      children: [
+                                        Text('Tipo'),
+                                      ],
+                                    )
+                                  ]),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      getTypeVehicle(detailState.vehicleDetail!.vehicle.type),
-                                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                )
-                              ]),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          getTypeVehicle(detailState
+                                              .vehicleDetail!.vehicle.type),
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    )
+                                  ]),
                             ],
                           ),
                         ),
