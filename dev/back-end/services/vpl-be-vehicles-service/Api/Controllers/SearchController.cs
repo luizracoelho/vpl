@@ -1,11 +1,6 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using VehiclesService.App.Commands.Brands;
-using VehiclesService.App.Queries.Brands;
 using VehiclesService.App.Queries.Searchs;
-using VehiclesService.Domain.ViewModels;
-using VehiclesService.Domain.ViewModels.Brands;
 using VehiclesService.Domain.ViewModels.Searchs;
 
 namespace VehiclesService.Api.Controllers
