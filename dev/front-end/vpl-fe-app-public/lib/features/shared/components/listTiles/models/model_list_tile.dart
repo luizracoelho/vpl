@@ -14,7 +14,7 @@ class ModelListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(backgroundImage: NetworkImage(model.brandLogo)),
-      title: Text(model.brandName),
+      title: Text(model.name),
       trailing: const Icon(Icons.chevron_right),
       onTap: () {
         vehicleState.selectModel(model);
