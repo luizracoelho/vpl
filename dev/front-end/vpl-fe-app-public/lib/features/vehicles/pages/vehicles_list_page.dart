@@ -5,6 +5,7 @@ import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
 import 'package:vpl/features/shared/states/price_list_flow_state.dart';
 import 'package:vpl/features/shared/states/vehicle_flow_state.dart';
 import 'package:vpl/features/vehicles/models/vehicle.dart';
+import '../../shared/components/listTiles/vehicles/vehicle_list_tile.dart';
 import '../states/vehicle_list_state.dart';
 
 class VehiclesListPage extends StatelessWidget {
@@ -114,19 +115,10 @@ class VehiclesListPage extends StatelessWidget {
 
                                 return Column(
                                   children: [
-                                    ListTile(
-                                      leading: CircleAvatar(backgroundImage: NetworkImage(vehicle.brandLogo)),
-                                      title: Text(vehicle.name),
-                                      trailing: const Icon(Icons.chevron_right),
-                                      onTap: () {
-                                        if (priceListFlowState.year != null) {
-                                          priceListFlowState.selectVehicle(vehicle);
-                                        } else {
-                                          vehicleFlowState.selectVehicle(vehicle);
-                                        }
-
-                                        Navigator.of(context).pushNamed('/vehicles/details');
-                                      },
+                                    VehicleListTile(
+                                      vehicle: vehicle,
+                                      vehicleFlowState: vehicleFlowState,
+                                      priceListFlowState: priceListFlowState,
                                     ),
                                     const Divider(),
                                   ],
