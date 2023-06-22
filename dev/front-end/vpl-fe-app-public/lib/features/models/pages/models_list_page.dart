@@ -5,8 +5,8 @@ import 'package:vpl/features/brands/models/brand.dart';
 import 'package:vpl/features/models/states/models_list_state.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
 import 'package:vpl/features/shared/states/vehicle_flow_state.dart';
+import '../../shared/components/listTiles/models/model_list_tile.dart';
 import '../models/model.dart';
-import '../service/model_service.dart';
 
 class ModelsListPage extends StatelessWidget {
   final Brand? brand;
@@ -71,15 +71,7 @@ class ModelsListPage extends StatelessWidget {
 
                                 return Column(
                                   children: [
-                                    ListTile(
-                                      leading: CircleAvatar(backgroundImage: NetworkImage(model.brandLogo)),
-                                      title: Text(model.name),
-                                      trailing: const Icon(Icons.chevron_right),
-                                      onTap: () {
-                                        flowState.selectModel(model);
-                                        Navigator.of(context).pushNamed('/vehicles');
-                                      },
-                                    ),
+                                    ModelListTile(model: model, vehicleState: flowState),
                                     const Divider(),
                                   ],
                                 );
@@ -140,7 +132,7 @@ class ModelsListPage extends StatelessWidget {
                 child: Container(
                   height: 24,
                   width: 24,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),

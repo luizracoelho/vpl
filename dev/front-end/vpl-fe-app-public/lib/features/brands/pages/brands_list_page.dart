@@ -5,6 +5,9 @@ import 'package:vpl/features/brands/models/brand.dart';
 import 'package:vpl/features/brands/states/brands_list_state.dart';
 import 'package:vpl/features/shared/components/drawer/vpl_drawer.dart';
 import 'package:vpl/features/shared/states/vehicle_flow_state.dart';
+import 'package:vpl/features/vehicles/models/vehicle.dart';
+
+import '../../shared/components/listTiles/brands/brand_list_tile.dart';
 
 class BrandsListPage extends StatelessWidget {
   const BrandsListPage({Key? key}) : super(key: key);
@@ -66,15 +69,7 @@ class BrandsListPage extends StatelessWidget {
 
                               return Column(
                                 children: [
-                                  ListTile(
-                                    leading: CircleAvatar(backgroundImage: NetworkImage(brand.logo)),
-                                    title: Text(brand.name),
-                                    trailing: const Icon(Icons.chevron_right),
-                                    onTap: () {
-                                      flowState.selectBrand(brand);
-                                      Navigator.of(context).pushNamed('/models');
-                                    },
-                                  ),
+                                  BrandListTile(brand: brand, vehicleState: flowState),
                                   const Divider(),
                                 ],
                               );
