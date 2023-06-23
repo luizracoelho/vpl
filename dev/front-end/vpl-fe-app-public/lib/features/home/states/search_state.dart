@@ -25,7 +25,7 @@ class SearchState extends ChangeNotifier {
     isSearching = false;
     result = null;
 
-    notifyListeners();
+    toggleSearchBar();
   }
 
   Future<void> search() async {
