@@ -14,12 +14,12 @@ import { Model } from "../../models/model";
 import { Vehicle } from "../../models/vehicle";
 import BrandCard from "../brands-page/brand-card";
 import ModelCard from "../models-page/model-card";
-import VehicleCard from "../vehicles-page/vehicle-card";
 import HomeCard from "./home-card";
 import useTablesMenu from "../../hooks/menu/use-tables-menu";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import SEO from "../../components/seo";
+import VehicleCard from "../vehicles-page/Vehicle-card";
 
 const HomePage = () => {
     const menus = useListMenu();
@@ -141,7 +141,9 @@ const HomePage = () => {
                     <Grid container spacing={1} sx={{ my: 3 }}>
                         {globalSearchResult.data.vehicles.map((vehicle: Vehicle) => (
                             <Grid item key={vehicle.id} xs={12} lg={6}>
-                                <VehicleCard {...vehicle} />
+                                <VehicleCard vehicle={vehicle}
+                                             modelId={vehicle.modelId}
+                                             brandId={vehicle.brandId} />
                             </Grid>
                         ))}
                     </Grid>

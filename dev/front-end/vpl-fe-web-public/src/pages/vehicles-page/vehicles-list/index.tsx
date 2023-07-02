@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { ApiResult, ApiResultStatus } from "../../../models/api-result-model";
 import { Vehicle } from "../../../models/vehicle";
-import VehicleCard from "../vehicle-card";
+import VehicleCard from "../Vehicle-card";
 
 export interface VehiclesListProps {
     vehiclesResult: ApiResult;
