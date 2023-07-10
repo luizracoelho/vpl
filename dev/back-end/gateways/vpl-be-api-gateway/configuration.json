@@ -5,8 +5,8 @@
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8002
+          "Host": "vehicles-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/vehicles/{everything}",
@@ -17,8 +17,8 @@
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8001
+          "Host": "price-list-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/prices/{everything}",
@@ -29,8 +29,8 @@
       "DownstreamPathTemplate": "/{everything}",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 8003
+          "Host": "auth-api",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/auth/{everything}",
