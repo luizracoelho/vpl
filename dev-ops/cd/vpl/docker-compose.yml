@@ -4,6 +4,9 @@ networks:
   vpl:
     driver: bridge
 
+# volumes:
+#   database:CAMINHO_DO_HOST
+
 services:
   gateway-api:
     container_name: gateway-api
@@ -12,6 +15,8 @@ services:
       - 8000:80
     networks:
       - vpl
+    # volumes:
+    #   - database:CAMINHO_CONTAINER
     restart: always
 
   price-list-api:
