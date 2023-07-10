@@ -11,54 +11,68 @@ class HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: SingleChildScrollView(
+    return LayoutBuilder(builder: (context, constraints) {
+      return SizedBox(
+        width: double.infinity,
+        height: double.infinity,
         child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 8.0,
               horizontal: 16.0,
             ),
-            child: Consumer<VehicleFlowState>(builder: (context, vehicleState, child) {
-              return Consumer<PriceListFlowState>(builder: (context, priceListState, child) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 300,
-                      width: double.infinity,
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Image.network(
-                              'https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1600'),
-                          const Padding(
-                            padding: EdgeInsets.only(
-                              bottom: 8.0,
+            child: SingleChildScrollView(
+              child: Consumer<VehicleFlowState>(builder: (context, vehicleState, child) {
+                return Consumer<PriceListFlowState>(builder: (context, priceListState, child) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 300,
+                        width: double.infinity,
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              child: Image.network(
+                                  'https://images.pexels.com/photos/3802510/pexels-photo-3802510.jpeg?auto=compress&cs=tinysrgb&w=1600',
+                                  fit: BoxFit.cover),
                             ),
-                            child: Text(
-                              'Consulte todas as marcas, modelos, veículos e seu histórico de valor de mercado através do app VPL.',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                            const Padding(
+                              padding: EdgeInsets.only(
+                                bottom: 8.0,
                               ),
-                              textAlign: TextAlign.center,
+                              child: Text(
+                                'Consulte todas as marcas, modelos, veículos e seu histórico de valor de mercado através do app VPL.',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    getOptions(context, vehicleState, priceListState),
-                    getTables(context, vehicleState, priceListState),
-                  ],
-                );
-              });
-            })),
-      ),
-    );
+                      SizedBox(
+                        height: constraints.maxHeight - 316 < 0 ? null : constraints.maxHeight - 316,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            getOptions(context, vehicleState, priceListState),
+                            getTables(context, vehicleState, priceListState),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                });
+              }),
+            )),
+      );
+    });
   }
 
   Widget getOptions(BuildContext context, VehicleFlowState vehicleState, PriceListFlowState priceListState) {

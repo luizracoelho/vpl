@@ -1,10 +1,8 @@
-﻿using MediatR;
+﻿using System.Text;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-
 using VehiclesService.App.Services;
 using VehiclesService.Data;
 using VehiclesService.Data.Context;

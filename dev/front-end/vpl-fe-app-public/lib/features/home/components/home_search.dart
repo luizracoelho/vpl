@@ -16,97 +16,54 @@ class HomeSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 0,
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight),
-            child: Consumer<SearchState>(
-              builder: (_, searchState, __) => TabBar(
-                tabs: <Widget>[
-                  Tab(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.flag_circle_outlined),
-                        SizedBox(width: 5),
-                        Text(
-                          searchState.result != null
-                              ? searchState.result!.brands!.length.toString()
-                              : 'Carregando...',
-                        ),
-                      ],
-                    ),
-                  ),
-                  Tab(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.sell_outlined),
-                        SizedBox(width: 5),
-                        Text(
-                          searchState.result != null
-                              ? searchState.result!.models!.length.toString()
-                              : 'Carregando...',
-                        ),
-                      ],
-                    ),
-                  ),
-                  Tab(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.directions_car_outlined),
-                        SizedBox(width: 5),
-                        Text(
-                          searchState.result != null
-                              ? searchState.result!.vehicles!.length.toString()
-                              : 'Carregando...',
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+    return Consumer<SearchState>(builder: (_, searchState, child) {
+      return DefaultTabController(
+        initialIndex: 0,
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: <Widget>[
+                CustomTab(
+                  icon: Icons.flag_circle_outlined,
+                  count: searchState.result?.brands?.length,
+                ),
+                CustomTab(
+                  icon: Icons.sell_outlined,
+                  count: searchState.result?.models?.length,
+                ),
+                CustomTab(
+                  icon: Icons.directions_car_outlined,
+                  count: searchState.result?.vehicles?.length,
+                ),
+              ],
             ),
           ),
-        ),
-        body: Consumer<SearchState>(
-          builder: (_, searchState, __) {
-            if (searchState.result == null) {
-              return const Text('Carregando...');
-            } else {
-              return searchState.result != null
-                  ? Consumer<VehicleFlowState>(
-                      builder: (_, vehicleFlowState, __) {
-                        return Consumer<PriceListFlowState>(
-                          builder: (_, priceFlowState, __) {
-                            return TabBarView(
-                              children: [
-                                getBrands(
-                                    searchState, context, vehicleFlowState),
-                                getModels(
-                                    searchState, context, vehicleFlowState),
-                                getVehicles(
-                                  searchState,
-                                  context,
-                                  vehicleFlowState,
-                                  priceFlowState,
-                                ),
-                              ],
-                            );
-                          },
+          body: searchState.result == null
+              ? const Text('Carregando...')
+              : Consumer<VehicleFlowState>(
+                  builder: (_, vehicleFlowState, __) {
+                    return Consumer<PriceListFlowState>(
+                      builder: (_, priceFlowState, __) {
+                        return TabBarView(
+                          children: [
+                            getBrands(searchState, context, vehicleFlowState),
+                            getModels(searchState, context, vehicleFlowState),
+                            getVehicles(
+                              searchState,
+                              context,
+                              vehicleFlowState,
+                              priceFlowState,
+                            ),
+                          ],
                         );
                       },
-                    )
-                  : Container();
-            }
-          },
+                    );
+                  },
+                ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget getBrands(
@@ -162,6 +119,35 @@ class HomeSearch extends StatelessWidget {
           priceListFlowState: priceListFlowState,
         );
       },
+    );
+  }
+}
+
+class CustomTab extends StatelessWidget {
+  final IconData icon;
+  final int? count;
+
+  const CustomTab({
+    required this.icon,
+    required this.count,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Tab(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Icon(icon),
+          ),
+          Text(
+            count != null ? count.toString() : '...',
+          ),
+        ],
+      ),
     );
   }
 }

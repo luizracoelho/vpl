@@ -5,12 +5,15 @@ import 'package:vpl/features/evaluations/models/evaluation.dart';
 class MyLineChart extends StatelessWidget {
   final List<Evaluation> evaluations;
   final Color color;
-  const MyLineChart(this.evaluations, this.color, {Key? key}) : super(key: key);
+  final BoxConstraints constraints;
+
+  const MyLineChart(this.evaluations, this.color, this.constraints, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1,
+    return SizedBox(
+      width: double.infinity,
+      height: constraints.maxHeight / 2.5,
       child: LineChart(
         LineChartData(
           lineBarsData: [

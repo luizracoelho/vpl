@@ -20,6 +20,14 @@ class SearchState extends ChangeNotifier {
     notifyListeners();
   }
 
+  clear() {
+    searchController.clear();
+    isSearching = false;
+    result = null;
+
+    toggleSearchBar();
+  }
+
   Future<void> search() async {
     if (searchController.text.isNotEmpty) {
       isSearching = true;
