@@ -8,6 +8,24 @@ networks:
 #   database:CAMINHO_DO_HOST
 
 services:
+  # Example of container mysql.
+  # vpl-bd:
+  #   container_name: vpl-bd
+  #   image: mysql
+  #   env_file:
+  #     - docker-variables.env
+  #     * Create file docker-variables.env with these variables names:
+  #     * MYSQL_USER=yourUser
+  #     * MYSQL_PASSWORD=yourPassword
+  #     * MYSQL_ROOT_PASSWORD=yourPassword
+  #   ports:
+  #     - 3306:3306
+  #   networks:
+  #     - vpl
+  #   volumes:
+  #     - ./data:/var/opt/mssql/data
+  #   restart: always
+
   gateway-api:
     container_name: gateway-api
     image: vpl-be-gateway-api:latest
@@ -61,11 +79,11 @@ services:
       - API_URL=http://192.168.2.7:8000
     restart: always
 
-  # admin-app:
-  #   container_name: admin-app
-  #   image: vpl-fe-admin-app:latest
-  #   ports:
-  #     - 8021:80
-  #   networks:
-  #     - vpl
-  #   restart: always
+  admin-web:
+    container_name: admin-web
+    image: vpl-fe-admin-app:latest
+    ports:
+      - 8021:80
+    networks:
+      - vpl
+    restart: always
