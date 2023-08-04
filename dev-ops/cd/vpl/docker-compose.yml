@@ -28,7 +28,7 @@ services:
 
   gateway-api:
     container_name: gateway-api
-    image: vpl-be-gateway-api:latest
+    image: luizracoelho/vpl-be-gateway-api:latest
     ports:
       - 8000:80
     networks:
@@ -39,7 +39,7 @@ services:
 
   price-list-api:
     container_name: price-list-api
-    image: vpl-be-price-list-service:latest
+    image: luizracoelho/vpl-be-price-list-service:latest
     ports:
       - 8001:80
     networks:
@@ -50,7 +50,7 @@ services:
 
   vehicles-api:
     container_name: vehicles-api
-    image: vpl-be-vehicles-service:latest
+    image: luizracoelho/vpl-be-vehicles-service:latest
     ports:
       - 8002:80
     networks:
@@ -61,27 +61,25 @@ services:
 
   auth-api:
     container_name: auth-api
-    image: vpl-be-auth-service:latest
+    image: luizracoelho/vpl-be-auth-service:latest
     ports:
       - 8003:80
     networks:
       - vpl
     restart: always
 
-  public-app:
-    container_name: public-app
-    image: vpl-fe-public-app:latest
+  public-web:
+    container_name: public-web
+    image: luizracoelho/vpl-fe-public-web:latest
     ports:
       - 8020:80
     networks:
       - vpl
-    environment:
-      - API_URL=http://192.168.2.7:8000
     restart: always
 
   admin-web:
     container_name: admin-web
-    image: vpl-fe-admin-app:latest
+    image: luizracoelho/vpl-fe-admin-web:latest
     ports:
       - 8021:80
     networks:
