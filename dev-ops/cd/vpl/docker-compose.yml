@@ -46,6 +46,11 @@ services:
       - vpl
     environment:
       - SERVICES:VEHICLE=http://vehicles-api
+      - DB:HOST=10.100.115.6
+      - DB:PORT=33067
+      - DB:USER=sa
+      - DB:PASSWORD=Onsoft@2019#Apps
+      - DB:DATABASE=dev-price-lists
     restart: always
 
   vehicles-api:
@@ -57,6 +62,11 @@ services:
       - vpl
     environment:
       - SERVICES:PRICELIST=http://price-list-api
+      - DB:HOST=10.100.115.6
+      - DB:PORT=33067
+      - DB:USER=sa
+      - DB:PASSWORD=Onsoft@2019#Apps
+      - DB:DATABASE=dev-vehicles
     restart: always
 
   auth-api:
@@ -64,6 +74,12 @@ services:
     image: luizracoelho/vpl-be-auth-service:latest
     ports:
       - 8003:80
+    environment:
+      - DB:HOST=10.100.115.6
+      - DB:PORT=33067
+      - DB:USER=sa
+      - DB:PASSWORD=Onsoft@2019#Apps
+      - DB:DATABASE=dev-vehicles-auth
     networks:
       - vpl
     restart: always
