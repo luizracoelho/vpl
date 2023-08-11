@@ -8,8 +8,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS publish
 WORKDIR /api
 COPY . .
-RUN dotnet restore "PriceListsService.csproj"
-RUN dotnet publish "PriceListsService.csproj" -c Release -o dist
+RUN dotnet restore "services/vpl-be-price-lists-service/PriceListsService.csproj"
+RUN dotnet publish "services/vpl-be-price-lists-service/PriceListsService.csproj" -c Release -o dist
 
 # FINAL - Cópia dos arquivos do publish para a estrutura de pastas base
 FROM base AS final
