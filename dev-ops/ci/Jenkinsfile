@@ -1,0 +1,185 @@
+pipeline {
+    agent any
+
+    tools {
+        dockerTool 'docker'
+    }
+
+    stages {
+        // Version
+        stage('versions') {
+            steps {
+                script {
+                    // Set Versions
+                    env.VERSION_DAILY = new Date().format('yy.MM.dd', TimeZone.getTimeZone('UTC'))
+                    env.VERSION_BUILD = "${env.VERSION_DAILY}.${env.BUILD_NUMBER}"
+                }
+            }
+        }
+
+        // Builds
+        stage('build-vpl-be-gateway-api') {
+            steps {
+                script {
+                    // Set Registry Repositories names
+                    env.API_GATEWAY_REGISTRY = "luizracoelho/vpl-be-gateway-api"
+                    env.API_GATEWAY_REGISTRY_DAILY = "${env.API_GATEWAY_REGISTRY}:${env.VERSION_DAILY}"
+                    env.API_GATEWAY_REGISTRY_BUILD = "${env.API_GATEWAY_REGISTRY}:${env.VERSION_BUILD}"
+                }
+
+                // Builds
+                sh "docker build -t ${env.API_GATEWAY_REGISTRY_BUILD} ./dev/back-end -f ./dev/back-end/gateways/vpl-be-api-gateway/Dockerfile"
+                sh "docker tag ${env.API_GATEWAY_REGISTRY_BUILD} ${env.API_GATEWAY_REGISTRY_DAILY}"
+                sh "docker tag ${env.API_GATEWAY_REGISTRY_DAILY} ${env.API_GATEWAY_REGISTRY}:latest"
+            }
+        }
+
+        stage('build-vpl-be-auth-service') {
+            steps {
+                script {
+                    // Set Registry Repositories names
+                    env.AUTH_SERVICE_REGISTRY = "luizracoelho/vpl-be-auth-service"
+                    env.AUTH_SERVICE_REGISTRY_DAILY = "${env.AUTH_SERVICE_REGISTRY}:${env.VERSION_DAILY}"
+                    env.AUTH_SERVICE_REGISTRY_BUILD = "${env.AUTH_SERVICE_REGISTRY}:${env.VERSION_BUILD}"
+                }
+
+                // Builds
+                sh "docker build -t ${env.AUTH_SERVICE_REGISTRY_BUILD} ./dev/back-end -f ./dev/back-end/services/AuthService/Dockerfile"
+                sh "docker tag ${env.AUTH_SERVICE_REGISTRY_BUILD} ${env.AUTH_SERVICE_REGISTRY_DAILY}"
+                sh "docker tag ${env.AUTH_SERVICE_REGISTRY_DAILY} ${env.AUTH_SERVICE_REGISTRY}:latest"
+            }
+        }
+
+        stage('build-vpl-be-vehicles-service') {
+            steps {
+                script {
+                    // Set Registry Repositories names
+                    env.VEHICLES_SERVICE_REGISTRY = "luizracoelho/vpl-be-vehicles-service"
+                    env.VEHICLES_SERVICE_REGISTRY_DAILY = "${env.VEHICLES_SERVICE_REGISTRY}:${env.VERSION_DAILY}"
+                    env.VEHICLES_SERVICE_REGISTRY_BUILD = "${env.VEHICLES_SERVICE_REGISTRY}:${env.VERSION_BUILD}"
+                }
+
+                // Builds
+                sh "docker build -t ${env.VEHICLES_SERVICE_REGISTRY_BUILD} ./dev/back-end -f ./dev/back-end/services/vpl-be-vehicles-service/Dockerfile"
+                sh "docker tag ${env.VEHICLES_SERVICE_REGISTRY_BUILD} ${env.VEHICLES_SERVICE_REGISTRY_DAILY}"
+                sh "docker tag ${env.VEHICLES_SERVICE_REGISTRY_DAILY} ${env.VEHICLES_SERVICE_REGISTRY}:latest"
+            }
+        }
+
+        stage('build-vpl-be-price-lists-service') {
+            steps {
+                script {
+                    // Set Registry Repositories names
+                    env.PRICE_LISTS_SERVICE_REGISTRY = "luizracoelho/vpl-be-price-lists-service"
+                    env.PRICE_LISTS_SERVICE_REGISTRY_DAILY = "${env.PRICE_LISTS_SERVICE_REGISTRY}:${env.VERSION_DAILY}"
+                    env.PRICE_LISTS_SERVICE_REGISTRY_BUILD = "${env.PRICE_LISTS_SERVICE_REGISTRY}:${env.VERSION_BUILD}"
+                }
+
+                // Builds
+                sh "docker build -t ${env.PRICE_LISTS_SERVICE_REGISTRY_BUILD} ./dev/back-end -f ./dev/back-end/services/vpl-be-price-lists-service/Dockerfile"
+                sh "docker tag ${env.PRICE_LISTS_SERVICE_REGISTRY_BUILD} ${env.PRICE_LISTS_SERVICE_REGISTRY_DAILY}"
+                sh "docker tag ${env.PRICE_LISTS_SERVICE_REGISTRY_DAILY} ${env.PRICE_LISTS_SERVICE_REGISTRY}:latest"
+            }
+        }
+
+        stage('build-vpl-fe-web-admin') {
+            steps {
+                script {
+                    // Set Registry Repositories names
+                    env.WEB_ADMIN_REGISTRY = "luizracoelho/vpl-fe-admin-web"
+                    env.WEB_ADMIN_REGISTRY_DAILY = "${env.WEB_ADMIN_REGISTRY}:${env.VERSION_DAILY}"
+                    env.WEB_ADMIN_REGISTRY_BUILD = "${env.WEB_ADMIN_REGISTRY}:${env.VERSION_BUILD}"
+                }
+
+                // Builds
+                sh "docker build -t ${env.WEB_ADMIN_REGISTRY_BUILD} ./dev/front-end -f ./dev/front-end/vpl-fe-web-admin/Dockerfile"
+                sh "docker tag ${env.WEB_ADMIN_REGISTRY_BUILD} ${env.WEB_ADMIN_REGISTRY_DAILY}"
+                sh "docker tag ${env.WEB_ADMIN_REGISTRY_DAILY} ${env.WEB_ADMIN_REGISTRY}:latest"
+            }
+        }
+
+        stage('build-vpl-fe-web-public') {
+            steps {
+                script {
+                    // Set Registry Repositories names
+                    env.WEB_PUBLIC_REGISTRY = "luizracoelho/vpl-fe-public-web"
+                    env.WEB_PUBLIC_REGISTRY_DAILY = "${env.WEB_PUBLIC_REGISTRY}:${env.VERSION_DAILY}"
+                    env.WEB_PUBLIC_REGISTRY_BUILD = "${env.WEB_PUBLIC_REGISTRY}:${env.VERSION_BUILD}"
+                }
+
+                // Builds
+                sh "docker build -t ${env.WEB_PUBLIC_REGISTRY_BUILD} ./dev/front-end -f ./dev/front-end/vpl-fe-web-public/Dockerfile"
+                sh "docker tag ${env.WEB_PUBLIC_REGISTRY_BUILD} ${env.WEB_PUBLIC_REGISTRY_DAILY}"
+                sh "docker tag ${env.WEB_PUBLIC_REGISTRY_DAILY} ${env.WEB_PUBLIC_REGISTRY}:latest"
+            }
+        }
+
+        // Registry Login
+        stage('registry-login') {
+            steps {
+                withCredentials([
+                    usernamePassword(credentialsId: 'dockerhub-lr',
+                    passwordVariable: 'DOCKER_REGISTRY_PWD',
+                    usernameVariable: 'DOCKER_REGISTRY_USER')
+                ]) {
+                    sh "docker login -u ${DOCKER_REGISTRY_USER} -p ${DOCKER_REGISTRY_PWD}"
+                }
+            }
+        }
+
+        // Pushes
+        stage('push-vpl-be-gateway-api') {
+            steps {
+                sh "docker push ${env.API_GATEWAY_REGISTRY_BUILD}"
+                sh "docker push ${env.API_GATEWAY_REGISTRY_DAILY}"
+                sh "docker push ${env.API_GATEWAY_REGISTRY}:latest"
+            }
+        }
+
+        stage('push-vpl-be-auth-service') {
+            steps {
+                sh "docker push ${env.AUTH_SERVICE_REGISTRY_BUILD}"
+                sh "docker push ${env.AUTH_SERVICE_REGISTRY_DAILY}"
+                sh "docker push ${env.AUTH_SERVICE_REGISTRY}:latest"
+            }
+        }
+
+        stage('push-vpl-be-vehicles-service') {
+            steps {
+                sh "docker push ${env.VEHICLES_SERVICE_REGISTRY_BUILD}"
+                sh "docker push ${env.VEHICLES_SERVICE_REGISTRY_DAILY}"
+                sh "docker push ${env.VEHICLES_SERVICE_REGISTRY}:latest"
+            }
+        }
+
+        stage('push-vpl-be-price-lists-service') {
+            steps {
+                sh "docker push ${env.PRICE_LISTS_SERVICE_REGISTRY_BUILD}"
+                sh "docker push ${env.PRICE_LISTS_SERVICE_REGISTRY_DAILY}"
+                sh "docker push ${env.PRICE_LISTS_SERVICE_REGISTRY}:latest"
+            }
+        }
+
+        stage('push-vpl-fe-web-admin') {
+            steps {
+                sh "docker push ${env.WEB_ADMIN_REGISTRY_BUILD}"
+                sh "docker push ${env.WEB_ADMIN_REGISTRY_DAILY}"
+                sh "docker push ${env.WEB_ADMIN_REGISTRY}:latest"
+            }
+        }
+
+        stage('push-vpl-fe-web-public') {
+            steps {
+                sh "docker push ${env.WEB_PUBLIC_REGISTRY_BUILD}"
+                sh "docker push ${env.WEB_PUBLIC_REGISTRY_DAILY}"
+                sh "docker push ${env.WEB_PUBLIC_REGISTRY}:latest"
+            }
+        }
+    }
+
+    post {
+        always {
+            sh 'docker logout'
+        }
+    }
+}

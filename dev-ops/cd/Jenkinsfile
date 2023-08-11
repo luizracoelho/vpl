@@ -1,0 +1,82 @@
+def remote = [:]
+remote.name = 'XXXX'
+remote.host = 'XXX.XXX.XXX.XXX'
+remote.user = 'XXXX'
+remote.password = 'XXXXXXX'
+remote.allowAnyHosts = true
+
+pipeline {
+    agent any
+
+    tools {
+        dockerTool 'docker'
+    }
+
+    stages {
+        // Copy File
+        stage('copy-file') {
+            steps {
+                sh 'apt-get update'
+                sh 'apt-get install zip'
+                dir('vpl') {
+                    sh 'zip -r vpl.zip vpl'
+                    sshPut remote: remote, from: 'vpl.zip', into: '.'
+                }
+            }
+        }
+
+        // Containers Down
+        stage('containers-down') {
+            steps {
+                sshCommand remote: remote, command: '''
+                                                    if test -f /vpl/docker-compose.yml; then
+                                                       docker-compose -f /vpl/docker-compose.yml down
+                                                    fi
+                                                    '''
+                sshCommand remote: remote, command: '''
+                                                    if test -f /vpl/docker-compose.yml; then
+                                                       rm -rf vpl
+                                                    fi
+                                                    '''
+            }
+        }
+
+        // Registry Login
+        stage('registry-login') {
+            steps {
+                withCredentials([
+                    usernamePassword(credentialsId: 'dockerhub-lr',
+                    passwordVariable: 'DOCKER_REGISTRY_PWD',
+                    usernameVariable: 'DOCKER_REGISTRY_USER')
+                ]) {
+                    sshCommand remote: remote, command: "docker login -u ${DOCKER_REGISTRY_USER} -p ${DOCKER_REGISTRY_PWD}"
+                }
+            }
+        }
+
+        // Containers Up
+        stage('containers-up') {
+            steps {
+                sshCommand remote: remote, command: 'unzip -o vpl.zip'
+                sshCommand remote: remote, command: 'rm -rf vpl.zip'
+                sshCommand remote: remote, command: 'systemctl start docker'
+                sshCommand remote: remote, command: 'docker-compose -f vpl/docker-compose.yml pull'
+                sshCommand remote: remote, command: 'docker-compose -f vpl/docker-compose.yml up -d'
+            }
+        }
+
+        // Prune images
+        stage('prune-images') {
+            steps {
+                sshCommand remote: remote, command: 'docker image prune -f'
+            }
+        }
+    }
+
+    post {
+        always {
+            sshCommand remote: remote, command: 'docker logout'
+            sshCommand remote: remote, command: 'exit'
+        }
+    }
+}
