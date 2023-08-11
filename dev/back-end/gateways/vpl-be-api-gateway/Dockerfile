@@ -8,8 +8,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS publish
 WORKDIR /api
 COPY . .
-RUN dotnet restore "ApiGateway.csproj"
-RUN dotnet publish "ApiGateway.csproj" -c Release -o dist
+RUN dotnet restore "gateways/vpl-be-api-gateway/ApiGateway.csproj"
+RUN dotnet publish "gateways/vpl-be-api-gateway/ApiGateway.csproj" -c Release -o dist
 
 # FINAL - Cópia dos arquivos do publish para a estrutura de pastas base
 FROM base AS final
