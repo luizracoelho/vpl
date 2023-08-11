@@ -92,7 +92,7 @@ pipeline {
                 }
 
                 // Builds
-                sh "docker build -t ${env.WEB_ADMIN_REGISTRY_BUILD} ./dev/front-end -f ./dev/front-end/vpl-fe-web-admin/Dockerfile"
+                sh "docker build -t ${env.WEB_ADMIN_REGISTRY_BUILD} ./dev/front-end/vpl-fe-web-admin"
                 sh "docker tag ${env.WEB_ADMIN_REGISTRY_BUILD} ${env.WEB_ADMIN_REGISTRY_DAILY}"
                 sh "docker tag ${env.WEB_ADMIN_REGISTRY_DAILY} ${env.WEB_ADMIN_REGISTRY}:latest"
             }
@@ -108,7 +108,7 @@ pipeline {
                 }
 
                 // Builds
-                sh "docker build -t ${env.WEB_PUBLIC_REGISTRY_BUILD} ./dev/front-end -f ./dev/front-end/vpl-fe-web-public/Dockerfile"
+                sh "docker build -t ${env.WEB_PUBLIC_REGISTRY_BUILD} ./dev/front-end/vpl-fe-web-public"
                 sh "docker tag ${env.WEB_PUBLIC_REGISTRY_BUILD} ${env.WEB_PUBLIC_REGISTRY_DAILY}"
                 sh "docker tag ${env.WEB_PUBLIC_REGISTRY_DAILY} ${env.WEB_PUBLIC_REGISTRY}:latest"
             }
