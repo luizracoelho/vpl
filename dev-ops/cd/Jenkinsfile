@@ -25,10 +25,8 @@ pipeline {
             steps {
                 sh 'apt-get update'
                 sh 'apt-get install zip'
-                dir('vpl') {
-                    sh 'zip -r vpl.zip vpl'
-                    sshPut remote: remote, from: 'vpl.zip', into: '.'
-                }
+                sh 'zip -r vpl.zip vpl'
+                sshPut remote: remote, from: 'vpl.zip', into: '.'
             }
         }
 
