@@ -12,9 +12,7 @@ pipeline {
                 sh 'apt-get update'
                 sh 'apt-get install zip'
                 sh 'zip -r vpl.zip vpl'
-                sshagent(credentials : ['vuptechx_server']) {
-                    sshPut remote: remote, from: 'vpl.zip', into: '.'
-                }
+                sshPut credentials: ['vuptechx_server'], from: 'vpl.zip', into: '.'
             }
         }
 
