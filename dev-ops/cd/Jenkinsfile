@@ -1,9 +1,16 @@
 def remote = [:]
-remote.name = 'XXXX'
-remote.host = 'XXX.XXX.XXX.XXX'
-remote.user = 'XXXX'
-remote.password = 'XXXXXXX'
-remote.allowAnyHosts = true
+
+withCredentials([
+    usernamePassword(credentialsId: 'dockerhub-lr',
+    passwordVariable: 'SERVER_PWD',
+    usernameVariable: 'SERVER_USER')
+]) {
+    remote.name = 'VupTechX'
+    remote.host = '10.100.115.249'
+    remote.user = SERVER_USER
+    remote.password = SERVER_PWD
+    remote.allowAnyHosts = true
+}
 
 pipeline {
     agent any
@@ -18,10 +25,8 @@ pipeline {
             steps {
                 sh 'apt-get update'
                 sh 'apt-get install zip'
-                dir('vpl') {
-                    sh 'zip -r vpl.zip vpl'
-                    sshPut remote: remote, from: 'vpl.zip', into: '.'
-                }
+                sh 'zip -r vpl.zip vpl'
+                sshPut remote: remote, from: 'vpl.zip', into: '.'
             }
         }
 
