@@ -1,3 +1,10 @@
+def remote = [:]
+remote.name = env.UP_SSH_NAME
+remote.host = env.UP_SSH_HOST
+remote.user = env.UP_SSH_USR
+remote.password = env.UP_SSH_PWD
+remote.allowAnyHosts = true
+
 pipeline {
     agent any
 
@@ -11,9 +18,9 @@ pipeline {
             steps {
                 sh 'apt-get update'
                 sh 'apt-get install zip'
-                sh 'zip -r vpl.zip vpl'
-                sshagent(credentials : ['vuptechx_server']) {
-                    sshPut from: 'vpl.zip', into: '.'
+                dir('vpl') {
+                    sh 'zip -r vpl.zip vpl'
+                    sshPut remote: remote, from: 'vpl.zip', into: '.'
                 }
             }
         }
