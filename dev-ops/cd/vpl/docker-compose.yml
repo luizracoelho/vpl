@@ -27,7 +27,7 @@ services:
   #   restart: always
 
   gateway-api:
-    container_name: gateway-api
+    container_name: vpl-gateway-api
     image: luizracoelho/vpl-be-gateway-api:latest
     ports:
       - 8000:80
@@ -38,7 +38,7 @@ services:
     restart: always
 
   price-list-api:
-    container_name: price-list-api
+    container_name: vpl-price-list-api
     image: luizracoelho/vpl-be-price-list-service:latest
     ports:
       - 8001:80
@@ -54,7 +54,7 @@ services:
     restart: always
 
   vehicles-api:
-    container_name: vehicles-api
+    container_name: vpl-vehicles-api
     image: luizracoelho/vpl-be-vehicles-service:latest
     ports:
       - 8002:80
@@ -70,7 +70,7 @@ services:
     restart: always
 
   auth-api:
-    container_name: auth-api
+    container_name: vpl-auth-api
     image: luizracoelho/vpl-be-auth-service:latest
     ports:
       - 8003:80
@@ -85,7 +85,7 @@ services:
     restart: always
 
   public-web:
-    container_name: public-web
+    container_name: vpl-public-web
     image: luizracoelho/vpl-fe-public-web:latest
     ports:
       - 8020:80
@@ -94,7 +94,7 @@ services:
     restart: always
 
   admin-web:
-    container_name: admin-web
+    container_name: vpl-admin-web
     image: luizracoelho/vpl-fe-admin-web:latest
     ports:
       - 8021:80
