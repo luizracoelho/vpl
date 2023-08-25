@@ -8,8 +8,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS publish
 WORKDIR /api
 COPY . .
-RUN dotnet restore "services/AuthService/AuthService.csproj"
-RUN dotnet publish "services/AuthService/AuthService.csproj" -c Release -o dist
+RUN dotnet restore "services/vpl-be-auth-service/AuthService.csproj"
+RUN dotnet publish "services/vpl-be-auth-service/AuthService.csproj" -c Release -o dist
 
 # FINAL - Cópia dos arquivos do publish para a estrutura de pastas base
 FROM base AS final
