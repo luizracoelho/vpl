@@ -44,7 +44,7 @@ pipeline {
                 }
 
                 // Builds
-                sh "docker build -t ${env.AUTH_SERVICE_REGISTRY_BUILD} ./dev/back-end -f ./dev/back-end/services/AuthService/Dockerfile"
+                sh "docker build -t ${env.AUTH_SERVICE_REGISTRY_BUILD} ./dev/back-end -f ./dev/back-end/services/vpl-be-auth-service/Dockerfile"
                 sh "docker tag ${env.AUTH_SERVICE_REGISTRY_BUILD} ${env.AUTH_SERVICE_REGISTRY_DAILY}"
                 sh "docker tag ${env.AUTH_SERVICE_REGISTRY_DAILY} ${env.AUTH_SERVICE_REGISTRY}:latest"
             }
