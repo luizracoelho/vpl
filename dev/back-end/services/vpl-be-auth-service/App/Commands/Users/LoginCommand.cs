@@ -35,7 +35,7 @@ namespace AuthService.App.Commands.Users
 
                 if (user == null)
                     throw new Exception("Usuário ou senha inválidos.");
-
+                var enc = request.Password.PasswordEncrypt("a1b2c3d4");
                 if (user.Password != request.Password.PasswordEncrypt("a1b2c3d4"))
                     throw new Exception("Usuário ou senha inválidos.");
 

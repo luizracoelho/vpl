@@ -26,6 +26,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.2.1",
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@microsoft/signalr": "^7.0.10",
     "bootstrap": "^5.2.3",
     "moment": "^2.29.4",
     "ngx-currency": "^3.0.0",
