@@ -8,7 +8,7 @@ export class CreateVehicle {
     brand!: Brand ;
     modelId!: number;
     model!: Model ;
-    Name!: String;
+    name!: String;
     productionYear!: Date;
     modelYear!: Date;
     vehicleType!: VehicleType; 

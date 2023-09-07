@@ -4,6 +4,7 @@ import { DrawerService } from 'src/app/shared/services/drawer.service';
 import { EvaluationHubService } from 'src/app/features/evaluation/evaluation-hub.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'src/app/shared/services/login.service';
+import { VehicleHubService } from 'src/app/features/vehicles/vehicle-hub.service';
 
 @Component({
   selector: 'app-default-layout',
@@ -26,6 +27,7 @@ export class DefaultLayoutComponent implements OnInit {
   constructor(
     private _drawerService: DrawerService,
     private _evaluationHubService: EvaluationHubService,
+    private _vehicleHubService: VehicleHubService,
     private _loginService: LoginService,
     private _snackBar: MatSnackBar
   ) { }
@@ -40,12 +42,23 @@ export class DefaultLayoutComponent implements OnInit {
 
     // Conexão com SignalR
     this._evaluationHubService.listenNotificationsEvents();
+    this._vehicleHubService.listenNotificationsEvents();
 
+    // Evaluation
     this._evaluationHubService.evaluationCreated.subscribe({
       next: (message: string) => this._snackBar.open(message, 'Fechar')
     });
 
     this._evaluationHubService.evaluationUpdated.subscribe({
+      next: (message: string) => this._snackBar.open(message, 'Fechar')
+    });
+
+    // Vehicle
+    this._vehicleHubService.vehicleCreated.subscribe({
+      next: (message: string) => this._snackBar.open(message, 'Fechar')
+    });
+
+    this._vehicleHubService.vehicleUpdated.subscribe({
       next: (message: string) => this._snackBar.open(message, 'Fechar')
     });
   }

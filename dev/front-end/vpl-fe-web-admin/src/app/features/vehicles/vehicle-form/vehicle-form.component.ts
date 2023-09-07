@@ -11,6 +11,7 @@ import { VehicleService } from '../vehicle.service';
 import { CreateVehicle } from '../models/create-vehicle';
 import { Model } from '../../model/models/model';
 import { ModelService } from '../../model/model.service';
+import { VehicleHubService } from '../vehicle-hub.service';
 
 @Component({
   selector: 'app-vehicle-form',
@@ -38,6 +39,7 @@ export class VehicleFormComponent {
     private _route: ActivatedRoute,
     private _brandService: BrandService,
     private _modelService: ModelService,
+    private _vehicleHubService: VehicleHubService
   ) { }
 
   ngOnInit(): void {
@@ -62,9 +64,7 @@ export class VehicleFormComponent {
       next: ({ brands, vehicle }: any) => {
         this.brands = brands;
 
-        if (vehicle) {
-          console.log(vehicle);
-          
+        if (vehicle) {          
           this.form.patchValue(vehicle);
           
           this.selectedBrand = this.brands.find(x => x.id == vehicle.brandId);
@@ -93,8 +93,6 @@ export class VehicleFormComponent {
 
     this.form.controls['brandId'].valueChanges.subscribe({
       next: (value?: any) => {
-        console.log(value);
-
         if (value) {
           this.listModels(value);
         } else {
@@ -132,6 +130,11 @@ export class VehicleFormComponent {
       req.subscribe({
         next: _ => {
           this._router.navigate(['/vehicles']);
+                    
+          if (!this.id)
+            this._vehicleHubService.sendCreated(`Foi inserido um novo veículo: ${vehicle.name}.`);
+          else
+            this._vehicleHubService.sendUpdated(`Foi atualizado os dados do veículo: ${vehicle.name}`);
 
           this._snackBar.open('Veículo salvo com sucesso!', 'Ok');
         },
