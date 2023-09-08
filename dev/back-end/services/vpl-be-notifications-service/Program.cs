@@ -21,5 +21,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<EvaluationHub>("/hubs/evaluations");
+app.MapHub<EvaluationHub>("/hubs/brands");
 
 app.Run();
