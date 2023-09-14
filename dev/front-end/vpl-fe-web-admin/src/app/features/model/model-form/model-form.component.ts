@@ -8,6 +8,7 @@ import { Brand } from '../../brand/models/brand';
 import { VehicleType } from '../enums/vehicle-type';
 import { ModelService } from '../model.service';
 import { Model } from '../models/model';
+import { ModelHubService } from '../model-hub.service';
 
 @Component({
   selector: 'app-model-form',
@@ -34,6 +35,7 @@ export class ModelFormComponent {
     private _router: Router,
     private _route: ActivatedRoute,
     private _brandService: BrandService,
+    private _modelHubService: ModelHubService
   ) { }
 
   displayFn(brand: Brand): string {
@@ -129,6 +131,11 @@ export class ModelFormComponent {
       req.subscribe({
         next: _ => {
           this._router.navigate(['/models']);
+
+          if (!this.id)
+            this._modelHubService.sendCreated(`Foi inserido um novo modelo: ${model.name}.`);
+          else
+            this._modelHubService.sendUpdated(`Foi atualizado os dados do modelo: ${model.name}`);
 
           this._snackBar.open('Modelo salvo com sucesso!', 'Ok');
         },
