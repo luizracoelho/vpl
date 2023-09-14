@@ -22,5 +22,6 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHub<EvaluationHub>("/hubs/evaluations");
 app.MapHub<VehicleHub>("/hubs/vehicles");
+app.MapHub<ModelHub>("/hubs/models");
 
 app.Run();
