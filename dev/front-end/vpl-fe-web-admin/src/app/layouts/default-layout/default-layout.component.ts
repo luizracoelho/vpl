@@ -5,6 +5,7 @@ import { EvaluationHubService } from 'src/app/features/evaluation/evaluation-hub
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'src/app/shared/services/login.service';
 import { VehicleHubService } from 'src/app/features/vehicles/vehicle-hub.service';
+import { ModelHubService } from 'src/app/features/model/model-hub.service';
 
 @Component({
   selector: 'app-default-layout',
@@ -29,7 +30,8 @@ export class DefaultLayoutComponent implements OnInit {
     private _evaluationHubService: EvaluationHubService,
     private _vehicleHubService: VehicleHubService,
     private _loginService: LoginService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _modelHubService: ModelHubService
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +45,7 @@ export class DefaultLayoutComponent implements OnInit {
     // Conexão com SignalR
     this._evaluationHubService.listenNotificationsEvents();
     this._vehicleHubService.listenNotificationsEvents();
+    this._modelHubService.listenNotificationsEvents();
 
     // Evaluation
     this._evaluationHubService.evaluationCreated.subscribe({
@@ -61,5 +64,15 @@ export class DefaultLayoutComponent implements OnInit {
     this._vehicleHubService.vehicleUpdated.subscribe({
       next: (message: string) => this._snackBar.open(message, 'Fechar')
     });
+    
+    // Model
+    this._modelHubService.modelCreated.subscribe({
+      next: (message: string) => this._snackBar.open(message, 'Fechar')
+    });
+
+    this._modelHubService.modelUpdated.subscribe({
+      next: (message: string) => this._snackBar.open(message, 'Fechar')
+    });
+
   }
 }
