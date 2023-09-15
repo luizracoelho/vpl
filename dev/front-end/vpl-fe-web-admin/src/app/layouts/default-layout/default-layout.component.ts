@@ -4,7 +4,9 @@ import { DrawerService } from 'src/app/shared/services/drawer.service';
 import { EvaluationHubService } from 'src/app/features/evaluation/evaluation-hub.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from 'src/app/shared/services/login.service';
+import { BrandHubService } from 'src/app/features/brand/brand-hub.service';
 import { VehicleHubService } from 'src/app/features/vehicles/vehicle-hub.service';
+import { ModelHubService } from 'src/app/features/model/model-hub.service';
 
 @Component({
   selector: 'app-default-layout',
@@ -27,9 +29,11 @@ export class DefaultLayoutComponent implements OnInit {
   constructor(
     private _drawerService: DrawerService,
     private _evaluationHubService: EvaluationHubService,
+    private _brandHubService: BrandHubService,
     private _vehicleHubService: VehicleHubService,
     private _loginService: LoginService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _modelHubService: ModelHubService
   ) { }
 
   ngOnInit(): void {
@@ -40,9 +44,10 @@ export class DefaultLayoutComponent implements OnInit {
       }
     });
 
-    // Conexão com SignalR
+    // Conexão com SignalR Evaluation
     this._evaluationHubService.listenNotificationsEvents();
     this._vehicleHubService.listenNotificationsEvents();
+    this._modelHubService.listenNotificationsEvents();
 
     // Evaluation
     this._evaluationHubService.evaluationCreated.subscribe({
@@ -53,6 +58,16 @@ export class DefaultLayoutComponent implements OnInit {
       next: (message: string) => this._snackBar.open(message, 'Fechar')
     });
 
+    // Conexão com SignalR Brand
+    this._brandHubService.listenNotificationsEvents();
+
+    this._brandHubService.brandCreated.subscribe({
+      next: (message: string) => this._snackBar.open(message, 'Fechar')
+    });
+
+    this._brandHubService.brandUpdated.subscribe({
+      next: (message: string) => this._snackBar.open(message, 'Fechar')
+    });
     // Vehicle
     this._vehicleHubService.vehicleCreated.subscribe({
       next: (message: string) => this._snackBar.open(message, 'Fechar')
@@ -61,5 +76,15 @@ export class DefaultLayoutComponent implements OnInit {
     this._vehicleHubService.vehicleUpdated.subscribe({
       next: (message: string) => this._snackBar.open(message, 'Fechar')
     });
+    
+    // Model
+    this._modelHubService.modelCreated.subscribe({
+      next: (message: string) => this._snackBar.open(message, 'Fechar')
+    });
+
+    this._modelHubService.modelUpdated.subscribe({
+      next: (message: string) => this._snackBar.open(message, 'Fechar')
+    });
+
   }
 }

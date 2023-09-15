@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrandService } from '../brand.service';
 import { Brand } from '../models/brand';
+import { BrandHubService } from '../brand-hub.service';
 
 @Component({
   selector: 'app-brand-form',
@@ -23,7 +24,8 @@ export class BrandFormComponent implements OnInit {
     private _service: BrandService,
     private _snackBar: MatSnackBar,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _brandHubService: BrandHubService
   ) { }
 
   ngOnInit(): void {
@@ -57,7 +59,7 @@ export class BrandFormComponent implements OnInit {
         }
       })
     }
-    else{
+    else {
       this.isLoading = false;
     }
   }
@@ -67,7 +69,7 @@ export class BrandFormComponent implements OnInit {
 
       let brand: Brand = this.form.value;
 
-      let req = !this.id ? this._service.create(brand) : this._service.update(this.id, brand); 
+      let req = !this.id ? this._service.create(brand) : this._service.update(this.id, brand);
 
       req.subscribe({
         next: _ => {
@@ -76,6 +78,12 @@ export class BrandFormComponent implements OnInit {
           this._router.navigate(['/brands']);
 
           this._snackBar.open('Marca salva com sucesso!', 'Ok');
+
+          // Notificação SignalR
+          if (!this.id)
+            this._brandHubService.sendCreated(`A Marca ${brand.name}, foi inserida.`);
+          else
+            this._brandHubService.sendUpdated(`A Marca ${brand.name}, foi alterada.`);
         },
         error: (err: any) => {
           this._snackBar.open(err, 'Ok');
