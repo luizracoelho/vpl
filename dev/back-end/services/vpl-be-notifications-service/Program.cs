@@ -1,6 +1,6 @@
 //using MassTransit;
 using NotificationsService.Hubs;
-using System.Reflection;
+using VplNotifications;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +11,8 @@ builder.Services.AddCors(options => options.AddPolicy("AllowCors", builder =>
            .AllowAnyHeader()
            .AllowCredentials();
 }));
+
+builder.Services.AddBus(builder.Configuration, typeof(Program).Assembly);
 
 builder.Services.AddControllers();
 builder.Services.AddSignalR();

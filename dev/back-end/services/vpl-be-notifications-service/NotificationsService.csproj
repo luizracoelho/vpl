@@ -9,7 +9,6 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <PackageReference Include="MassTransit" Version="8.1.0" />
-    <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
     <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
@@ -17,5 +16,18 @@
 
   <ItemGroup>
     <None Remove="Hubs\" />
+    <None Remove="App\" />
+    <None Remove="App\Consumers\" />
+    <None Remove="App\Consumers\Evaluations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\VplNotifications\VplNotifications.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App\" />
+    <Folder Include="App\Consumers\" />
+    <Folder Include="App\Consumers\Evaluations\" />
   </ItemGroup>
 </Project>

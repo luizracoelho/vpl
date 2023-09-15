@@ -125,14 +125,6 @@ export class EvaluationFormComponent {
           this.isLoading = false;
 
           this._router.navigate(['/evaluations']);
-
-          this._snackBar.open('Avaliação salva com sucesso!', 'Ok');
-
-          // Notificação SignalR
-          if (!this.id)
-            this._evaluationHubService.sendCreated(`Avaliação do veículo ${evaluation.vehicleId}, para o ano ${evaluation.year} no valor de ${evaluation.value.toFixed(2)} foi inserida.`);
-          else
-            this._evaluationHubService.sendUpdated(`Avaliação do veículo ${evaluation.vehicleId}, para o ano ${evaluation.year} no valor de ${evaluation.value.toFixed(2)} foi alterada.`);
         },
         error: (err: any) => {
           this._snackBar.open(err, 'Ok');

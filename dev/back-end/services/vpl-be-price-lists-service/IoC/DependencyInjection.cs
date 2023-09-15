@@ -13,6 +13,7 @@ using PriceListsService.Domain.Contracts.Repos;
 using PriceListsService.Domain.Contracts.Services;
 using PriceListsService.Domain.ViewModels;
 using System.Text;
+using VplNotifications;
 
 namespace PriceListsService.IoC
 {
@@ -63,6 +64,10 @@ namespace PriceListsService.IoC
                       options.SaveToken = true;
                       options.TokenValidationParameters = GetValidationParameters();
                   });
+            #endregion
+
+            #region Bus
+            services.AddBus(config, AppDomain.CurrentDomain.Load("PriceListsService"));
             #endregion
 
             // Adicionar o HttpClient e HttpContextAccessor para funcionar o VehiclesService

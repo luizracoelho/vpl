@@ -3,6 +3,8 @@ using MediatR;
 using PriceListsService.Domain.ViewModels.Evaluations;
 using PriceListsService.Domain.Contracts;
 using PriceListsService.Domain.Models;
+using MassTransit;
+using VplNotifications.Messages.Evaluations;
 
 namespace PriceListsService.App.Commands.Evaluations
 {
@@ -17,10 +19,13 @@ namespace PriceListsService.App.Commands.Evaluations
         {
             private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
-            public CreateEvaluationCommandHandler(IUnitOfWork uow, IMapper mapper)
+            private readonly IBus _bus;
+
+            public CreateEvaluationCommandHandler(IUnitOfWork uow, IMapper mapper, IBus bus)
             {
                 _uow = uow;
                 _mapper = mapper;
+                _bus = bus;
             }
 
             public async Task<EvaluationVm> Handle(CreateEvaluationCommand request, CancellationToken cancellationToken)
@@ -33,6 +38,11 @@ namespace PriceListsService.App.Commands.Evaluations
                 await _uow.Evaluations.AddAsync(evaluation);
 
                 await _uow.Commit();
+
+                await _bus.Publish(new EvaluationCreatedMessage
+                {
+                    Message = $"Avaliação do veículo {evaluation.VehicleId}, para o ano {evaluation.Year} no valor de {evaluation.Value:N2} foi inserida."
+                }, cancellationToken);
 
                 return _mapper.Map<EvaluationVm>(evaluation);
             }

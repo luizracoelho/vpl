@@ -7,15 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{20
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{06519FCB-1B7F-427B-80CD-F675DB49920A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PriceListsService", "services\vpl-be-price-lists-service\PriceListsService.csproj", "{AAB618BD-A4DA-486B-8980-076C96B15D2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceListsService", "services\vpl-be-price-lists-service\PriceListsService.csproj", "{AAB618BD-A4DA-486B-8980-076C96B15D2B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationsService", "services\vpl-be-notifications-service\NotificationsService.csproj", "{B252DBB1-6425-4141-85BE-E03B528C456E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationsService", "services\vpl-be-notifications-service\NotificationsService.csproj", "{B252DBB1-6425-4141-85BE-E03B528C456E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "gateways\vpl-be-api-gateway\ApiGateway.csproj", "{3AB5CFF7-241F-42B3-8A19-F0CF2153F87E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehiclesService", "services\vpl-be-vehicles-service\VehiclesService.csproj", "{D52A47D5-9242-4297-BEF3-66306B837B57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehiclesService", "services\vpl-be-vehicles-service\VehiclesService.csproj", "{D52A47D5-9242-4297-BEF3-66306B837B57}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService", "services\vpl-be-auth-service\AuthService.csproj", "{4E6D944D-FE18-4337-B873-0A3C37E4029E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "services\vpl-be-auth-service\AuthService.csproj", "{4E6D944D-FE18-4337-B873-0A3C37E4029E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{707EE717-90C7-4208-8115-F88D3D018448}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VplNotifications", "VplNotifications\VplNotifications.csproj", "{2C6D55CD-FB58-46B4-9B33-011115429392}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,10 @@ Global
 		{4E6D944D-FE18-4337-B873-0A3C37E4029E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E6D944D-FE18-4337-B873-0A3C37E4029E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E6D944D-FE18-4337-B873-0A3C37E4029E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C6D55CD-FB58-46B4-9B33-011115429392}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C6D55CD-FB58-46B4-9B33-011115429392}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C6D55CD-FB58-46B4-9B33-011115429392}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C6D55CD-FB58-46B4-9B33-011115429392}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +61,7 @@ Global
 		{3AB5CFF7-241F-42B3-8A19-F0CF2153F87E} = {06519FCB-1B7F-427B-80CD-F675DB49920A}
 		{D52A47D5-9242-4297-BEF3-66306B837B57} = {209DEFD1-4DF0-4E02-A403-AB7B6C6226BF}
 		{4E6D944D-FE18-4337-B873-0A3C37E4029E} = {209DEFD1-4DF0-4E02-A403-AB7B6C6226BF}
+		{2C6D55CD-FB58-46B4-9B33-011115429392} = {707EE717-90C7-4208-8115-F88D3D018448}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {55613ED4-F80D-4CF0-A939-11A313BB9526}
