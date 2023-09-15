@@ -5,6 +5,7 @@ import { ReferenceYearService } from '../reference-year.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { ReferenceYearHubService } from '../reference-year-hub.service';
 
 @Component({
   selector: 'app-reference-year-form',
@@ -24,7 +25,9 @@ export class ReferenceYearFormComponent {
     private _snackBar: MatSnackBar,
     private _location: Location,
     private _route: ActivatedRoute,
-    private _referenceYearService: ReferenceYearService) { }
+    private _referenceYearService: ReferenceYearService,
+    private _referenceYearHubService: ReferenceYearHubService
+    ) { }
 
   ngOnInit() {
     this.id = this._route.snapshot.params['id'];
@@ -52,6 +55,12 @@ export class ReferenceYearFormComponent {
         this.isLoading = false;
 
         this._location.back();
+
+        // Notificação SignalR
+        if (!this.id)
+        this._referenceYearHubService.sendCreated(`Ano de referência ${referenceYear.year}, foi inserido.`);
+        else
+        this._referenceYearHubService.sendUpdated(`Ano de referência ${referenceYear.year}, foi alterado.`);
       },
 
       error: () => {
