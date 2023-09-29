@@ -51,6 +51,10 @@ services:
       - DB:USER=sa
       - DB:PASSWORD=Onsoft@2019#Apps
       - DB:DATABASE=dev-price-lists
+      - RABBIT_MQ:HOST_NAME=10.100.115.249
+      - RABBIT_MQ:VIRTUAL_HOST=vpl-prd
+      - RABBIT_MQ:USER_NAME=vpl
+      - RABBIT_MQ:PASSWORD=12345678
     restart: always
 
   vehicles-api:
@@ -67,6 +71,10 @@ services:
       - DB:USER=sa
       - DB:PASSWORD=Onsoft@2019#Apps
       - DB:DATABASE=dev-vehicles
+      - RABBIT_MQ:HOST_NAME=10.100.115.249
+      - RABBIT_MQ:VIRTUAL_HOST=vpl-prd
+      - RABBIT_MQ:USER_NAME=vpl
+      - RABBIT_MQ:PASSWORD=12345678
     restart: always
 
   auth-api:
@@ -80,6 +88,20 @@ services:
       - DB:USER=sa
       - DB:PASSWORD=Onsoft@2019#Apps
       - DB:DATABASE=dev-vehicles-auth
+    networks:
+      - vpl
+    restart: always
+
+  notifications-api:
+    container_name: vpl-notifications-api
+    image: luizracoelho/vpl-be-notifications-service:latest
+    ports:
+      - 8100:80
+    environment:
+      - RABBIT_MQ:HOST_NAME=10.100.115.249
+      - RABBIT_MQ:VIRTUAL_HOST=vpl-prd
+      - RABBIT_MQ:USER_NAME=vpl
+      - RABBIT_MQ:PASSWORD=12345678
     networks:
       - vpl
     restart: always

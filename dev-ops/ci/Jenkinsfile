@@ -82,6 +82,22 @@ pipeline {
             }
         }
 
+        stage('build-vpl-be-notifications-service') {
+            steps {
+                script {
+                    // Set Registry Repositories names
+                    env.NOTIFICATIONS_SERVICE_REGISTRY = "luizracoelho/vpl-be-notifications-service"
+                    env.NOTIFICATIONS_SERVICE_REGISTRY_DAILY = "${env.NOTIFICATIONS_SERVICE_REGISTRY}:${env.VERSION_DAILY}"
+                    env.NOTIFICATIONS_SERVICE_REGISTRY_BUILD = "${env.NOTIFICATIONS_SERVICE_REGISTRY}:${env.VERSION_BUILD}"
+                }
+
+                // Builds
+                sh "docker build -t ${env.NOTIFICATIONS_SERVICE_REGISTRY_BUILD} ./dev/back-end -f ./dev/back-end/services/vpl-be-notifications-service/Dockerfile"
+                sh "docker tag ${env.NOTIFICATIONS_SERVICE_REGISTRY_BUILD} ${env.NOTIFICATIONS_SERVICE_REGISTRY_DAILY}"
+                sh "docker tag ${env.NOTIFICATIONS_SERVICE_REGISTRY_DAILY} ${env.NOTIFICATIONS_SERVICE_REGISTRY}:latest"
+            }
+        }
+
         stage('build-vpl-fe-web-admin') {
             steps {
                 script {
@@ -157,6 +173,14 @@ pipeline {
                 sh "docker push ${env.PRICE_LISTS_SERVICE_REGISTRY_BUILD}"
                 sh "docker push ${env.PRICE_LISTS_SERVICE_REGISTRY_DAILY}"
                 sh "docker push ${env.PRICE_LISTS_SERVICE_REGISTRY}:latest"
+            }
+        }
+
+        stage('push-vpl-be-notifications-service') {
+            steps {
+                sh "docker push ${env.NOTIFICATIONS_SERVICE_REGISTRY_BUILD}"
+                sh "docker push ${env.NOTIFICATIONS_SERVICE_REGISTRY_DAILY}"
+                sh "docker push ${env.NOTIFICATIONS_SERVICE_REGISTRY}:latest"
             }
         }
 

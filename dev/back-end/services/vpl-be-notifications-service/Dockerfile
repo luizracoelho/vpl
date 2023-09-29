@@ -8,9 +8,9 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS publish
 WORKDIR /api
 COPY . .
-RUN dotnet restore "Services/NotificationsService/NotificationsService.csproj"
+RUN dotnet restore "services/vpl-be-notifications-service/NotificationsService.csproj"
 COPY . .
-RUN dotnet publish "Services/NotificationsService/NotificationsService.csproj" -c Release -o dist
+RUN dotnet publish "services/vpl-be-notifications-service/NotificationsService.csproj" -c Release -o dist
 
 # FINAL - Cópia dos arquivos do publish para a estrutura de pastas base
 FROM base AS final
