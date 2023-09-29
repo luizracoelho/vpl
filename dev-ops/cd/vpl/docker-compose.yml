@@ -96,7 +96,7 @@ services:
     container_name: vpl-notifications-api
     image: luizracoelho/vpl-be-notifications-service:latest
     ports:
-      - 8100:80
+      - 8030:80
     environment:
       - RABBIT_MQ:HOST_NAME=10.100.115.249
       - RABBIT_MQ:VIRTUAL_HOST=vpl-prd
