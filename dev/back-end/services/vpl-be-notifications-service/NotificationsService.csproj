@@ -21,7 +21,7 @@
     <None Remove="App\Consumers\Evaluations\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\VplNotifications\VplNotifications.csproj">
+    <ProjectReference Include="..\..\shared\VplNotifications\VplNotifications.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>

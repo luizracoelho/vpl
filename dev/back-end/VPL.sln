@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "services\vpl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{707EE717-90C7-4208-8115-F88D3D018448}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VplNotifications", "VplNotifications\VplNotifications.csproj", "{2C6D55CD-FB58-46B4-9B33-011115429392}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VplNotifications", "shared\VplNotifications\VplNotifications.csproj", "{2C6D55CD-FB58-46B4-9B33-011115429392}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
