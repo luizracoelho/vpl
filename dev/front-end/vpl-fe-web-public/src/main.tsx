@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import App from './app';
 import './index.css';
+import { SnackbarProvider } from 'notistack';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,8 +12,10 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
+    <SnackbarProvider>
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
+    </SnackbarProvider>
   </React.StrictMode>
 );

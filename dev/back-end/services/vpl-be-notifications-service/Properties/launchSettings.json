@@ -12,15 +12,7 @@
     "http": {
       "commandName": "Project",
       "launchUrl": "swagger",
-      "applicationUrl": "http://0.0.0.0:8100",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
+      "applicationUrl": "http://0.0.0.0:8030",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

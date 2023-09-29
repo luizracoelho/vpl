@@ -12,6 +12,7 @@ using VehiclesService.Domain.Contracts.Context;
 using VehiclesService.Domain.Contracts.Repos;
 using VehiclesService.Domain.Contracts.Services;
 using VehiclesService.Domain.ViewModels;
+using VplNotifications;
 
 namespace VehiclesService.IoC
 {
@@ -70,6 +71,10 @@ namespace VehiclesService.IoC
             services.AddHttpContextAccessor();
 
             services.AddScoped<IReferenceYearService, ReferenceYearService>();
+            #endregion
+
+            #region Bus
+            services.AddBus(config, AppDomain.CurrentDomain.Load("VehiclesService"));
             #endregion
 
             return services;
