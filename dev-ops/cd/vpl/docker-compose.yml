@@ -51,7 +51,7 @@ services:
       - DB:USER=sa
       - DB:PASSWORD=Onsoft@2019#Apps
       - DB:DATABASE=dev-price-lists
-      - RABBIT_MQ:HOST_NAME=127.0.0.1
+      - RABBIT_MQ:HOST_NAME=10.100.115.249
       - RABBIT_MQ:VIRTUAL_HOST=vpl-prd
       - RABBIT_MQ:USER_NAME=vpl
       - RABBIT_MQ:PASSWORD=12345678
@@ -71,7 +71,7 @@ services:
       - DB:USER=sa
       - DB:PASSWORD=Onsoft@2019#Apps
       - DB:DATABASE=dev-vehicles
-      - RABBIT_MQ:HOST_NAME=127.0.0.1
+      - RABBIT_MQ:HOST_NAME=10.100.115.249
       - RABBIT_MQ:VIRTUAL_HOST=vpl-prd
       - RABBIT_MQ:USER_NAME=vpl
       - RABBIT_MQ:PASSWORD=12345678
@@ -98,7 +98,7 @@ services:
     ports:
       - 8030:80
     environment:
-      - RABBIT_MQ:HOST_NAME=127.0.0.1
+      - RABBIT_MQ:HOST_NAME=10.100.115.249
       - RABBIT_MQ:VIRTUAL_HOST=vpl-prd
       - RABBIT_MQ:USER_NAME=vpl
       - RABBIT_MQ:PASSWORD=12345678
