@@ -1,0 +1,190 @@
+{
+  "polyfillFiles": [
+    "static/chunks/polyfills-c67a75d1b6f99dc8.js"
+  ],
+  "devFiles": [],
+  "ampDevFiles": [],
+  "lowPriorityFiles": [
+    "static/D6_KHIgDQGwkY2zCyzHKE/_buildManifest.js",
+    "static/D6_KHIgDQGwkY2zCyzHKE/_ssgManifest.js"
+  ],
+  "rootMainFiles": [
+    "static/chunks/webpack-02a7919148a146da.js",
+    "static/chunks/fd9d1056-748ac5d3d8879258.js",
+    "static/chunks/472-74cfd5c57665c3cd.js",
+    "static/chunks/main-app-288cfb97894f6849.js"
+  ],
+  "pages": {
+    "/_app": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/pages/_app-451d704a741dc8a8.js"
+    ],
+    "/_error": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/pages/_error-d6885ef27f2c5e3d.js"
+    ],
+    "/brands-page": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/797-dc81e8f09a9f22b0.js",
+      "static/chunks/886-37f06d554028d250.js",
+      "static/chunks/204-c4029f3930dfb332.js",
+      "static/chunks/95-6f4c9a33e0c0e8a8.js",
+      "static/css/b164cbf2fb80bb0e.css",
+      "static/chunks/pages/brands-page-bfc1ea84da5b1ac1.js"
+    ],
+    "/brands-page/brand-card": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/797-dc81e8f09a9f22b0.js",
+      "static/chunks/95-6f4c9a33e0c0e8a8.js",
+      "static/chunks/pages/brands-page/brand-card-694b5d44abcadd11.js"
+    ],
+    "/home-page": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/76d8c668-3d7bd6d3cc8b8656.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/797-dc81e8f09a9f22b0.js",
+      "static/chunks/886-37f06d554028d250.js",
+      "static/chunks/204-c4029f3930dfb332.js",
+      "static/chunks/95-6f4c9a33e0c0e8a8.js",
+      "static/chunks/751-e57d39453b89890b.js",
+      "static/chunks/pages/home-page-2e4629a87c06d961.js"
+    ],
+    "/home-page/home-card": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/797-dc81e8f09a9f22b0.js",
+      "static/chunks/pages/home-page/home-card-f43c3dc7b1159bd4.js"
+    ],
+    "/models-page": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/797-dc81e8f09a9f22b0.js",
+      "static/chunks/886-37f06d554028d250.js",
+      "static/chunks/204-c4029f3930dfb332.js",
+      "static/chunks/pages/models-page-4adfdc0c38965222.js"
+    ],
+    "/models-page/model-card": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/797-dc81e8f09a9f22b0.js",
+      "static/chunks/pages/models-page/model-card-2e2e48ef4b4fd4db.js"
+    ],
+    "/models-page/models-list": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/797-dc81e8f09a9f22b0.js",
+      "static/chunks/886-37f06d554028d250.js",
+      "static/chunks/pages/models-page/models-list-8cec2ab46a42fda5.js"
+    ],
+    "/not-found-page": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/pages/not-found-page-32eb6ddbc1ca5ada.js"
+    ],
+    "/references-page": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/886-37f06d554028d250.js",
+      "static/chunks/204-c4029f3930dfb332.js",
+      "static/chunks/343-cd032d01e607c9f6.js",
+      "static/chunks/pages/references-page-260deabd6e988e21.js"
+    ],
+    "/vehicles-page": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/797-dc81e8f09a9f22b0.js",
+      "static/chunks/886-37f06d554028d250.js",
+      "static/chunks/204-c4029f3930dfb332.js",
+      "static/chunks/pages/vehicles-page-2e4342889e4d89a2.js"
+    ],
+    "/vehicles-page/Vehicle-card": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/797-dc81e8f09a9f22b0.js",
+      "static/chunks/pages/vehicles-page/Vehicle-card-6f56b4659a548a70.js"
+    ],
+    "/vehicles-page/vehicle-details": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/ee8b1517-7716c13441b1da00.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/886-37f06d554028d250.js",
+      "static/chunks/204-c4029f3930dfb332.js",
+      "static/chunks/31-6f32257ce34a0feb.js",
+      "static/chunks/343-cd032d01e607c9f6.js",
+      "static/chunks/233-0be071a5a59e517c.js",
+      "static/chunks/pages/vehicles-page/vehicle-details-2f78128e9608571a.js"
+    ],
+    "/vehicles-page/vehicle-price-reference-table": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/31-6f32257ce34a0feb.js",
+      "static/chunks/pages/vehicles-page/vehicle-price-reference-table-9a2732c3802eec31.js"
+    ],
+    "/vehicles-page/vehicles-list": [
+      "static/chunks/webpack-02a7919148a146da.js",
+      "static/chunks/framework-2c2d3d4d7af4ee25.js",
+      "static/chunks/main-50f0c630f1c04ece.js",
+      "static/chunks/20-94e793cd2b1bd7ef.js",
+      "static/chunks/412-26af6ec615acb24a.js",
+      "static/chunks/738-266aba6a02847a4d.js",
+      "static/chunks/797-dc81e8f09a9f22b0.js",
+      "static/chunks/886-37f06d554028d250.js",
+      "static/chunks/pages/vehicles-page/vehicles-list-c9cb6a903761bb27.js"
+    ]
+  },
+  "ampFirstPages": []
+}
