@@ -1,6 +1,6 @@
 import { DarkMode, LightMode } from "@mui/icons-material";
 import { AppBar, Box, Button, Toolbar, Tooltip, Typography } from "@mui/material";
-import useListMenuAll from "../../hooks/menu/use-list-menu-all";
+import useListMenuAll from "../../hooks/global-search-result/menu/use-list-menu-all";
 import useSetThemeMode from "../../hooks/theme-mode/use-set-theme-mode";
 import useThemeMode from "../../hooks/theme-mode/use-theme-mode";
 import Link from "next/link";

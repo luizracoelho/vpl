@@ -1,12 +1,12 @@
-'use client'
+ 
 
 import { Container } from "@mui/material";
 import Header from "../../components/header";
 import { ReactNode, useEffect, useState } from "react";
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from "@microsoft/signalr";
 import { SnackbarProvider, useSnackbar } from "notistack";
-import { RecoilRoot } from "recoil";
 import CustomTheme from "../../themes/custom-theme";
+import { RecoilRoot } from "recoil";
 
 const DefaultLayout = ({ children }: { children: ReactNode }) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -50,8 +50,8 @@ const DefaultLayout = ({ children }: { children: ReactNode }) => {
     }, [connection]);
 
     return (
-        <SnackbarProvider>
-            <RecoilRoot>
+        <RecoilRoot>
+            <SnackbarProvider>
                 <CustomTheme>
                     <Header />
 
@@ -59,8 +59,8 @@ const DefaultLayout = ({ children }: { children: ReactNode }) => {
                         {children}
                     </Container>
                 </CustomTheme>
-            </RecoilRoot>
-        </SnackbarProvider>
+            </SnackbarProvider>
+        </RecoilRoot>
     );
 }
 

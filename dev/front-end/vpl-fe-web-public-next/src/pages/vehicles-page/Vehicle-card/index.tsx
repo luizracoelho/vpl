@@ -1,3 +1,5 @@
+ 
+
 import { ChevronRight, DirectionsCar, TwoWheeler } from "@mui/icons-material";
 import { Card, CardActionArea, CardContent, List, ListItem, ListItemAvatar, Avatar, Typography, ListItemText, Box } from "@mui/material";
 import { VehicleType } from "../../../models/model";
@@ -12,7 +14,7 @@ export interface VehicleCardListProps {
     brandId?: Number;
 }
 
-const VehicleCard = ({vehicle, year, priceReference, modelId, brandId}:VehicleCardListProps) => {
+const VehicleCard = ({ vehicle, year, priceReference, modelId, brandId }: VehicleCardListProps) => {
 
     const router = useRouter();
 
@@ -23,7 +25,7 @@ const VehicleCard = ({vehicle, year, priceReference, modelId, brandId}:VehicleCa
         else if (brandId && modelId)
             router.push(`/brands/${brandId}/models/${modelId}/vehicle/details/${vehicle?.id}`);
         else
-            router.push(`/vehicle/details/${vehicle?.id}`); 
+            router.push(`/vehicle/details/${vehicle?.id}`);
 
     };
 
@@ -71,7 +73,7 @@ const VehicleCard = ({vehicle, year, priceReference, modelId, brandId}:VehicleCa
                                                 height: 24,
                                                 mr: 1
                                             }}>
-                                            <Typography variant="h4">{!!vehicle?.brandName ? vehicle.brandName[0]: ''}</Typography>
+                                            <Typography variant="h4">{!!vehicle?.brandName ? vehicle.brandName[0] : ''}</Typography>
                                         </Avatar>
                                         <Typography gutterBottom variant="subtitle2" component="div" sx={{ mb: 0 }}>
                                             {vehicle?.brandName}

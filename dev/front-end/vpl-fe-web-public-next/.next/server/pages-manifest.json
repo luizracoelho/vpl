@@ -1,19 +1,7 @@
 {
-  "/brands-page/brand-card": "pages/brands-page/brand-card.js",
-  "/home-page/home-card": "pages/home-page/home-card.js",
-  "/home-page": "pages/home-page.js",
-  "/models-page": "pages/models-page.js",
-  "/models-page/models-list": "pages/models-page/models-list.js",
-  "/not-found-page": "pages/not-found-page.js",
-  "/models-page/model-card": "pages/models-page/model-card.js",
-  "/references-page": "pages/references-page.js",
-  "/vehicles-page/Vehicle-card": "pages/vehicles-page/Vehicle-card.js",
-  "/vehicles-page": "pages/vehicles-page.js",
-  "/vehicles-page/vehicle-details": "pages/vehicles-page/vehicle-details.js",
-  "/vehicles-page/vehicle-price-reference-table": "pages/vehicles-page/vehicle-price-reference-table.js",
-  "/vehicles-page/vehicles-list": "pages/vehicles-page/vehicles-list.js",
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
-  "/brands-page": "pages/brands-page.js",
-  "/_document": "pages/_document.js"
+  "/_document": "pages/_document.js",
+  "/brands": "pages/brands.js",
+  "/404": "pages/404.js"
 }

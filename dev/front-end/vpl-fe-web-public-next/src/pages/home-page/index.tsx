@@ -1,4 +1,4 @@
-'use client'
+ 
 
 import { Search } from "@mui/icons-material";
 import { Cancel } from "@mui/icons-material";
@@ -7,7 +7,7 @@ import { Box } from "@mui/system";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useGlobalSearchResult from "../../hooks/global-search-result/use-global-search-result";
 import useSetGlobalSearchResult from "../../hooks/global-search-result/use-set-global-search-result";
-import useListMenu from "../../hooks/menu/use-list-menu";
+import useListMenu from "../../hooks/global-search-result/menu/use-list-menu";
 import useGlobalSearch from "../../hooks/search/use-global-search";
 import { ApiResult, ApiResultStatus } from "../../models/api-result-model";
 import { Brand } from "../../models/brand";
@@ -16,10 +16,10 @@ import { Model } from "../../models/model";
 import { Vehicle } from "../../models/vehicle";
 import BrandCard from "../brands-page/brand-card";
 import ModelCard from "../models-page/model-card";
-import HomeCard from "./home-card";
-import useTablesMenu from "../../hooks/menu/use-tables-menu";
-import SEO from "../../components/seo";
 import VehicleCard from "../vehicles-page/Vehicle-card";
+import HomeCard from "./home-card";
+import useTablesMenu from "../../hooks/global-search-result/menu/use-tables-menu";
+import SEO from "../../components/seo";
 
 const HomePage = () => {
     const menus = useListMenu();
@@ -89,11 +89,11 @@ const HomePage = () => {
                                     globalSearchResult.status === ApiResultStatus.error ||
                                     globalSearchResult.status === ApiResultStatus.success &&
                                     <>
-                                        <IconButton type="reset" edge="end" onClick={() => { setGlobalSearchResult(globalSearchTerms, ApiResult.setNone()) }}>
+                                        <IconButton type="reset" edge="end" aria-label="Limpar" onClick={() => { setGlobalSearchResult(globalSearchTerms, ApiResult.setNone()) }}>
                                             <Cancel />
                                         </IconButton>
                                     </>}
-                                <IconButton type="submit" edge="end">
+                                <IconButton type="submit" edge="end" aria-label="Pesquisar">
                                     <Search />
                                 </IconButton>
                             </>
@@ -142,8 +142,8 @@ const HomePage = () => {
                         {globalSearchResult.data.vehicles.map((vehicle: Vehicle) => (
                             <Grid item key={vehicle.id} xs={12} lg={6}>
                                 <VehicleCard vehicle={vehicle}
-                                             modelId={vehicle.modelId}
-                                             brandId={vehicle.brandId} />
+                                    modelId={vehicle.modelId}
+                                    brandId={vehicle.brandId} />
                             </Grid>
                         ))}
                     </Grid>

@@ -1,5 +1,8 @@
+ 
+
 import { Button, Container, Paper, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
+import SEO from "../../components/seo";
 
 const NotFoundPage = () => {
 
@@ -11,6 +14,10 @@ const NotFoundPage = () => {
 
     return (
         <>
+            <SEO title="Não Encontrado"
+                description="Saiba tudo sobre os preços dos veículos."
+                keywords="fipe, molicar, chevrolet, carro" />
+                
             <Container sx={{
                 py: 3,
                 display: 'flex',

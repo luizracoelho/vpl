@@ -1,4 +1,4 @@
-'use client'
+ 
 
 import { ChevronRight } from "@mui/icons-material";
 import { Avatar, Card, CardActionArea, CardContent, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";

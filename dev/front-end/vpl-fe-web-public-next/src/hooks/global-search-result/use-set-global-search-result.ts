@@ -1,6 +1,7 @@
+ 
+
 import { useSetRecoilState } from "recoil";
 import { ApiResult } from "../../models/api-result-model";
-import { GlobalSearch } from "../../models/global-search";
 import { GlobalSearchTerms } from "../../models/global-search-terms";
 import { globalSearchResultState } from "../../states/global-search-result-state";
 import { globalSearchState } from "../../states/global-search-state";
