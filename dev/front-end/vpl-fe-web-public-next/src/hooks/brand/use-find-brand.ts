@@ -1,14 +1,12 @@
-import { ApiResult } from "../../models/api-result-model";
 import { Brand } from "../../models/brand";
 import BrandsService from "../../services/brands-service";
 
 const useFindBrand = () => {
-    return async (id: number) => {
+    return async (id: number): Promise<Brand | null> => {
         try {
-            const data = await BrandsService.instance.find(id);
-            return ApiResult.success<Brand>(data);
-        } catch (error: any) {
-            return ApiResult.error(error.response?.data?.Message ?? error.message);
+            return await BrandsService.instance.find(id);
+        } catch (error) {
+            return null;
         }
     };
 };

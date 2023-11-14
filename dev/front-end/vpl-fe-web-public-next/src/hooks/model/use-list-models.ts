@@ -1,16 +1,14 @@
-import { ApiResult } from "../../models/api-result-model";
 import { Model } from "../../models/model";
 import ModelsService from "../../services/models-service";
 
 const useListModels = () => {
-    return async () => {
+    return async (): Promise<Model[]> => {
         try {
-            const data = await ModelsService.instance.list();
-            return ApiResult.success<Model[]>(data);
+            return await ModelsService.instance.list();
         } catch (error: any) {
-            return ApiResult.error(error.response?.data?.Message ?? error.message);
+            return [];
         }
-    };
+    };  
 };
 
 export default useListModels;
